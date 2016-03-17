@@ -1,11 +1,9 @@
 // Primer der "Pipe" zur Primzahlenaussiebung
 public class FastPipe extends Thread {
-	private int p; // die Primzahl dieses Primers
 	private FastPipe next; // der nächste Primer in der "Pipe"
 
 	FastPipe(int prime) { // Konstuktor
 		super("Number-" + prime); // Name eintragen
-		p = prime; // Primzahl eintragen
 		this.start(); // Thread sofort starten
 	}
 
