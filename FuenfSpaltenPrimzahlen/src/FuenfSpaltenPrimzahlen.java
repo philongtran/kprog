@@ -32,7 +32,7 @@ public class FuenfSpaltenPrimzahlen extends Thread {
 		FuenfSpaltenPrimzahlen five = new FuenfSpaltenPrimzahlen(2, 4); // ersten
 																		// Primer
 																		// : 2
-		for (int i = 3; i <= 10000; i++) {
+		for (int i = 3; i <= 5000; i++) {
 			first.send(i);
 			second.send(i);
 			third.send(i);
