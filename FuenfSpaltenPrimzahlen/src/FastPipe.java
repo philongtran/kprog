@@ -1,10 +1,10 @@
 // Primer der "Pipe" zur Primzahlenaussiebung
-public class Primer extends Thread {
+public class FastPipe extends Thread {
 	private int p; // die Primzahl dieses Primers
-	private Primer next; // der nächste Primer in der "Pipe"
+	private FastPipe next; // der nächste Primer in der "Pipe"
 	private int id;
 
-	Primer(int prime, int id) { // Konstuktor
+	FastPipe(int prime, int id) { // Konstuktor
 		super("Primer-" + prime); // Name eintragen
 		p = prime; // Primzahl eintragen
 		this.id = id;
@@ -13,11 +13,11 @@ public class Primer extends Thread {
 
 	// ... weitere Variablen und Methoden ...
 	public static void main(String args[]) {
-		Primer first = new Primer(2, 0); // ersten Primer : 2
-		Primer second = new Primer(2, 1); // ersten Primer : 2
-		Primer third = new Primer(2, 2); // ersten Primer : 2
-		Primer fourth = new Primer(2, 3); // ersten Primer : 2
-		Primer five = new Primer(2, 4); // ersten Primer : 2
+		FastPipe first = new FastPipe(2, 0); // ersten Primer : 2
+		FastPipe second = new FastPipe(2, 1); // ersten Primer : 2
+		FastPipe third = new FastPipe(2, 2); // ersten Primer : 2
+		FastPipe fourth = new FastPipe(2, 3); // ersten Primer : 2
+		FastPipe five = new FastPipe(2, 4); // ersten Primer : 2
 		for (int i = 3; i <= 10000; i++) {
 			first.send(i);
 			second.send(i);
@@ -57,7 +57,7 @@ public class Primer extends Thread {
 				if (next != null)
 					next.send(n);// weiter testen
 				else
-					next = new Primer(n, id); // Primzahl!
+					next = new FastPipe(n, id); // Primzahl!
 			} // sonst: n nicht prim
 		}
 	}
