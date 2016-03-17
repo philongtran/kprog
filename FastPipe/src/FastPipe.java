@@ -4,7 +4,7 @@ public class FastPipe extends Thread {
 	private FastPipe next; // der nächste Primer in der "Pipe"
 
 	FastPipe(int prime) { // Konstuktor
-		super("Primer-" + prime); // Name eintragen
+		super("Number-" + prime); // Name eintragen
 		p = prime; // Primzahl eintragen
 		this.start(); // Thread sofort starten
 	}
@@ -25,18 +25,22 @@ public class FastPipe extends Thread {
 	@Override
 	public void run() { // Die Arbeitsmethode des Primers
 		// ... ist nicht synchronisiert
-
-		System.out.println(p);
+		Thread thread = Thread.currentThread();
+		System.out.println(thread + "create");
 		while (true) { // Endlos-Schleife
 			int n = receive(); // Lese-Versuch
 			if (n == 0) {// wenn n=0: Ende
 				if (next != null) {
 					next.send(n);
 				} // auch von next
-				System.out.println("close");
+				System.out.println(thread + "close");
 				break; // Ende whileloop
-			} else {
-				next = new FastPipe(n); // Primzahl!
+			}
+			if (n != 0) { // vielleicht prim
+				if (next != null)
+					next.send(n);// weiter testen
+				else
+					next = new FastPipe(n); // Primzahl!
 			} // sonst: n nicht prim
 		}
 	}
