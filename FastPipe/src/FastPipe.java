@@ -12,7 +12,7 @@ public class FastPipe extends Thread {
 	// ... weitere Variablen und Methoden ...
 	public static void main(String args[]) {
 		FastPipe first = new FastPipe(1); // ersten Primer : 2
-		for (int i = 2; i <= 100; i++) {
+		for (int i = 2; i <= 1000; i++) {
 			first.send(i);
 		}
 		; // weitere
@@ -30,9 +30,10 @@ public class FastPipe extends Thread {
 		while (true) { // Endlos-Schleife
 			int n = receive(); // Lese-Versuch
 			if (n == 0) {// wenn n=0: Ende
-				if (next != null)
-					System.out.println("close");
-				next.send(n);// auch von next
+				if (next != null) {
+					next.send(n);
+				} // auch von next
+				System.out.println("close");
 				break; // Ende whileloop
 			} else {
 				next = new FastPipe(n); // Primzahl!
