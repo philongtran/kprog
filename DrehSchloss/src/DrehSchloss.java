@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class DrehSchloss extends JFrame implements ActionListener {
@@ -35,13 +34,6 @@ public class DrehSchloss extends JFrame implements ActionListener {
 			buttons[i].addActionListener(this);
 		}
 
-		/*
-		 * for (int i = 0; i < 10; i++) {
-		 * 
-		 * if (i == 4) { add(panel); } else if (i == 6) { add(panel2); }
-		 * 
-		 * add(buttons[i]); }
-		 */
 		add(buttons[1]);
 		add(buttons[0]);
 		add(buttons[9]);
@@ -109,7 +101,7 @@ public class DrehSchloss extends JFrame implements ActionListener {
 				//
 				buttons[i].setBackground(Color.green);
 			}
-			SwingUtilities.updateComponentTreeUI(jframe);
+			// SwingUtilities.updateComponentTreeUI(jframe);
 			if (i >= code.length) {
 				System.exit(0);
 			}
@@ -120,7 +112,7 @@ public class DrehSchloss extends JFrame implements ActionListener {
 				//
 				buttons[i].setBackground(Color.red);
 			}
-			SwingUtilities.updateComponentTreeUI(jframe);
+			// SwingUtilities.updateComponentTreeUI(jframe);
 		}
 
 	}
