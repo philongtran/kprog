@@ -107,8 +107,7 @@ public class DrehSchloss extends JFrame implements ActionListener {
 			i++;
 			for (int i = 0; i < 10; i++) {// Alle enthaltenen Komponenten
 				//
-				buttons[i].setForeground(Color.green);
-				buttons[i].setForeground(Color.green);
+				buttons[i].setBackground(Color.green);
 			}
 			SwingUtilities.updateComponentTreeUI(jframe);
 			if (i >= code.length) {
@@ -119,8 +118,7 @@ public class DrehSchloss extends JFrame implements ActionListener {
 			i = 0;
 			for (int i = 0; i < 10; i++) {// Alle enthaltenen Komponenten
 				//
-				buttons[i].setForeground(Color.red);
-				buttons[i].setForeground(Color.red);
+				buttons[i].setBackground(Color.red);
 			}
 			SwingUtilities.updateComponentTreeUI(jframe);
 		}
