@@ -28,7 +28,7 @@ public class SliderTemp extends JFrame implements ChangeListener {
 
 	/**
 	 * 
-	 * Constructor
+	 * Constructor. Add the sliders and textboxes
 	 * 
 	 */
 	public SliderTemp() {
@@ -108,6 +108,12 @@ public class SliderTemp extends JFrame implements ChangeListener {
 
 	}
 
+	/**
+	 * 
+	 * Main method. Create applet and setting it up
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		SliderTemp weightApp = new SliderTemp();
 		weightApp.setSize(400, 150);

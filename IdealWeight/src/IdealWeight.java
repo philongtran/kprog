@@ -102,7 +102,7 @@ public class IdealWeight extends JFrame implements ActionListener {
 
 	/**
 	 * 
-	 * Main method. Create the applet
+	 * Main method. Create the applet and set it up
 	 * 
 	 * @param args
 	 */
