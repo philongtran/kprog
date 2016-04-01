@@ -10,13 +10,19 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-public class IdealWeight extends JFrame implements ActionListener {// sollte
-																	// auch
-																	// ActionListener
-																	// sein
-	/**
-	 * 
-	 */
+/**
+ * 
+ * This Program calculates the ideal weight of a person.
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Steve Nono <191709>
+ *
+ */
+
+public class IdealWeight extends JFrame implements ActionListener {
+
+	// instance variables
+
 	private static final long serialVersionUID = 1L;
 	JRadioButton genderM, genderF;// Knoepfe fuer Geschlecht
 	ButtonGroup genderGroup;// ... dazu Knopfgruppe
@@ -30,6 +36,11 @@ public class IdealWeight extends JFrame implements ActionListener {// sollte
 	Boolean male = true;
 	int height = 62;
 
+	/**
+	 * 
+	 * Constructor
+	 * 
+	 */
 	public IdealWeight() { // Konstruktor
 		setTitle("Your Ideal Weight");// Fenstertitel
 		setDefaultCloseOperation(EXIT_ON_CLOSE);// zum Fensterschliessen
@@ -78,7 +89,8 @@ public class IdealWeight extends JFrame implements ActionListener {// sollte
 		getContentPane().add(genderPanel, BorderLayout.WEST);// G-Panel hinzuf.
 		getContentPane().add(heightPanel, BorderLayout.EAST);// H-Panel ...
 		getContentPane().add(resultPanel, BorderLayout.SOUTH);// Ergebnis-Panel
-																// ..
+
+		// register to the action listener
 		genderM.addActionListener(this);
 		genderF.addActionListener(this);
 		heightA.addActionListener(this);
@@ -88,12 +100,24 @@ public class IdealWeight extends JFrame implements ActionListener {// sollte
 		heightE.addActionListener(this);
 	}
 
+	/**
+	 * 
+	 * Main method. Create the applet
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {// main ...
 		IdealWeight weightApp = new IdealWeight();
 		weightApp.setSize(250, 225);
 		weightApp.setVisible(true);
 	}
 
+	/**
+	 * 
+	 * Action listener. Set the values of the button to the variables. Boolean
+	 * for male and female. Another variable for their height.
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		double weight = 0;
@@ -106,7 +130,7 @@ public class IdealWeight extends JFrame implements ActionListener {// sollte
 			male = false;
 			break;
 		case "60 to 64 inches":
-			height = 62;
+			height = 62; // average of the height
 			break;
 		case "64 to 68 inches":
 			height = 66;
@@ -122,12 +146,14 @@ public class IdealWeight extends JFrame implements ActionListener {// sollte
 			break;
 		}
 
+		// calculate the ideal weight
 		if (male == true) {
 			weight = height * height / 30;
 		} else {
 			weight = height * height / 28;
 		}
 
+		// output the ideal weight
 		resultText.setText("" + weight);
 
 	}
