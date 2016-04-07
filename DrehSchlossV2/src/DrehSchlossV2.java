@@ -3,6 +3,7 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -25,37 +26,32 @@ import javax.swing.Timer;
  *
  */
 
-public class DrehSchlossV2 extends JFrame implements ActionListener {
+public class DrehSchlossV2 extends JFrame {
 
+	private static final int AMOUNTOFBUTTONS = 10;
 	// Instance variables
 
 	private static final long serialVersionUID = 1L;
-
-	static int universalTimer = 1000;
-	int timer;
-	int index = 0;
-	boolean isProcessing = false;
-	JButton[] buttons = new JButton[10];
-	Panel panel;
-	Panel panel2;
-	boolean switching = false;
-	int[] code2 = { 2, 3, 0, 3, 6, 0 }; // secret code
-	int[] code = { 0, 1, 2, 3 };
-	int i = 0;
-	// Color col = Color.blue;
+	private static int universalTimer = 1000;
+	private boolean isProcessing = false;
+	private JButton[] buttons = new JButton[AMOUNTOFBUTTONS];
+	private Panel panel;
+	private Panel panel2;
+	private boolean switching = false;
+	private int[] code = { 0, 7, 0, 4, 6, 1, 2 }; // secret code
+	private int codeIndex = 0;
+	private static int instance = 0;
 
 	/**
-	 * 
 	 * Constructor
-	 * 
 	 */
 	public DrehSchlossV2(int timer) {
 		// creating panels and buttons
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.timer = timer;
+		// this.timer = timer;
 		panel = new Panel();
 		panel2 = new Panel();
-		for (int i = 0; i < 10; i++) { // register 10 buttons
+		for (int i = 0; i < AMOUNTOFBUTTONS; i++) { // register 10 buttons
 			buttons[i] = new JButton("" + i); // and add them
 			// buttons[i].addActionListener(this); // register to the action
 			// listener
@@ -114,10 +110,10 @@ public class DrehSchlossV2 extends JFrame implements ActionListener {
 	 * 
 	 */
 	public void clockwise() {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < AMOUNTOFBUTTONS; i++) {
 			int old = Integer.parseInt(buttons[i].getActionCommand());
 			old += 1;
-			if (old < 10) {
+			if (old < AMOUNTOFBUTTONS) {
 				buttons[i].setText("" + old);
 			} else { // if label would be set to number "10" it will set it to
 						// "0"
@@ -133,7 +129,7 @@ public class DrehSchlossV2 extends JFrame implements ActionListener {
 	 * 
 	 */
 	public void counterClockwise() {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < AMOUNTOFBUTTONS; i++) {
 			int old = Integer.parseInt(buttons[i].getActionCommand());
 			if (old > 0) {
 				old -= 1;
@@ -145,70 +141,23 @@ public class DrehSchlossV2 extends JFrame implements ActionListener {
 		}
 	}
 
-	/**
-	 * 
-	 * setting the background of the buttons to either red (wrong input) or
-	 * green (correct input)
-	 * 
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		/*
-		 * if (Integer.parseInt(e.getActionCommand()) == code[i]) { i++; for
-		 * (int i = 0; i < 10; i++) { // for all buttons
-		 * buttons[i].setBackground(Color.green); } //
-		 * SwingUtilities.updateComponentTreeUI(jframe); if (i >= code.length) {
-		 * // System.exit(0); // all numbers inputed correctly > close // window
-		 * dispose(); } } else { switching = !switching; // wrong input > switch
-		 * rotation i = 0; for (int i = 0; i < 10; i++) { // for all buttons
-		 * buttons[i].setBackground(Color.red); } universalTimer = (int)
-		 * (universalTimer * 0.66); new DrehSchloss(universalTimer); }
-		 */
-
-	}
-
-	MouseListener ml = new MouseListener() {
+	MouseListener ml = new MouseAdapter() {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
 			isProcessing = false;
-			System.out.println("release");
 		}
 
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
 	};
 
-	MouseMotionListener mml = new MouseMotionListener() {
+	MouseMotionListener mml = new MouseAdapter() {
 
-		@Override
-		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-
-		}
-
+		/**
+		 * 
+		 * setting the background of the buttons to either red (wrong input) or
+		 * green (correct input)
+		 * 
+		 */
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			if (isProcessing) {
@@ -216,30 +165,36 @@ public class DrehSchlossV2 extends JFrame implements ActionListener {
 			} else {
 				isProcessing = true;
 				Object source = e.getSource();
-				JButton jbutton = JButton.class.cast(source);
-				System.out.println(jbutton.getText());
-				if (Integer.parseInt(jbutton.getText()) == code[i]) {
-					i++;
-					for (int i = 0; i < 10; i++) { // for all buttons
-						buttons[i].setBackground(Color.green);
+				if (source instanceof JButton) {
+					JButton jbutton = JButton.class.cast(source);
+					if (Integer.parseInt(jbutton.getText()) == code[codeIndex]) {
+						codeIndex++;
+						for (int i = 0; i < AMOUNTOFBUTTONS; i++) { // for all
+																	// buttons
+							buttons[i].setBackground(Color.green);
+						}
+						if (codeIndex >= code.length) {
+							if (instance == 0) {
+								// all numbers inputed correctly
+								// > close window
+								System.exit(0);
+							} else {
+								instance--;
+								dispose();
+							}
+						}
+					} else {
+						switching = !switching; // wrong input > switch rotation
+						codeIndex = 0;
+						for (int i = 0; i < AMOUNTOFBUTTONS; i++) { // for all
+																	// buttons
+							buttons[i].setBackground(Color.red);
+						}
+						instance++;
+						universalTimer = (int) (universalTimer * 0.66);
+						new DrehSchlossV2(universalTimer);
 					}
-					// SwingUtilities.updateComponentTreeUI(jframe);
-					if (i >= code.length) {
-						// System.exit(0); // all numbers inputed correctly >
-						// close
-						// window
-						dispose();
-					}
-				} else {
-					switching = !switching; // wrong input > switch rotation
-					i = 0;
-					for (int i = 0; i < 10; i++) { // for all buttons
-						buttons[i].setBackground(Color.red);
-					}
-					universalTimer = (int) (universalTimer * 0.66);
-					new DrehSchlossV2(universalTimer);
 				}
-				// isProcessing = false;
 			}
 		}
 	};
