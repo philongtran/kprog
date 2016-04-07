@@ -45,6 +45,7 @@ public class DrehSchloss extends JFrame implements ActionListener {
 	 */
 	public DrehSchloss() {
 		// creating panels and buttons
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		panel = new Panel();
 		panel2 = new Panel();
 		for (int i = 0; i < 10; i++) { // register 10 buttons
