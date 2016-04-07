@@ -23,6 +23,7 @@ import javax.swing.Timer;
  * 
  * @author Phi Long Tran <191624>
  * @author Steve Nono <191709>
+ * @author Manuel Wessner <191711>
  *
  */
 
