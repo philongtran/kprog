@@ -61,7 +61,7 @@ public class Game extends JFrame implements ActionListener {
 		buttons = new JButton[boardSizeX * boardSizeY];
 		buttons2 = new JButton[4];
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(800, 800);
+		setSize(boardSizeX * 50, boardSizeY * 100);
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(boardSizeX, boardSizeY));
 		for (int i = 0; i < boardSizeX * boardSizeY; i++) {
