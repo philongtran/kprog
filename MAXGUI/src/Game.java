@@ -22,7 +22,8 @@ public class Game extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String HELP_FORMAT = "%-12s | %-12s | %-12s | %-12s |\n%-12s | %-12s | %-12s | %-12s |";
+	// private static final String HELP_FORMAT = "%-12s | %-12s | %-12s | %-12s
+	// |\n%-12s | %-12s | %-12s | %-12s |";
 	private final int SCORE_LIMIT = 105;
 	private final int PLAYER_COUNT;
 	private final int BOARD_SIZE_X;
