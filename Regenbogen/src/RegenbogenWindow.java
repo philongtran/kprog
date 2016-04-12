@@ -29,10 +29,6 @@ public class RegenbogenWindow extends Frame implements ActionListener {
 		new Timer(delay, taskPerformer).start();
 	}
 
-	public static void main(String[] args) {
-
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		col = (col + 1) % colors.length;
