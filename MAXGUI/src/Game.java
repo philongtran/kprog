@@ -35,6 +35,8 @@ public class Game extends JFrame implements ActionListener {
 
 	private JButton[] buttons;
 	private JButton[] buttons2;
+	private String movement;
+	private int i = 0;
 
 	/**
 	 * The constructor of the game.
@@ -69,7 +71,12 @@ public class Game extends JFrame implements ActionListener {
 		for (int i = 0; i < 4; i++) {
 			buttons2[i] = new JButton("" + i);
 			panel2.add(buttons2[i]);
+			buttons2[i].addActionListener(this);
 		}
+		buttons2[0].setText("W");
+		buttons2[1].setText("A");
+		buttons2[2].setText("S");
+		buttons2[3].setText("D");
 
 		setLayout(new GridLayout(2, 1));
 		add(panel1);
@@ -104,7 +111,7 @@ public class Game extends JFrame implements ActionListener {
 					break;
 				}
 				// reads keyboard input to move the active player
-				Action action = Action.of(IO.promptAndRead("i: ").toLowerCase().substring(0, 1));
+				Action action = Action.of(movement.toLowerCase().substring(0, 1));
 				// temporary variable to hold current player
 				Player currentPlayer = player[i];
 				// cases which are allowed
@@ -137,6 +144,7 @@ public class Game extends JFrame implements ActionListener {
 						i = playerRetry(i);
 					}
 					break;
+
 				case HELP:
 					String helpText = String.format(HELP_FORMAT, "Up: w", "Down: s", "Left: a", "Right: d",
 							"Restart: r", "New game: n", "Quit: q", "Help: h");
@@ -155,6 +163,7 @@ public class Game extends JFrame implements ActionListener {
 					break;
 				case QUIT:
 					return;
+
 				default:
 					i = playerRetry(i);
 					break;
@@ -163,10 +172,11 @@ public class Game extends JFrame implements ActionListener {
 				display.draw(i, checkScore());
 			}
 		}
-		restart = IO.promptAndRead("again? Type Y for yes or N for no").toLowerCase().substring(0, 1).equals("y");
-		if (restart) {
-			run();
-		}
+		// restart = IO.promptAndRead("again? Type Y for yes or N for
+		// no").toLowerCase().substring(0, 1).equals("y");
+		// if (restart) {
+		// run();
+		// }
 		return;
 	}
 
@@ -349,7 +359,56 @@ public class Game extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-
+		movement = e.getActionCommand();
+		System.out.println(movement);
+		// checks if score limit is reached
+		if (checkScore()) {
+			return;
+		}
+		// reads keyboard input to move the active player
+		Action action = Action.of(movement.toLowerCase().substring(0, 1));
+		// temporary variable to hold current player
+		Player currentPlayer = player[i];
+		// cases which are allowed
+		switch (action) {
+		case UP:
+			if (canMoveInDirection(currentPlayer, action)) {
+				move(currentPlayer, action);
+			} else {
+				i = playerRetry(i);
+			}
+			break;
+		case DOWN:
+			if (canMoveInDirection(currentPlayer, action)) {
+				move(currentPlayer, action);
+			} else {
+				i = playerRetry(i);
+			}
+			break;
+		case LEFT:
+			if (canMoveInDirection(currentPlayer, action)) {
+				move(currentPlayer, action);
+			} else {
+				i = playerRetry(i);
+			}
+			break;
+		case RIGHT:
+			if (canMoveInDirection(currentPlayer, action)) {
+				move(currentPlayer, action);
+			} else {
+				i = playerRetry(i);
+			}
+			break;
+		default:
+			i = playerRetry(i);
+			break;
+		}
+		// displays score and board
+		display.draw(i, checkScore());
+		i++;
+		if (i >= PLAYER_COUNT) {
+			i = 0;
+		}
 	}
 
 }
