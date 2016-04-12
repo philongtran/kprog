@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +23,7 @@ public class Game extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String HELP_FORMAT = "%-12s | %-12s | %-12s | %-12s |\n%-12s | %-12s | %-12s | %-12s |";
-	private final int SCORE_LIMIT = 10;
+	private final int SCORE_LIMIT = 105;
 	private final int PLAYER_COUNT;
 	private final int BOARD_SIZE_X;
 	private final int BOARD_SIZE_Y;
@@ -57,37 +58,38 @@ public class Game extends JFrame implements ActionListener {
 		this.player = new Player[playerCount];
 		this.restart = false;
 
-		buttons = new JButton[64];
+		buttons = new JButton[boardSizeX * boardSizeY];
 		buttons2 = new JButton[4];
 		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 800);
 		JPanel panel1 = new JPanel();
-		panel1.setLayout(new GridLayout(8, 8));
-		for (int i = 0; i < 64; i++) {
+		panel1.setLayout(new GridLayout(boardSizeX, boardSizeY));
+		for (int i = 0; i < boardSizeX * boardSizeY; i++) {
 			buttons[i] = new JButton("" + i);
 			panel1.add(buttons[i]);
 		}
 		JPanel panel2 = new JPanel();
-		panel2.setLayout(new GridLayout(1, 4));
+		panel2.setLayout(new BorderLayout());
 		for (int i = 0; i < 4; i++) {
 			buttons2[i] = new JButton("" + i);
 			panel2.add(buttons2[i]);
 			buttons2[i].addActionListener(this);
 		}
+		panel2.add(buttons2[0], BorderLayout.NORTH);
+		panel2.add(buttons2[1], BorderLayout.WEST);
+		panel2.add(buttons2[2], BorderLayout.SOUTH);
+		panel2.add(buttons2[3], BorderLayout.EAST);
 		buttons2[0].setText("W");
 		buttons2[1].setText("A");
 		buttons2[2].setText("S");
 		buttons2[3].setText("D");
 
-		JPanel panel3 = new JPanel();
-		panel3.setLayout(new GridLayout(1, 1));
 		buttons3 = new JButton("Score");
-		panel3.add(buttons3);
 
-		setLayout(new GridLayout(3, 1));
+		panel2.add(buttons3, BorderLayout.CENTER);
+		setLayout(new GridLayout(2, 1));
 		add(panel1);
 		add(panel2);
-		add(panel3);
 		setTitle("MAXGUI");
 		setVisible(true);
 
@@ -367,7 +369,7 @@ public class Game extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		movement = e.getActionCommand();
-		System.out.println(movement);
+		// System.out.println(movement);
 		// checks if score limit is reached
 		if (checkScore()) {
 			return;
