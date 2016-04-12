@@ -22,7 +22,7 @@ public class Game extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static final String HELP_FORMAT = "%-12s | %-12s | %-12s | %-12s |\n%-12s | %-12s | %-12s | %-12s |";
-	private final int SCORE_LIMIT = 105;
+	private final int SCORE_LIMIT = 10;
 	private final int PLAYER_COUNT;
 	private final int BOARD_SIZE_X;
 	private final int BOARD_SIZE_Y;
@@ -35,6 +35,7 @@ public class Game extends JFrame implements ActionListener {
 
 	private JButton[] buttons;
 	private JButton[] buttons2;
+	private JButton buttons3;
 	private String movement;
 	private int i = 0;
 
@@ -58,7 +59,7 @@ public class Game extends JFrame implements ActionListener {
 
 		buttons = new JButton[64];
 		buttons2 = new JButton[4];
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 800);
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(8, 8));
@@ -78,9 +79,15 @@ public class Game extends JFrame implements ActionListener {
 		buttons2[2].setText("S");
 		buttons2[3].setText("D");
 
-		setLayout(new GridLayout(2, 1));
+		JPanel panel3 = new JPanel();
+		panel3.setLayout(new GridLayout(1, 1));
+		buttons3 = new JButton("Score");
+		panel3.add(buttons3);
+
+		setLayout(new GridLayout(3, 1));
 		add(panel1);
 		add(panel2);
+		add(panel3);
 		setTitle("MAXGUI");
 		setVisible(true);
 
@@ -232,7 +239,7 @@ public class Game extends JFrame implements ActionListener {
 			board.setPlayer(player[i].getX(), player[i].getY(), player[i].getColor());
 		}
 		// displays score and board
-		this.display = new Display(player, board, buttons);
+		this.display = new Display(player, board, buttons, buttons3);
 		display.draw(-1, checkScore());
 	}
 

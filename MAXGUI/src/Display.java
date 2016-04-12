@@ -18,7 +18,7 @@ public class Display extends JFrame {
 	private Player[] player;
 	private Board board;
 	private JButton[] buttons;
-	// private JButton[] buttons;
+	private JButton buttons3;
 
 	/**
 	 * The constructor of the class.
@@ -28,10 +28,11 @@ public class Display extends JFrame {
 	 * @param board
 	 *            - The game board
 	 */
-	public Display(Player[] player, Board board, JButton[] buttons) {
+	public Display(Player[] player, Board board, JButton[] buttons, JButton buttons3) {
 		this.player = player;
 		this.board = board;
 		this.buttons = buttons;
+		this.buttons3 = buttons3;
 
 		/*
 		 * buttons = new JButton[board.getSizeX() * board.getSizeY()];
@@ -80,6 +81,7 @@ public class Display extends JFrame {
 				score += "| " + returnLetter(player[playerID + 1].getColor()) + " to move";
 			}
 		}
+		buttons3.setText(score);
 		IO.writeln(score);
 	}
 

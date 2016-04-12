@@ -47,7 +47,7 @@ public class MAXGUI extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		JFrame game = new Game(8, 8, 2);
+		new Game(8, 8, 2);
 	}
 
 }
