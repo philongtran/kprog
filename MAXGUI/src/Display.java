@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 public class Display extends JFrame {
 
 	/**
-	 * 
+	 * Instance variables
 	 */
 	private static final long serialVersionUID = 1L;
 	private Player[] player;
@@ -82,7 +82,7 @@ public class Display extends JFrame {
 			}
 		}
 		buttons3.setText(score);
-		IO.writeln(score);
+		// IO.writeln(score);
 	}
 
 	/**
@@ -98,15 +98,15 @@ public class Display extends JFrame {
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++, i++) {
 				if (board.getValue(x, y) < 0) {
-					IO.write(returnLetter(board.getValue(x, y)) + " ");
+					// IO.write(returnLetter(board.getValue(x, y)) + " ");
 					buttons[i].setText(returnLetter(board.getValue(x, y)));
 				} else {
-					IO.write(board.getValue(x, y) + " ");
+					// IO.write(board.getValue(x, y) + " ");
 					buttons[i].setText("" + board.getValue(x, y));
 				}
 
 			}
-			IO.writeln("");
+			// IO.writeln("");
 		}
 	}
 
