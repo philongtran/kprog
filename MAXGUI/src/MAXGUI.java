@@ -17,10 +17,13 @@ import javax.swing.JFrame;
 public class MAXGUI extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * Instance variables
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor
+	 */
 	public MAXGUI() {
 		JButton start = new JButton("New Game");
 		start.addActionListener(this);
@@ -37,13 +40,14 @@ public class MAXGUI extends JFrame implements ActionListener {
 	 * 
 	 * @param args
 	 *            - Arguments from the command line
-	 * @throws Exception
 	 */
 	public static void main(String[] args) {
 		new MAXGUI();
-		// new Game(8, 8, 2);
 	}
 
+	/**
+	 * Create new game window
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

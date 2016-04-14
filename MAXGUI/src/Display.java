@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 public class Display extends JFrame {
 
 	/**
-	 * 
+	 * Instance variables
 	 */
 	private static final long serialVersionUID = 1L;
 	private Player[] player;
