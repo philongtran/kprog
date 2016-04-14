@@ -22,8 +22,7 @@ public class Game extends JFrame implements ActionListener {
 	 * Instance variables
 	 */
 	private static final long serialVersionUID = 1L;
-	// private static final String HELP_FORMAT = "%-12s | %-12s | %-12s | %-12s
-	// |\n%-12s | %-12s | %-12s | %-12s |";
+
 	private final int SCORE_LIMIT = 105;
 	private final int PLAYER_COUNT;
 	private final int BOARD_SIZE_X;
@@ -61,7 +60,6 @@ public class Game extends JFrame implements ActionListener {
 
 		buttons = new JButton[boardSizeX * boardSizeY];
 		buttons2 = new JButton[4];
-		// setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(boardSizeX * 50, boardSizeY * 100);
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new GridLayout(boardSizeX, boardSizeY));
@@ -98,7 +96,6 @@ public class Game extends JFrame implements ActionListener {
 			initializeGame();
 			// run();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -292,9 +289,7 @@ public class Game extends JFrame implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		movement = e.getActionCommand();
-		// System.out.println(movement);
 		// checks if score limit is reached
 		if (checkScore()) {
 			return;

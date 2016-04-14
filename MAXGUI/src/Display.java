@@ -33,17 +33,6 @@ public class Display extends JFrame {
 		this.board = board;
 		this.buttons = buttons;
 		this.buttons3 = buttons3;
-
-		/*
-		 * buttons = new JButton[board.getSizeX() * board.getSizeY()];
-		 * setDefaultCloseOperation(EXIT_ON_CLOSE); setSize(board.getSizeX() *
-		 * 100, board.getSizeY() * 100); setLayout(new
-		 * GridLayout(board.getSizeX(), board.getSizeX())); for (int i = 0; i <
-		 * board.getSizeX() * board.getSizeY(); i++) { buttons[i] = new
-		 * JButton("" + i); getContentPane().add(buttons[i]); }
-		 * setTitle("MAXGUI"); setVisible(true);
-		 */
-
 	}
 
 	/**
@@ -82,7 +71,6 @@ public class Display extends JFrame {
 			}
 		}
 		buttons3.setText(score);
-		// IO.writeln(score);
 	}
 
 	/**
@@ -98,10 +86,8 @@ public class Display extends JFrame {
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++, i++) {
 				if (board.getValue(x, y) < 0) {
-					// IO.write(returnLetter(board.getValue(x, y)) + " ");
 					buttons[i].setText(returnLetter(board.getValue(x, y)));
 				} else {
-					// IO.write(board.getValue(x, y) + " ");
 					buttons[i].setText("" + board.getValue(x, y));
 				}
 
