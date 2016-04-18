@@ -12,7 +12,7 @@ public class Game {
 	/**
 	 * Instance variables
 	 */
-	private final int SCORE_LIMIT = 10;
+	private final int SCORE_LIMIT = 105;
 	public final int PLAYER_COUNT;
 	private final int BOARD_SIZE_X;
 	private final int BOARD_SIZE_Y;
