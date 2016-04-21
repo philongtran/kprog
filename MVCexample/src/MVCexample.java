@@ -244,7 +244,7 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 	@Override
 	public void init() {
 		Container cp = getContentPane(); // Fenster-Container
-		cp.setLayout(new GridLayout(8, 1, 10, 10)); // 5x1-Grid, 10-er
+		cp.setLayout(new GridLayout(7, 1, 10, 10)); // 5x1-Grid, 10-er
 													// Abstaende
 
 		final Qpolynom p = new Qpolynom(1, 2, 3, 4); // das Modell
