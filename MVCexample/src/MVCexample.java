@@ -67,8 +67,8 @@ class TextQView extends JPanel implements Observer { // Beobachter
 		d.setText("" + myPolynom.getCubic());
 	}
 } // end TextQView
-	// Das ist ein View fuer graphische Darstellung eines Quadratischen Polynoms
 
+// Das ist ein View fuer graphische Darstellung eines Quadratischen Polynoms
 class GraphQView extends JPanel implements Observer {
 	Qpolynom myPolynom;
 	/**
@@ -86,8 +86,14 @@ class GraphQView extends JPanel implements Observer {
 		// TODO Auto-generated method stub
 		if (o == myPolynom)
 			repaint(); // neu darstellen
-
 	} // Beobachter
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);//
+		g.drawLine(10, 1, 200, 200);
+
+	}
 } // end GraphQView
 	// Das ist das Modell
 
@@ -165,7 +171,7 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		sb = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 2); // der
 																	// Controller
 		sc = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 3); //
-		sd = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 3);
+		sd = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 4);
 
 		sa.setMajorTickSpacing(10); // Parameter
 		sa.setMinorTickSpacing(1);
