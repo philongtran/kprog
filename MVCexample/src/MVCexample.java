@@ -93,6 +93,7 @@ class GraphQView extends JPanel implements Observer {
 		myPolynom = q; // merke Polynom
 		color = someColors[instanceCounter];
 		instanceCounter++;
+		update(myPolynom, null);
 	}
 
 	@Override
@@ -100,6 +101,7 @@ class GraphQView extends JPanel implements Observer {
 		// Uebungsaufgabe ....
 		// TODO Auto-generated method stub
 
+		double x = -200;
 		points = 100;
 		cycles = 1;
 		points = SCALEFACTOR * cycles * 2;// # Punkte berechnen
@@ -116,28 +118,26 @@ class GraphQView extends JPanel implements Observer {
 		for (int i = 0; i < points; i++) {// fuer jeden Punkt:
 			double radians = (Math.PI / SCALEFACTOR) * i;// berechne Winkel
 			sines[i] = Math.sin(radians);// ... und Funktionswert
-			zwischenschritte = i / 100.0;
+			zwischenschritte = x / 20.0;
+			x++;
 			polynom[i] = constant + linear * zwischenschritte + Math.pow(zwischenschritte, 2) * quadratic
-					+ Math.pow(zwischenschritte, 2) * cubic;
+					+ Math.pow(zwischenschritte, 3) * cubic;
 			System.out.println(zwischenschritte + ": " + polynom[i]);
 		}
 
 		if (o == myPolynom)
 			repaint();
-
 	} // Beobachter
 
 	@Override
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);//
-
 		super.paintComponent(g);// in Superklasse aufrufen ...
 		int maxWidth = getWidth();// Weite bestimmen
 		double hstep = (double) maxWidth / (double) points; // horizontale
 															// Schrittweite
 		int maxHeight = getHeight();// Hoehe Bestimmen
 		for (int i = 0; i < points; i++)// fuer alle Punkte:
-			pts[i] = (int) ((0.5 - polynom[i] * 0.028) * maxHeight); // skalieren
+			pts[i] = (int) ((0.5 - polynom[i] * 0.05) * maxHeight); // skalieren
 		g.setColor(color);//
 		for (int i = 1; i < points; i++) {// fuer alle Punkte (bis auf ersten):
 			int x1 = (int) ((i - 1) * hstep);// bestimme x,y-Koordinaten
