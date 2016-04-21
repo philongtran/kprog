@@ -86,9 +86,13 @@ class GraphQView extends JPanel implements Observer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static int instanceCounter;
+	private static final Color[] someColors = { Color.GREEN, Color.BLUE };
 
 	public GraphQView(Qpolynom q) {
 		myPolynom = q; // merke Polynom
+		color = someColors[instanceCounter];
+		instanceCounter++;
 	}
 
 	@Override
@@ -227,7 +231,7 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JSlider sa, sb, sc, sd, se;// Controller
+	JSlider sa, sb, sc, sd;// Controller
 
 	@Override
 	public void init() {
@@ -242,7 +246,6 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 																	// Controller
 		sc = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 3); //
 		sd = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 4);
-		se = new JSlider(SwingConstants.HORIZONTAL, 0, 1, 0);
 
 		sa.setMajorTickSpacing(10); // Parameter
 		sa.setMinorTickSpacing(1);
@@ -323,15 +326,6 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		// TextQView view2 = new TextQView(p); // 2. View
 		GraphQView view3 = new GraphQView(p);
 		GraphQView view4 = new GraphQView(p);
-		se.addChangeListener(new ChangeListener() { // Listener, i.Kl.
-			@Override
-			public void stateChanged(ChangeEvent evt) {
-				JSlider source = (JSlider) evt.getSource();
-				if (!source.getValueIsAdjusting()) {
-					view4.setColor(Color.BLUE); // set... benutzen
-				}
-			}
-		});
 
 		p.addObserver(view1); // Views als Observer registrieren
 		// p.addObserver(view2); // ..
@@ -348,7 +342,6 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		cp.add(sb); // ...
 		cp.add(sc); // ...
 		cp.add(sd);
-		cp.add(se);
 
 	} // end init
 
