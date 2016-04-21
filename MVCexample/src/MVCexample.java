@@ -19,26 +19,35 @@ import javax.swing.event.ChangeListener;
 
 //  Das ist ein View fuer textuelle Darstellung eines Quadratischen Polynoms
 class TextQView extends JPanel implements Observer { // Beobachter
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JTextField a = new JTextField(10), // Textfelder fuer
 			b = new JTextField(10), // drei Koeffizienten
-			c = new JTextField(10); // ...
+			c = new JTextField(10), // ...
+			d = new JTextField(10);
 	JLabel al = new JLabel("Konstante", JLabel.RIGHT), // Labels ...
 			bl = new JLabel("Linearer Koeffizient", JLabel.RIGHT),
-			cl = new JLabel("Quadratischer Koeffizient", JLabel.RIGHT);
+			cl = new JLabel("Quadratischer Koeffizient", JLabel.RIGHT),
+			dl = new JLabel("Kubischer Koeffizient", JLabel.RIGHT);
 	Qpolynom myPolynom; // das Modell, ein Polynom
 
 	TextQView(Qpolynom q) { // Konstuktor
 		myPolynom = q; // merke Polynom
-		setLayout(new GridLayout(3, 2, 5, 5)); // 3x2-Grid, 5-er Abstaende
+		setLayout(new GridLayout(4, 2, 5, 5)); // 3x2-Grid, 5-er Abstaende
 		add(al);
 		add(a); // Labels und Textfelder
 		add(bl);
 		add(b); // hinzufuegen
 		add(cl);
-		add(c); // ...
+		add(c);
+		add(dl);
+		add(d); // ...
 		a.setEditable(false);
 		b.setEditable(false); // Editierbarkeit
 		c.setEditable(false); // der Textfelder
+		d.setEditable(false);
 	} // end Konstuktor
 		// ..
 		// ..
@@ -55,22 +64,42 @@ class TextQView extends JPanel implements Observer { // Beobachter
 		a.setText("" + myPolynom.getConstant()); // Textfelder neu schreiben
 		b.setText("" + myPolynom.getLinear()); // dabei get... Methoden
 		c.setText("" + myPolynom.getQuadratic()); // aus Modell benutzen
+		d.setText("" + myPolynom.getCubic());
 	}
 } // end TextQView
 	// Das ist ein View fuer graphische Darstellung eines Quadratischen Polynoms
-	// class GraphQView extends JPanel implements Observer { // Beobachter
-	// Uebungsaufgabe ....
-	// } // end GraphQView
+
+class GraphQView extends JPanel implements Observer {
+	Qpolynom myPolynom;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public GraphQView(Qpolynom q) {
+		myPolynom = q; // merke Polynom
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// Uebungsaufgabe ....
+		// TODO Auto-generated method stub
+		if (o == myPolynom)
+			repaint(); // neu darstellen
+
+	} // Beobachter
+} // end GraphQView
 	// Das ist das Modell
 
 class Qpolynom extends Observable { // Beobachtbares
 	private int // interne Daten
-	constant, linear, quadratic; // Polynom-Koeffizienten
+	constant, linear, quadratic, cubic; // Polynom-Koeffizienten
 
-	public Qpolynom(int a, int b, int c) { // Konstuktor
+	public Qpolynom(int a, int b, int c, int d) { // Konstuktor
 		constant = a;
 		linear = b;
 		quadratic = c;
+		cubic = d;
 	} // end Konstuktor
 
 	public int getConstant() { // getter Methode
@@ -85,6 +114,10 @@ class Qpolynom extends Observable { // Beobachtbares
 
 	public int getQuadratic() { // getter Methode
 		return quadratic; // quadratischer Koeffizient
+	}
+
+	public int getCubic() {
+		return cubic;
 	}
 
 	public void setConstant(int n) { // setter Methode
@@ -104,24 +137,35 @@ class Qpolynom extends Observable { // Beobachtbares
 		setChanged();
 		notifyObservers();
 	}
+
+	public void setCubic(int n) {
+		cubic = n;
+		setChanged();
+		notifyObservers();
+	}
 } // end Qpolynom
 
 // ..
 // ..
 public class MVCexample extends JApplet { // Das GUI-Programm
-	JSlider sa, sb, sc; // Controller
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JSlider sa, sb, sc, sd; // Controller
 
 	@Override
 	public void init() {
 		Container cp = getContentPane(); // Fenster-Container
-		cp.setLayout(new GridLayout(5, 1, 10, 10)); // 5x1-Grid, 10-er Abstaende
+		cp.setLayout(new GridLayout(7, 1, 10, 10)); // 5x1-Grid, 10-er Abstaende
 
-		final Qpolynom p = new Qpolynom(1, 2, 3); // das Modell
+		final Qpolynom p = new Qpolynom(1, 2, 3, 4); // das Modell
 
 		sa = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 1); // Erzeugung
 		sb = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 2); // der
 																	// Controller
 		sc = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 3); //
+		sd = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 3);
 
 		sa.setMajorTickSpacing(10); // Parameter
 		sa.setMinorTickSpacing(1);
@@ -132,23 +176,30 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		sc.setMajorTickSpacing(10);
 		sc.setMinorTickSpacing(1);
 		sc.setSnapToTicks(true);
+		sd.setMajorTickSpacing(10); // Parameter
+		sd.setMinorTickSpacing(1);
+		sd.setSnapToTicks(true);
 		sa.setPaintTicks(true);
 		sb.setPaintTicks(true);
 		sc.setPaintTicks(true);
+		sd.setPaintTicks(true);
 
 		// ...
 		// ...
 		sa.setPaintLabels(true); // Parameter
 		sb.setPaintLabels(true);
 		sc.setPaintLabels(true);
+		sd.setPaintLabels(true);
 
 		sa.setPreferredSize(new Dimension(400, 70));
 		sb.setPreferredSize(new Dimension(400, 70));
 		sc.setPreferredSize(new Dimension(400, 70));
+		sd.setPreferredSize(new Dimension(400, 70));
 
 		sa.setBorder(new TitledBorder("Konstante")); // Border fuer
 		sb.setBorder(new TitledBorder("Linearer Koeffizient")); // Schiebe-
 		sc.setBorder(new TitledBorder("Quadratischer Koeffizient")); // Regler
+		sd.setBorder(new TitledBorder("Kubischer Koeffizient"));
 
 		sa.addChangeListener(new ChangeListener() { // Listener, i.Kl.
 			@Override
@@ -180,25 +231,40 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 			}
 		});
 
+		sd.addChangeListener(new ChangeListener() { // Listener, i.Kl.
+			@Override
+			public void stateChanged(ChangeEvent evt) {
+				JSlider source = (JSlider) evt.getSource();
+				if (!source.getValueIsAdjusting()) {
+					p.setCubic(source.getValue()); // set... benutzen
+				}
+			}
+		});
+
 		TextQView view1 = new TextQView(p); // 1. View
 		// GraphQView view2 = new GraphQView (p); // nach Uebung
-		TextQView view2 = new TextQView(p); // 2. View
+		// TextQView view2 = new TextQView(p); // 2. View
+		GraphQView view3 = new GraphQView(p);
+		GraphQView view4 = new GraphQView(p);
 
 		p.addObserver(view1); // Views als Observer registrieren
-		p.addObserver(view2); // ..
+		// p.addObserver(view2); // ..
 
 		cp.add(view1); // Views zum Fenster hinzufuegen
-		cp.add(view2); // ..
+		// cp.add(view2); // ..
+		cp.add(view3);
+		cp.add(view4);
 		// ...
 		// ...
 		cp.add(sa); // Controller hinzufuegen
 		cp.add(sb); // ...
 		cp.add(sc); // ...
+		cp.add(sd);
 
 	} // end init
 
 	public static void main(String[] args) {
-		Konsole.run(new MVCexample(), 400, 500); // Konsolenstart
+		Konsole.run(new MVCexample(), 400, 800); // Konsolenstart
 	}
 } // end MVCexample
 
