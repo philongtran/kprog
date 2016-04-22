@@ -164,6 +164,93 @@ class GraphQView extends JPanel implements Observer {
 		this.color = color;
 	}
 } // end GraphQView
+
+class GraphQView2 extends JPanel implements Observer {
+	Qpolynom myPolynom;
+	static final int SCALEFACTOR = 200;// Konstante
+	int cycles;// # Perioden
+	int points;// # zu zeichnender Punkte
+	double[] sines;// Funktions-Werte
+	int[] pts;// Y-Positionen in Panel
+	double[] polynom;
+	double zwischenschritte;
+	private Color color;
+
+	int constant, linear, quadratic, cubic;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static int instanceCounter;
+	private static final Color[] someColors = { Color.GREEN, Color.BLUE };
+
+	public GraphQView2(Qpolynom q) {
+		myPolynom = q; // merke Polynom
+		color = someColors[instanceCounter];
+		instanceCounter++;
+		update(myPolynom, null);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// Uebungsaufgabe ....
+		// TODO Auto-generated method stub
+
+		double x = -200;
+		points = 100;
+		cycles = 1;
+		points = SCALEFACTOR * cycles * 2;// # Punkte berechnen
+		sines = new double[points];// Arrays dimensionieren
+		polynom = new double[points];
+		pts = new int[points];// ...
+
+		constant = myPolynom.getConstant();
+		linear = myPolynom.getLinear();
+		quadratic = myPolynom.getQuadratic();
+		cubic = myPolynom.getCubic();
+		// color = myPolynom.getColor();
+
+		for (int i = 0; i < points; i++) {// fuer jeden Punkt:
+			double radians = (Math.PI / SCALEFACTOR) * i;// berechne Winkel
+			sines[i] = Math.sin(radians);// ... und Funktionswert
+			zwischenschritte = x / 20.0;
+			x++;
+			polynom[i] = constant + linear * zwischenschritte + Math.pow(zwischenschritte, 2) * quadratic
+					+ Math.pow(zwischenschritte, 3) * cubic;
+			System.out.println(zwischenschritte + ": " + polynom[i]);
+		}
+
+		if (o == myPolynom)
+			repaint();
+	} // Beobachter
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);// in Superklasse aufrufen ...
+		int maxWidth = getWidth();// Weite bestimmen
+		double hstep = (double) maxWidth / (double) points; // horizontale
+															// Schrittweite
+		int maxHeight = getHeight();// Hoehe Bestimmen
+		for (int i = 0; i < points; i++)// fuer alle Punkte:
+			pts[i] = (int) ((0.5 - ((-1) * polynom[i]) * 0.01) * maxHeight); // skalieren
+		g.setColor(Color.RED);//
+		for (int i = 1; i < points; i++) {// fuer alle Punkte (bis auf ersten):
+			int x1 = (int) ((i - 1) * hstep);// bestimme x,y-Koordinaten
+			int x2 = (int) (i * hstep);// des aktuellen Punkts und des
+			int y1 = pts[i - 1];// linken Nachbarn
+			int y2 = pts[i];//
+			g.drawLine(x1, y1, x2, y2);// Zeichne Linie
+		}
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = Color.RED;
+	}
+} // end GraphQView
 	// Das ist das Modell
 
 class Qpolynom extends Observable { // Beobachtbares
@@ -333,7 +420,7 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		// GraphQView view2 = new GraphQView (p); // nach Uebung
 		// TextQView view2 = new TextQView(p); // 2. View
 		GraphQView view3 = new GraphQView(p);
-		GraphQView view4 = new GraphQView(p);
+		GraphQView2 view4 = new GraphQView2(p);
 
 		p.addObserver(view1); // Views als Observer registrieren
 		// p.addObserver(view2); // ..
