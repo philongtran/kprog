@@ -94,6 +94,7 @@ class GraphQView extends JPanel implements Observer {
 	double scale;
 	boolean oriantation;
 	int faktor;
+	boolean c1;
 
 	int constant, linear, quadratic, cubic;
 	/**
@@ -129,12 +130,20 @@ class GraphQView extends JPanel implements Observer {
 		linear = myPolynom.getLinear();
 		quadratic = myPolynom.getQuadratic();
 		cubic = myPolynom.getCubic();
+
+		c1 = myPolynom.getColor1();
 		// color = myPolynom.getColor();
 
 		if (oriantation) {
 			faktor = 1;
 		} else {
 			faktor = -1;
+		}
+
+		if (c1) {
+			color = Color.GREEN;
+		} else {
+			color = Color.ORANGE;
 		}
 		for (int i = 0; i < points; i++) {// fuer jeden Punkt:
 			double radians = (Math.PI / SCALEFACTOR) * i;// berechne Winkel
@@ -145,7 +154,6 @@ class GraphQView extends JPanel implements Observer {
 					+ Math.pow(zwischenschritte, 3) * cubic;
 			// System.out.println(zwischenschritte + ": " + polynom[i]);
 		}
-		System.out.println(oriantation);
 		if (o == myPolynom)
 			repaint();
 	} // Beobachter
@@ -191,6 +199,7 @@ class GraphQView2 extends JPanel implements Observer {
 	double scale;
 	boolean oriantation;
 	int faktor;
+	boolean c2;
 
 	int constant, linear, quadratic, cubic;
 	/**
@@ -227,6 +236,7 @@ class GraphQView2 extends JPanel implements Observer {
 		cubic = myPolynom.getCubic();
 		// color = myPolynom.getColor();
 		scale = myPolynom.getScale2();
+		c2 = myPolynom.getColor2();
 		for (int i = 0; i < points; i++) {// fuer jeden Punkt:
 			double radians = (Math.PI / SCALEFACTOR) * i;// berechne Winkel
 			sines[i] = Math.sin(radians);// ... und Funktionswert
@@ -236,11 +246,15 @@ class GraphQView2 extends JPanel implements Observer {
 					+ Math.pow(zwischenschritte, 3) * cubic;
 			// System.out.println(zwischenschritte + ": " + polynom[i]);
 		}
-		System.out.println(oriantation);
 		if (oriantation) {
 			faktor = 1;
 		} else {
 			faktor = -1;
+		}
+		if (c2) {
+			color = Color.RED;
+		} else {
+			color = Color.BLUE;
 		}
 		if (o == myPolynom)
 			repaint();
@@ -255,7 +269,7 @@ class GraphQView2 extends JPanel implements Observer {
 		int maxHeight = getHeight();// Hoehe Bestimmen
 		for (int i = 0; i < points; i++)// fuer alle Punkte:
 			pts[i] = (int) ((0.5 - ((faktor) * polynom[i]) * scale) * maxHeight); // skalieren
-		g.setColor(Color.RED);//
+		g.setColor(color);//
 		for (int i = 1; i < points; i++) {// fuer alle Punkte (bis auf ersten):
 			int x1 = (int) ((i - 1) * hstep);// bestimme x,y-Koordinaten
 			int x2 = (int) (i * hstep);// des aktuellen Punkts und des
@@ -285,6 +299,8 @@ class Qpolynom extends Observable { // Beobachtbares
 	double scale2 = 0.1;
 	boolean oriantation1;
 	boolean oriantation2;
+	boolean color1;
+	boolean color2;
 
 	public Qpolynom(int a, int b, int c, int d) { // Konstuktor
 		constant = a;
@@ -385,6 +401,26 @@ class Qpolynom extends Observable { // Beobachtbares
 	public boolean getOriantation2() {
 		return oriantation2;
 	}
+
+	public void setColor1(boolean n) {
+		color1 = n;
+		setChanged();
+		notifyObservers();
+	}
+
+	public boolean getColor1() {
+		return color1;
+	}
+
+	public void setColor2(boolean n) {
+		color2 = n;
+		setChanged();
+		notifyObservers();
+	}
+
+	public boolean getColor2() {
+		return color2;
+	}
 } // end Qpolynom
 
 // ..
@@ -395,13 +431,13 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 	 */
 	private static final long serialVersionUID = 1L;
 	JSlider sa, sb, sc, sd, se, sf;// Controller
-	JButton ba, bb;
+	JButton ba, bb, bc, bd;
 
 	@Override
 	public void init() {
 		Container cp = getContentPane(); // Fenster-Container
-		cp.setLayout(new GridLayout(11, 1, 10, 10)); // 5x1-Grid, 10-er
-														// Abstaende
+		cp.setLayout(new GridLayout(13, 1, 1, 10)); // 5x1-Grid, 10-er
+													// Abstaende
 
 		final Qpolynom p = new Qpolynom(1, 2, 3, 4); // das Modell
 
@@ -464,6 +500,8 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 
 		ba = new JButton("Orientierung View 1");
 		bb = new JButton("Orientierung View 2");
+		bc = new JButton("Farbe View 1");
+		bd = new JButton("Farbe View 2");
 
 		sa.addChangeListener(new ChangeListener() { // Listener, i.Kl.
 			@Override
@@ -551,6 +589,26 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 			}
 		});
 
+		bc.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				p.setColor1(!p.getColor1());
+
+			}
+		});
+
+		bd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				p.setColor2(!p.getColor2());
+
+			}
+		});
+
 		p.addObserver(view1); // Views als Observer registrieren
 		// p.addObserver(view2); // ..
 		p.addObserver(view3);
@@ -570,11 +628,13 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		cp.add(sf);
 		cp.add(ba);
 		cp.add(bb);
+		cp.add(bc);
+		cp.add(bd);
 
 	} // end init
 
 	public static void main(String[] args) {
-		Konsole.run(new MVCexample(), 400, 800); // Konsolenstart
+		Konsole.run(new MVCexample(), 400, 1000); // Konsolenstart
 	}
 } // end MVCexample
 
