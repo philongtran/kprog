@@ -1,12 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 /**
  * This class represents the game.
  * 
@@ -16,16 +7,13 @@ import javax.swing.JPanel;
  *
  */
 
-public class Game extends JFrame implements ActionListener {
+public class Game {
 
 	/**
 	 * Instance variables
 	 */
-	private static final long serialVersionUID = 1L;
-	// private static final String HELP_FORMAT = "%-12s | %-12s | %-12s | %-12s
-	// |\n%-12s | %-12s | %-12s | %-12s |";
 	private final int SCORE_LIMIT = 105;
-	private final int PLAYER_COUNT;
+	public final int PLAYER_COUNT;
 	private final int BOARD_SIZE_X;
 	private final int BOARD_SIZE_Y;
 	private Player[] player;
@@ -34,12 +22,6 @@ public class Game extends JFrame implements ActionListener {
 	private PlayerPosition playerPosition;
 	private Display display;
 	private boolean restart;
-
-	private JButton[] buttons;
-	private JButton[] buttons2;
-	private JButton buttons3;
-	private String movement;
-	private int i = 0;
 
 	/**
 	 * The constructor of the game.
@@ -59,46 +41,10 @@ public class Game extends JFrame implements ActionListener {
 		this.player = new Player[playerCount];
 		this.restart = false;
 
-		buttons = new JButton[boardSizeX * boardSizeY];
-		buttons2 = new JButton[4];
-		// setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(boardSizeX * 50, boardSizeY * 100);
-		JPanel panel1 = new JPanel();
-		panel1.setLayout(new GridLayout(boardSizeX, boardSizeY));
-		for (int i = 0; i < boardSizeX * boardSizeY; i++) {
-			buttons[i] = new JButton("" + i);
-			panel1.add(buttons[i]);
-		}
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(new BorderLayout());
-		for (int i = 0; i < 4; i++) {
-			buttons2[i] = new JButton("" + i);
-			panel2.add(buttons2[i]);
-			buttons2[i].addActionListener(this);
-		}
-		panel2.add(buttons2[0], BorderLayout.NORTH);
-		panel2.add(buttons2[1], BorderLayout.WEST);
-		panel2.add(buttons2[2], BorderLayout.SOUTH);
-		panel2.add(buttons2[3], BorderLayout.EAST);
-		buttons2[0].setText("W");
-		buttons2[1].setText("A");
-		buttons2[2].setText("S");
-		buttons2[3].setText("D");
-
-		buttons3 = new JButton("Score");
-
-		panel2.add(buttons3, BorderLayout.CENTER);
-		setLayout(new GridLayout(2, 1));
-		add(panel1);
-		add(panel2);
-		setTitle("MAXGUI");
-		setVisible(true);
-
 		try {
 			initializeGame();
 			// run();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -109,7 +55,7 @@ public class Game extends JFrame implements ActionListener {
 	 * @param currentPlayer
 	 * @param direction
 	 */
-	private void move(Player currentPlayer, Action direction) {
+	public void move(Player currentPlayer, Action direction) {
 		removePlayerFromPreviousPosition(currentPlayer);
 		switch (direction) {
 		case DOWN:
@@ -161,7 +107,8 @@ public class Game extends JFrame implements ActionListener {
 			board.setPlayer(player[i].getX(), player[i].getY(), player[i].getColor());
 		}
 		// displays score and board
-		this.display = new Display(player, board, buttons, buttons3);
+		this.display = new Display(player, board);
+		display.setGame(this);
 		display.draw(-1, checkScore());
 	}
 
@@ -235,7 +182,7 @@ public class Game extends JFrame implements ActionListener {
 	 *            - Which direction does the player want to go
 	 * @return - Returns boolean true if move is legitimate
 	 */
-	private boolean canMoveInDirection(Player player, Action direction) {
+	public boolean canMoveInDirection(Player player, Action direction) {
 		return isOutOfBounds(player, direction) && isColliding(player, direction);
 	}
 
@@ -246,7 +193,7 @@ public class Game extends JFrame implements ActionListener {
 	 *            - ID of the wrongly assumed player.
 	 * @return - Returns the old player ID
 	 */
-	private int playerRetry(int playerID) {
+	public int playerRetry(int playerID) {
 		if (playerID == 0) {
 			return player.length - 1;
 		} else {
@@ -275,7 +222,7 @@ public class Game extends JFrame implements ActionListener {
 	 * 
 	 * @return - Boolean true if score limit is reached
 	 */
-	private boolean checkScore() {
+	public boolean checkScore() {
 		boolean scoreReached = false;
 		for (int i = 0; i < player.length; i++) {
 			if (player[i].getScore() >= SCORE_LIMIT) {
@@ -284,65 +231,4 @@ public class Game extends JFrame implements ActionListener {
 		}
 		return scoreReached;
 	}
-
-	/**
-	 * Event listener for running the game logic. It contains the movement and
-	 * score- and board display.
-	 * 
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		movement = e.getActionCommand();
-		// System.out.println(movement);
-		// checks if score limit is reached
-		if (checkScore()) {
-			return;
-		}
-		// reads keyboard input to move the active player
-		Action action = Action.of(movement.toLowerCase().substring(0, 1));
-		// temporary variable to hold current player
-		Player currentPlayer = player[i];
-		// cases which are allowed
-		switch (action) {
-		case UP:
-			if (canMoveInDirection(currentPlayer, action)) {
-				move(currentPlayer, action);
-			} else {
-				i = playerRetry(i);
-			}
-			break;
-		case DOWN:
-			if (canMoveInDirection(currentPlayer, action)) {
-				move(currentPlayer, action);
-			} else {
-				i = playerRetry(i);
-			}
-			break;
-		case LEFT:
-			if (canMoveInDirection(currentPlayer, action)) {
-				move(currentPlayer, action);
-			} else {
-				i = playerRetry(i);
-			}
-			break;
-		case RIGHT:
-			if (canMoveInDirection(currentPlayer, action)) {
-				move(currentPlayer, action);
-			} else {
-				i = playerRetry(i);
-			}
-			break;
-		default:
-			i = playerRetry(i);
-			break;
-		}
-		// displays score and board
-		display.draw(i, checkScore());
-		i++;
-		if (i >= PLAYER_COUNT) {
-			i = 0;
-		}
-	}
-
 }

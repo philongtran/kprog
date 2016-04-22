@@ -1,5 +1,11 @@
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * This class prints all to the screen.
@@ -9,7 +15,7 @@ import javax.swing.JFrame;
  * @author Steve Nono <191709>
  */
 
-public class Display extends JFrame {
+public class Display extends JFrame implements ActionListener {
 
 	/**
 	 * Instance variables
@@ -17,8 +23,14 @@ public class Display extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private Player[] player;
 	private Board board;
+	private Game game;
+
+	// JFrame
 	private JButton[] buttons;
+	private JButton[] buttons2;
 	private JButton buttons3;
+	private String movement;
+	private int i = 0;
 
 	/**
 	 * The constructor of the class.
@@ -28,22 +40,45 @@ public class Display extends JFrame {
 	 * @param board
 	 *            - The game board
 	 */
-	public Display(Player[] player, Board board, JButton[] buttons, JButton buttons3) {
+	public Display(Player[] player, Board board) {
 		this.player = player;
 		this.board = board;
-		this.buttons = buttons;
-		this.buttons3 = buttons3;
+		getGame();
 
-		/*
-		 * buttons = new JButton[board.getSizeX() * board.getSizeY()];
-		 * setDefaultCloseOperation(EXIT_ON_CLOSE); setSize(board.getSizeX() *
-		 * 100, board.getSizeY() * 100); setLayout(new
-		 * GridLayout(board.getSizeX(), board.getSizeX())); for (int i = 0; i <
-		 * board.getSizeX() * board.getSizeY(); i++) { buttons[i] = new
-		 * JButton("" + i); getContentPane().add(buttons[i]); }
-		 * setTitle("MAXGUI"); setVisible(true);
-		 */
+		// set up the board with JFrame
+		buttons = new JButton[board.getSizeX() * board.getSizeY()];
+		buttons2 = new JButton[4];
+		setSize(board.getSizeX() * 50, board.getSizeY() * 100);
+		JPanel panel1 = new JPanel();
+		panel1.setLayout(new GridLayout(board.getSizeX(), board.getSizeY()));
+		for (int i = 0; i < board.getSizeX() * board.getSizeY(); i++) {
+			buttons[i] = new JButton("" + i);
+			panel1.add(buttons[i]);
+		}
+		JPanel panel2 = new JPanel();
+		panel2.setLayout(new BorderLayout());
+		for (int i = 0; i < 4; i++) {
+			buttons2[i] = new JButton("" + i);
+			panel2.add(buttons2[i]);
+			buttons2[i].addActionListener(this);
+		}
+		panel2.add(buttons2[0], BorderLayout.NORTH);
+		panel2.add(buttons2[1], BorderLayout.WEST);
+		panel2.add(buttons2[2], BorderLayout.SOUTH);
+		panel2.add(buttons2[3], BorderLayout.EAST);
+		buttons2[0].setText("W");
+		buttons2[1].setText("A");
+		buttons2[2].setText("S");
+		buttons2[3].setText("D");
 
+		buttons3 = new JButton("Score");
+
+		panel2.add(buttons3, BorderLayout.CENTER);
+		setLayout(new GridLayout(2, 1));
+		add(panel1);
+		add(panel2);
+		setTitle("MAXGUI");
+		setVisible(true);
 	}
 
 	/**
@@ -82,7 +117,6 @@ public class Display extends JFrame {
 			}
 		}
 		buttons3.setText(score);
-		// IO.writeln(score);
 	}
 
 	/**
@@ -98,10 +132,8 @@ public class Display extends JFrame {
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++, i++) {
 				if (board.getValue(x, y) < 0) {
-					// IO.write(returnLetter(board.getValue(x, y)) + " ");
 					buttons[i].setText(returnLetter(board.getValue(x, y)));
 				} else {
-					// IO.write(board.getValue(x, y) + " ");
 					buttons[i].setText("" + board.getValue(x, y));
 				}
 
@@ -130,6 +162,78 @@ public class Display extends JFrame {
 		default:
 			return "P" + (color * (-1));
 		}
+	}
+
+	/**
+	 * Event listener for running the game logic. It contains the movement and
+	 * score- and board display.
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		movement = e.getActionCommand();
+		// checks if score limit is reached
+		if (game.checkScore()) {
+			return;
+		}
+		// reads keyboard input to move the active player
+		Action action = Action.of(movement.toLowerCase().substring(0, 1));
+		// temporary variable to hold current player
+		Player currentPlayer = player[i];
+		// cases which are allowed
+		switch (action) {
+		case UP:
+			if (game.canMoveInDirection(currentPlayer, action)) {
+				game.move(currentPlayer, action);
+			} else {
+				i = game.playerRetry(i);
+			}
+			break;
+		case DOWN:
+			if (game.canMoveInDirection(currentPlayer, action)) {
+				game.move(currentPlayer, action);
+			} else {
+				i = game.playerRetry(i);
+			}
+			break;
+		case LEFT:
+			if (game.canMoveInDirection(currentPlayer, action)) {
+				game.move(currentPlayer, action);
+			} else {
+				i = game.playerRetry(i);
+			}
+			break;
+		case RIGHT:
+			if (game.canMoveInDirection(currentPlayer, action)) {
+				game.move(currentPlayer, action);
+			} else {
+				i = game.playerRetry(i);
+			}
+			break;
+		default:
+			i = game.playerRetry(i);
+			break;
+		}
+		// displays score and board
+		draw(i, game.checkScore());
+		i++;
+		if (i >= game.PLAYER_COUNT) {
+			i = 0;
+		}
+
+	}
+
+	/**
+	 * getter and setter for needed game methods
+	 * 
+	 * @param game
+	 */
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	private Game getGame() {
+		return game;
 	}
 
 }
