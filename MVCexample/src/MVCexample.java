@@ -396,4 +396,5 @@ class Konsole {
 		frame.setSize(width, height);
 		frame.setVisible(true);
 	}
+
 }
