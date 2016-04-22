@@ -88,6 +88,7 @@ class GraphQView extends JPanel implements Observer {
 	double[] polynom;
 	double zwischenschritte;
 	private Color color;
+	double scale = 0.01;
 
 	int constant, linear, quadratic, cubic;
 	/**
@@ -109,6 +110,7 @@ class GraphQView extends JPanel implements Observer {
 		// Uebungsaufgabe ....
 		// TODO Auto-generated method stub
 
+		scale = myPolynom.getScale();
 		double x = -200;
 		points = 100;
 		cycles = 1;
@@ -130,9 +132,9 @@ class GraphQView extends JPanel implements Observer {
 			x++;
 			polynom[i] = constant + linear * zwischenschritte + Math.pow(zwischenschritte, 2) * quadratic
 					+ Math.pow(zwischenschritte, 3) * cubic;
-			System.out.println(zwischenschritte + ": " + polynom[i]);
+			// System.out.println(zwischenschritte + ": " + polynom[i]);
 		}
-
+		System.out.println(scale);
 		if (o == myPolynom)
 			repaint();
 	} // Beobachter
@@ -145,7 +147,7 @@ class GraphQView extends JPanel implements Observer {
 															// Schrittweite
 		int maxHeight = getHeight();// Hoehe Bestimmen
 		for (int i = 0; i < points; i++)// fuer alle Punkte:
-			pts[i] = (int) ((0.5 - polynom[i] * 0.05) * maxHeight); // skalieren
+			pts[i] = (int) ((0.5 - polynom[i] * scale) * maxHeight); // skalieren
 		g.setColor(color);//
 		for (int i = 1; i < points; i++) {// fuer alle Punkte (bis auf ersten):
 			int x1 = (int) ((i - 1) * hstep);// bestimme x,y-Koordinaten
@@ -175,6 +177,7 @@ class GraphQView2 extends JPanel implements Observer {
 	double[] polynom;
 	double zwischenschritte;
 	private Color color;
+	double scale = 0.01;
 
 	int constant, linear, quadratic, cubic;
 	/**
@@ -209,7 +212,7 @@ class GraphQView2 extends JPanel implements Observer {
 		quadratic = myPolynom.getQuadratic();
 		cubic = myPolynom.getCubic();
 		// color = myPolynom.getColor();
-
+		scale = myPolynom.getScale2();
 		for (int i = 0; i < points; i++) {// fuer jeden Punkt:
 			double radians = (Math.PI / SCALEFACTOR) * i;// berechne Winkel
 			sines[i] = Math.sin(radians);// ... und Funktionswert
@@ -217,9 +220,9 @@ class GraphQView2 extends JPanel implements Observer {
 			x++;
 			polynom[i] = constant + linear * zwischenschritte + Math.pow(zwischenschritte, 2) * quadratic
 					+ Math.pow(zwischenschritte, 3) * cubic;
-			System.out.println(zwischenschritte + ": " + polynom[i]);
+			// System.out.println(zwischenschritte + ": " + polynom[i]);
 		}
-
+		System.out.println(scale);
 		if (o == myPolynom)
 			repaint();
 	} // Beobachter
@@ -232,7 +235,7 @@ class GraphQView2 extends JPanel implements Observer {
 															// Schrittweite
 		int maxHeight = getHeight();// Hoehe Bestimmen
 		for (int i = 0; i < points; i++)// fuer alle Punkte:
-			pts[i] = (int) ((0.5 - ((-1) * polynom[i]) * 0.01) * maxHeight); // skalieren
+			pts[i] = (int) ((0.5 - ((-1) * polynom[i]) * scale) * maxHeight); // skalieren
 		g.setColor(Color.RED);//
 		for (int i = 1; i < points; i++) {// fuer alle Punkte (bis auf ersten):
 			int x1 = (int) ((i - 1) * hstep);// bestimme x,y-Koordinaten
@@ -257,6 +260,8 @@ class Qpolynom extends Observable { // Beobachtbares
 	private int // interne Daten
 	constant, linear, quadratic, cubic; // Polynom-Koeffizienten
 	private Color color;
+	double scale = 0.1;
+	double scale2 = 0.1;
 
 	public Qpolynom(int a, int b, int c, int d) { // Konstuktor
 		constant = a;
@@ -294,6 +299,14 @@ class Qpolynom extends Observable { // Beobachtbares
 		return cubic;
 	}
 
+	public double getScale() {
+		return scale;
+	}
+
+	public double getScale2() {
+		return scale2;
+	}
+
 	public void setConstant(int n) { // setter Methode
 		constant = n; // konstanter Koeffizient
 		setChanged();
@@ -317,6 +330,18 @@ class Qpolynom extends Observable { // Beobachtbares
 		setChanged();
 		notifyObservers();
 	}
+
+	public void setScale(double n) {
+		scale = n;
+		setChanged();
+		notifyObservers();
+	}
+
+	public void setScale2(double n) {
+		scale2 = n;
+		setChanged();
+		notifyObservers();
+	}
 } // end Qpolynom
 
 // ..
@@ -326,12 +351,12 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JSlider sa, sb, sc, sd;// Controller
+	JSlider sa, sb, sc, sd, se, sf;// Controller
 
 	@Override
 	public void init() {
 		Container cp = getContentPane(); // Fenster-Container
-		cp.setLayout(new GridLayout(7, 1, 10, 10)); // 5x1-Grid, 10-er
+		cp.setLayout(new GridLayout(9, 1, 10, 10)); // 5x1-Grid, 10-er
 													// Abstaende
 
 		final Qpolynom p = new Qpolynom(1, 2, 3, 4); // das Modell
@@ -341,6 +366,8 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 																	// Controller
 		sc = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 3); //
 		sd = new JSlider(SwingConstants.HORIZONTAL, -10, 10, 4);
+		se = new JSlider(SwingConstants.HORIZONTAL, 1, 10, 1);
+		sf = new JSlider(SwingConstants.HORIZONTAL, 1, 10, 1);
 
 		sa.setMajorTickSpacing(10); // Parameter
 		sa.setMinorTickSpacing(1);
@@ -354,10 +381,19 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		sd.setMajorTickSpacing(10); // Parameter
 		sd.setMinorTickSpacing(1);
 		sd.setSnapToTicks(true);
+		se.setMajorTickSpacing(10); // Parameter
+		se.setMinorTickSpacing(1);
+		se.setSnapToTicks(true);
+		sf.setMajorTickSpacing(10); // Parameter
+		sf.setMinorTickSpacing(1);
+		sf.setSnapToTicks(true);
+
 		sa.setPaintTicks(true);
 		sb.setPaintTicks(true);
 		sc.setPaintTicks(true);
 		sd.setPaintTicks(true);
+		se.setPaintTicks(true);
+		sf.setPaintTicks(true);
 
 		// ...
 		// ...
@@ -365,16 +401,22 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		sb.setPaintLabels(true);
 		sc.setPaintLabels(true);
 		sd.setPaintLabels(true);
+		se.setPaintLabels(true);
+		sf.setPaintLabels(true);
 
 		sa.setPreferredSize(new Dimension(400, 70));
 		sb.setPreferredSize(new Dimension(400, 70));
 		sc.setPreferredSize(new Dimension(400, 70));
 		sd.setPreferredSize(new Dimension(400, 70));
+		se.setPreferredSize(new Dimension(400, 70));
+		sf.setPreferredSize(new Dimension(400, 70));
 
 		sa.setBorder(new TitledBorder("Konstante")); // Border fuer
 		sb.setBorder(new TitledBorder("Linearer Koeffizient")); // Schiebe-
 		sc.setBorder(new TitledBorder("Quadratischer Koeffizient")); // Regler
 		sd.setBorder(new TitledBorder("Kubischer Koeffizient"));
+		se.setBorder(new TitledBorder("Skalierung View 1"));
+		sf.setBorder(new TitledBorder("Skalierung View 2"));
 
 		sa.addChangeListener(new ChangeListener() { // Listener, i.Kl.
 			@Override
@@ -416,6 +458,26 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 			}
 		});
 
+		se.addChangeListener(new ChangeListener() { // Listener, i.Kl.
+			@Override
+			public void stateChanged(ChangeEvent evt) {
+				JSlider source = (JSlider) evt.getSource();
+				if (!source.getValueIsAdjusting()) {
+					p.setScale(source.getValue() / 100.0); // set... benutzen
+				}
+			}
+		});
+
+		sf.addChangeListener(new ChangeListener() { // Listener, i.Kl.
+			@Override
+			public void stateChanged(ChangeEvent evt) {
+				JSlider source = (JSlider) evt.getSource();
+				if (!source.getValueIsAdjusting()) {
+					p.setScale2(source.getValue() / 100.0); // set... benutzen
+				}
+			}
+		});
+
 		TextQView view1 = new TextQView(p); // 1. View
 		// GraphQView view2 = new GraphQView (p); // nach Uebung
 		// TextQView view2 = new TextQView(p); // 2. View
@@ -437,6 +499,8 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		cp.add(sb); // ...
 		cp.add(sc); // ...
 		cp.add(sd);
+		cp.add(se);
+		cp.add(sf);
 
 	} // end init
 
