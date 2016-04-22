@@ -436,7 +436,7 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 	@Override
 	public void init() {
 		Container cp = getContentPane(); // Fenster-Container
-		cp.setLayout(new GridLayout(13, 1, 1, 10)); // 5x1-Grid, 10-er
+		cp.setLayout(new GridLayout(5, 2, 1, 10)); // 5x1-Grid, 10-er
 													// Abstaende
 
 		final Qpolynom p = new Qpolynom(1, 2, 3, 4); // das Modell
@@ -628,13 +628,14 @@ public class MVCexample extends JApplet { // Das GUI-Programm
 		cp.add(sf);
 		cp.add(ba);
 		cp.add(bb);
+		cp.add(new JLabel());
 		cp.add(bc);
 		cp.add(bd);
 
 	} // end init
 
 	public static void main(String[] args) {
-		Konsole.run(new MVCexample(), 400, 1000); // Konsolenstart
+		Konsole.run(new MVCexample(), 1200, 800); // Konsolenstart
 	}
 } // end MVCexample
 
