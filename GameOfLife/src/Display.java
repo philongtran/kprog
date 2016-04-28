@@ -119,6 +119,17 @@ public class Display extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
+		for (int y = 0; y < board.getSizeY(); y++) {
+			for (int x = 0; x < board.getSizeX(); x++) {
+				if (board.getStatus(x, y)) {
+					buttons[buttonsIndex].setBackground(Color.GREEN);
+				} else {
+					buttons[buttonsIndex].setBackground(Color.RED);
+				}
+				buttonsIndex++;
+			}
+		}
+		buttonsIndex = 0;
 
 	}
 

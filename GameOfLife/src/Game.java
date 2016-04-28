@@ -1,24 +1,73 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
+
+import javax.swing.Timer;
 
 public class Game extends Observable {
 
-	Board board;
-	Position lu, u, ru, l, r, ld, d, rd, actualPosition;
+	private Board board;
+	private Board board2;
+	private Position lu, u, ru, l, r, ld, d, rd;
+	private Position[] actualBorders = new Position[8];
+	private int livingCells;
 
 	public Game() {
-		board = new Board(15, 10);
-		run();
-		setChanged();
-		notifyObservers();
-		new Display(board);
+		board = new Board(5, 5);
+		board2 = new Board(5, 5);
+		board.setStatus(1, 2, true);
+		board.setStatus(2, 2, true);
+		board.setStatus(3, 2, true);
+		Display display = new Display(board);
+
+		// timer which sends an action every 1sec.
+		int delay = 1000; // milliseconds
+		ActionListener taskPerformer = new ActionListener() {
+			// make the ring rotate clockwise or counterclockwise
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				run();
+			}
+		};
+		new Timer(delay, taskPerformer).start();
+		this.addObserver(display);
 	}
 
 	private void run() {
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
-				getBorderPosition(x, y);
+				board2.setStatus(x, y, board.getStatus(x, y));
 			}
 		}
+
+		for (int y = 0; y < board.getSizeY(); y++) {
+			for (int x = 0; x < board.getSizeX(); x++) {
+				getBorderPosition(x, y);
+				for (int i = 0; i < 8; i++) {
+					if (board.getStatus(actualBorders[i].getPositionX(), actualBorders[i].getPositionY())) {
+						livingCells++;
+					}
+				}
+
+				if (!board.getStatus(x, y)) {
+					if (livingCells == 3) {
+						board2.setStatus(x, y, true);
+					}
+				} else {
+					if (livingCells <= 1 || livingCells > 3) {
+						board2.setStatus(x, y, false);
+					}
+				}
+				livingCells = 0;
+			}
+		}
+		for (int y = 0; y < board.getSizeY(); y++) {
+			for (int x = 0; x < board.getSizeX(); x++) {
+				board.setStatus(x, y, board2.getStatus(x, y));
+			}
+		}
+		setChanged();
+		notifyObservers();
 	}
 
 	private void getBorderPosition(int x, int y) {
@@ -54,6 +103,15 @@ public class Game extends Observable {
 		ld = new Position(newXLeft, newYDown);
 		d = new Position(x, newYDown);
 		rd = new Position(newXRight, newYDown);
+
+		actualBorders[0] = lu;
+		actualBorders[1] = u;
+		actualBorders[2] = ru;
+		actualBorders[3] = l;
+		actualBorders[4] = r;
+		actualBorders[5] = ld;
+		actualBorders[6] = d;
+		actualBorders[7] = rd;
 		/*
 		 * System.out.println(lu); System.out.println(u);
 		 * System.out.println(ru); System.out.println(l); System.out.println(r);
