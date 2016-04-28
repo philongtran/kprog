@@ -11,10 +11,10 @@ public class Board {
 		board = new boolean[sizeY][sizeX];
 		for (int y = 0; y < sizeY; y++) {
 			for (int x = 0; x < sizeX; x++) {
-				board[y][x] = true;
+				board[y][x] = false;
 				// System.out.print(board[y][x] + ", ");
 			}
-			System.out.println();
+			// System.out.println();
 		}
 	}
 

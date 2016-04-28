@@ -64,7 +64,7 @@ public class Display extends JFrame implements Observer {
 		}
 
 		buttonsIndex = 0;
-		board.setStatus(5, 5, false);
+		// board.setStatus(5, 5, false);
 
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
