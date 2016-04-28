@@ -7,14 +7,14 @@ import javax.swing.Timer;
 public class Game extends Observable {
 
 	private Board board;
-	private Board board2;
+	private Board temporaryBoard;
 	private Position lu, u, ru, l, r, ld, d, rd;
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
 
 	public Game() {
 		board = new Board(5, 5);
-		board2 = new Board(5, 5);
+		temporaryBoard = new Board(5, 5);
 		board.setStatus(1, 2, true);
 		board.setStatus(2, 2, true);
 		board.setStatus(3, 2, true);
@@ -35,7 +35,7 @@ public class Game extends Observable {
 	private void run() {
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
-				board2.setStatus(x, y, board.getStatus(x, y));
+				temporaryBoard.setStatus(x, y, board.getStatus(x, y));
 			}
 		}
 
@@ -50,11 +50,11 @@ public class Game extends Observable {
 
 				if (!board.getStatus(x, y)) {
 					if (livingCells == 3) {
-						board2.setStatus(x, y, true);
+						temporaryBoard.setStatus(x, y, true);
 					}
 				} else {
 					if (livingCells <= 1 || livingCells > 3) {
-						board2.setStatus(x, y, false);
+						temporaryBoard.setStatus(x, y, false);
 					}
 				}
 				livingCells = 0;
@@ -62,7 +62,7 @@ public class Game extends Observable {
 		}
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
-				board.setStatus(x, y, board2.getStatus(x, y));
+				board.setStatus(x, y, temporaryBoard.getStatus(x, y));
 			}
 		}
 		setChanged();
