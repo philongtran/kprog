@@ -23,7 +23,6 @@ public class Game extends Observable {
 		// timer which sends an action every 1sec.
 		int delay = 1000; // milliseconds
 		ActionListener taskPerformer = new ActionListener() {
-			// make the ring rotate clockwise or counterclockwise
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				run();
@@ -112,11 +111,5 @@ public class Game extends Observable {
 		actualBorders[5] = ld;
 		actualBorders[6] = d;
 		actualBorders[7] = rd;
-		/*
-		 * System.out.println(lu); System.out.println(u);
-		 * System.out.println(ru); System.out.println(l); System.out.println(r);
-		 * System.out.println(ld); System.out.println(d);
-		 * System.out.println(rd);
-		 */
 	}
 }
