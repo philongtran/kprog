@@ -12,9 +12,9 @@ public class Game extends Observable {
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
 
-	public Game() {
-		board = new Board(5, 5);
-		temporaryBoard = new Board(5, 5);
+	public Game(int sizeX, int sizeY) {
+		board = new Board(sizeX, sizeY);
+		temporaryBoard = new Board(sizeX, sizeY);
 		board.setStatus(1, 2, true);
 		board.setStatus(2, 2, true);
 		board.setStatus(3, 2, true);
