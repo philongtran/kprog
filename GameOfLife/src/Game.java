@@ -7,7 +7,8 @@ public class Game extends Observable {
 
 	private Board board;
 	private Board temporaryBoard;
-	private Position leftUpperCorner, upperCorner, rightUpperCorner, leftCorner, rightCorner, leftBottomCorner, bottomCorner, rightBottomCorner;
+	private Position leftUpperCorner, upperCorner, rightUpperCorner, leftCorner, rightCorner, leftBottomCorner,
+			bottomCorner, rightBottomCorner;
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
 	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
@@ -27,16 +28,12 @@ public class Game extends Observable {
 	}
 
 	private void run() {
-		for (int y = 0; y < board.getSizeY(); y++) {
-			for (int x = 0; x < board.getSizeX(); x++) {
-				temporaryBoard.setStatus(x, y, board.getStatus(x, y));
-			}
-		}
+		cloneBoard();
 
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
 				calculateBorders(x, y);
-				for (int i = 0; i < 8; i++) {
+				for (int i = 0; i < actualBorders.length; i++) {
 					if (board.getStatus(actualBorders[i].getPositionX(), actualBorders[i].getPositionY())) {
 						livingCells++;
 					}
@@ -61,6 +58,14 @@ public class Game extends Observable {
 		}
 		setChanged();
 		notifyObservers();
+	}
+
+	private void cloneBoard() {
+		for (int y = 0; y < board.getSizeY(); y++) {
+			for (int x = 0; x < board.getSizeX(); x++) {
+				temporaryBoard.setStatus(x, y, board.getStatus(x, y));
+			}
+		}
 	}
 
 	private void calculateBorders(int x, int y) {
