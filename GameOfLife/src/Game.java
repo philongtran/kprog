@@ -1,5 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
@@ -22,13 +20,9 @@ public class Game extends Observable {
 		board.setStatus(3, 2, true);
 		Display display = new Display(board);
 
-		ActionListener taskPerformer = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				run();
-			}
-		};
-		new Timer(ONESECOND, taskPerformer).start();
+		new Timer(ONESECOND, taskPerformer -> {
+			run();
+		}).start();
 		this.addObserver(display);
 	}
 
