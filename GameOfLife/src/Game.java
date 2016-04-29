@@ -1,6 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
@@ -11,6 +12,7 @@ public class Game extends Observable {
 	private Position lu, u, ru, l, r, ld, d, rd;
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
+	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
 
 	public Game(int sizeX, int sizeY) {
 		board = new Board(sizeX, sizeY);
@@ -20,15 +22,13 @@ public class Game extends Observable {
 		board.setStatus(3, 2, true);
 		Display display = new Display(board);
 
-		// timer which sends an action every 1sec.
-		int delay = 1000; // milliseconds
 		ActionListener taskPerformer = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				run();
 			}
 		};
-		new Timer(delay, taskPerformer).start();
+		new Timer(ONESECOND, taskPerformer).start();
 		this.addObserver(display);
 	}
 
