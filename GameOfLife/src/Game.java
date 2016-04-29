@@ -7,7 +7,7 @@ public class Game extends Observable {
 
 	private Board board;
 	private Board temporaryBoard;
-	private Position lu, u, ru, l, r, ld, d, rd;
+	private Position leftUpperCorner, upperCorner, rightUpperCorner, leftCorner, rightCorner, leftBottomCorner, bottomCorner, rightBottomCorner;
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
 	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
@@ -88,22 +88,22 @@ public class Game extends Observable {
 			newYDown = y + 1;
 		}
 
-		lu = new Position(newXLeft, newYUp);
-		u = new Position(x, newYUp);
-		ru = new Position(newXRight, newYUp);
-		l = new Position(newXLeft, y);
-		r = new Position(newXRight, y);
-		ld = new Position(newXLeft, newYDown);
-		d = new Position(x, newYDown);
-		rd = new Position(newXRight, newYDown);
+		leftUpperCorner = new Position(newXLeft, newYUp);
+		upperCorner = new Position(x, newYUp);
+		rightUpperCorner = new Position(newXRight, newYUp);
+		leftCorner = new Position(newXLeft, y);
+		rightCorner = new Position(newXRight, y);
+		leftBottomCorner = new Position(newXLeft, newYDown);
+		bottomCorner = new Position(x, newYDown);
+		rightBottomCorner = new Position(newXRight, newYDown);
 
-		actualBorders[0] = lu;
-		actualBorders[1] = u;
-		actualBorders[2] = ru;
-		actualBorders[3] = l;
-		actualBorders[4] = r;
-		actualBorders[5] = ld;
-		actualBorders[6] = d;
-		actualBorders[7] = rd;
+		actualBorders[0] = leftUpperCorner;
+		actualBorders[1] = upperCorner;
+		actualBorders[2] = rightUpperCorner;
+		actualBorders[3] = leftCorner;
+		actualBorders[4] = rightCorner;
+		actualBorders[5] = leftBottomCorner;
+		actualBorders[6] = bottomCorner;
+		actualBorders[7] = rightBottomCorner;
 	}
 }
