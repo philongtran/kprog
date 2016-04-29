@@ -35,7 +35,7 @@ public class Game extends Observable {
 
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
-				getBorderPosition(x, y);
+				calculateBorders(x, y);
 				for (int i = 0; i < 8; i++) {
 					if (board.getStatus(actualBorders[i].getPositionX(), actualBorders[i].getPositionY())) {
 						livingCells++;
@@ -63,7 +63,7 @@ public class Game extends Observable {
 		notifyObservers();
 	}
 
-	private void getBorderPosition(int x, int y) {
+	private void calculateBorders(int x, int y) {
 		int newXLeft, newYUp, newXRight, newYDown;
 
 		if (x - 1 < 0) {
