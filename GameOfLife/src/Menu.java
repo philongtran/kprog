@@ -1,9 +1,9 @@
 import javax.swing.DefaultDesktopManager;
+import javax.swing.JApplet;
 import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
-public class Menu extends JFrame {
+public class Menu extends JApplet {
 
 	/**
 	 * 
