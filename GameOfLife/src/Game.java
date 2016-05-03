@@ -10,7 +10,7 @@ public class Game extends Observable {
 	private Board temporaryBoard;
 	private Position lu, u, ru, l, r, ld, d, rd;
 	private Position[] actualBorders = new Position[8];
-	private int livingCells;
+	// private int livingCells;
 	GoLMenu golMenu;
 	Timer timer;
 	boolean start = true;
@@ -43,6 +43,7 @@ public class Game extends Observable {
 	}
 
 	private void run() {
+		int livingCells = 0;
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
 				temporaryBoard.setStatus(x, y, board.getStatus(x, y));

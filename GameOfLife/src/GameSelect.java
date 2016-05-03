@@ -28,7 +28,7 @@ class GameSelect extends JInternalFrame { // Klasse fuer Kindfenster
 		jb.addActionListener(new ActionListener() {// AL fuer Farbknopf
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game game = new Game(mydesk, 5, 5);
+				Game game = new Game(mydesk, 50, 50);
 				GoLMenu golMenu = new GoLMenu(mydesk, game);
 				mydesk.addChild(golMenu, xpos, ypos);
 				game.getObserver(golMenu);
