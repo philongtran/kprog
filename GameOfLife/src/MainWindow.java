@@ -3,7 +3,7 @@ import javax.swing.JApplet;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
-public class Menu extends JApplet {
+public class MainWindow extends JApplet {
 
 	/**
 	 * 
@@ -11,7 +11,7 @@ public class Menu extends JApplet {
 	private static final long serialVersionUID = 1L;
 	private JDesktopPane desk;
 
-	public Menu() {
+	public MainWindow() {
 		desk = new JDesktopPane();
 		desk.setDesktopManager(new DefaultDesktopManager());
 		setContentPane(desk);

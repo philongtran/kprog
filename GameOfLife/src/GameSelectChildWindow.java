@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
-class GameSelect extends JInternalFrame { // Klasse fuer Kindfenster
+class GameSelectChildWindow extends JInternalFrame { // Klasse fuer Kindfenster
 	/**
 	 * 
 	 */
@@ -15,9 +15,9 @@ class GameSelect extends JInternalFrame { // Klasse fuer Kindfenster
 	static int nr = -1, xpos = 30, ypos = 30;// statische Variablen
 	static final Color[] col = { Color.red, Color.green };// verfuegbare Farben
 															// ...
-	Menu mydesk;// Referenz auf Hauptfenster
+	MainWindow mydesk;// Referenz auf Hauptfenster
 
-	public GameSelect(Menu dft) { // Konstruktor
+	public GameSelectChildWindow(MainWindow dft) { // Konstruktor
 		super("Select Game", false, false);// vergroesserbar, schliessbar
 		// setBackground(col[nr % col.length]);// Start-Farbe
 		mydesk = dft;// Hauptfenster merken
@@ -29,9 +29,9 @@ class GameSelect extends JInternalFrame { // Klasse fuer Kindfenster
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Game game = new Game(mydesk, 50, 50);
-				GoLMenu golMenu = new GoLMenu(mydesk, game);
-				mydesk.addChild(golMenu, xpos, ypos);
-				game.getObserver(golMenu);
+				GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game);
+				mydesk.addChild(golChildWindow, xpos, ypos);
+				game.getObserver(golChildWindow);
 				xpos += 20;
 				ypos += 20;
 			}

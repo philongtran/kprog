@@ -12,7 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
+class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 															// Kindfenster
 	/**
 	 * 
@@ -22,9 +22,9 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 	private Game game;
 	private int buttonsIndex = 0;
 
-	Menu mydesk;// Referenz auf Hauptfenster
+	MainWindow mydesk;// Referenz auf Hauptfenster
 
-	public GoLMenu(Menu dft, Game game) { // Konstruktor
+	public GoLChildWindow(MainWindow dft, Game game) { // Konstruktor
 		super("Game of Life", true, true);// vergroesserbar, schliessbar
 		// setBackground(col[nr % col.length]);// Start-Farbe
 		mydesk = dft;// Hauptfenster merken

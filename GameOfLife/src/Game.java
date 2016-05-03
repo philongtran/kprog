@@ -11,13 +11,13 @@ public class Game extends Observable {
 	private Position lu, u, ru, l, r, ld, d, rd;
 	private Position[] actualBorders = new Position[8];
 	// private int livingCells;
-	GoLMenu golMenu;
+	GoLChildWindow golCildWindow;
 	Timer timer;
 	boolean start = true;
 
-	Menu mydesk;// Referenz auf Hauptfenster
+	MainWindow mydesk;// Referenz auf Hauptfenster
 
-	public Game(Menu dft, int sizeX, int sizeY) {
+	public Game(MainWindow dft, int sizeX, int sizeY) {
 		mydesk = dft;
 		// GoLMenu golMenu = new GoLMenu(mydesk, this);
 		// mydesk.addChild(golMenu, 0, 0);
@@ -142,8 +142,8 @@ public class Game extends Observable {
 		return board.getStatus(x, y);
 	}
 
-	public void getObserver(GoLMenu golMenu) {
-		this.golMenu = golMenu;
+	public void getObserver(GoLChildWindow golMenu) {
+		this.golCildWindow = golMenu;
 		this.addObserver(golMenu);
 	}
 
