@@ -43,7 +43,10 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 			@Override
 			public void actionPerformed(ActionEvent e) {// ... fuer alle
 														// MenuItems
-				game.startPause();
+				JMenuItem item = (JMenuItem) e.getSource();
+				if (item.getActionCommand().equals("Start/Stop")) {
+					game.startPause();
+				}
 			}
 		};
 		JMenu menus = new JMenu("Modus");
