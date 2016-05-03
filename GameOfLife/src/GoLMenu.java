@@ -80,8 +80,10 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 			for (int x = 0; x < game.getSizeX(); x++) {
 				if (game.getStatus(x, y)) {
 					buttons[buttonsIndex].setBackground(Color.GREEN);
+					buttons[buttonsIndex].setForeground(Color.GREEN);
 				} else {
 					buttons[buttonsIndex].setBackground(Color.RED);
+					buttons[buttonsIndex].setForeground(Color.RED);
 				}
 				buttonsIndex++;
 			}
@@ -120,8 +122,10 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 			JButton button = (JButton) e.getSource();
 			if (game.getStatus(positionX, positionY)) {
 				button.setBackground(Color.GREEN);
+				button.setForeground(Color.GREEN);
 			} else {
 				button.setBackground(Color.RED);
+				button.setForeground(Color.RED);
 			}
 		}
 	};
@@ -133,8 +137,10 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 			for (int x = 0; x < game.getSizeX(); x++) {
 				if (game.getStatus(x, y)) {
 					buttons[buttonsIndex].setBackground(Color.GREEN);
+					buttons[buttonsIndex].setForeground(Color.GREEN);
 				} else {
 					buttons[buttonsIndex].setBackground(Color.RED);
+					buttons[buttonsIndex].setForeground(Color.RED);
 				}
 				buttonsIndex++;
 			}

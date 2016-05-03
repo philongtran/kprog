@@ -134,6 +134,8 @@ public class Game extends Observable {
 
 	public void setStatus(int x, int y, boolean status) {
 		board.setStatus(x, y, status);
+		setChanged();
+		notifyObservers();
 	}
 
 	public boolean getStatus(int x, int y) {
@@ -153,5 +155,7 @@ public class Game extends Observable {
 			start = true;
 			timer.start();
 		}
+		setChanged();
+		notifyObservers();
 	}
 }
