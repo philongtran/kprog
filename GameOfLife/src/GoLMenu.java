@@ -25,7 +25,7 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 	Menu mydesk;// Referenz auf Hauptfenster
 
 	public GoLMenu(Menu dft, Game game) { // Konstruktor
-		super("Select Game", true, true);// vergroesserbar, schliessbar
+		super("Game of Life", true, true);// vergroesserbar, schliessbar
 		// setBackground(col[nr % col.length]);// Start-Farbe
 		mydesk = dft;// Hauptfenster merken
 		// cp.setLayout(new FlowLayout());// FlowLayout
@@ -40,7 +40,7 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 
 	private void createMenu() {
 		JMenu menus = new JMenu("Modus");
-		JMenuItem items = new JMenuItem("Bearbeiten");
+		JMenuItem items = new JMenuItem("Start/Stop");
 		JMenuBar mb = new JMenuBar();
 		menus.add(items);
 		mb.add(menus);

@@ -11,11 +11,12 @@ public class Game extends Observable {
 	private Position lu, u, ru, l, r, ld, d, rd;
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
+	GoLMenu golMenu;
 
 	Menu mydesk;// Referenz auf Hauptfenster
 
-	public Game(int sizeX, int sizeY) {
-		// mydesk = dft;
+	public Game(Menu dft, int sizeX, int sizeY) {
+		mydesk = dft;
 		// GoLMenu golMenu = new GoLMenu(mydesk, this);
 		// mydesk.addChild(golMenu, 0, 0);
 		board = new Board(sizeX, sizeY);
@@ -23,7 +24,7 @@ public class Game extends Observable {
 		board.setStatus(1, 2, true);
 		board.setStatus(2, 2, true);
 		board.setStatus(3, 2, true);
-		Display display = new Display(board);
+		// Display display = new Display(board);
 
 		// timer which sends an action every 1sec.
 		int delay = 1000; // milliseconds
@@ -34,7 +35,8 @@ public class Game extends Observable {
 			}
 		};
 		new Timer(delay, taskPerformer).start();
-		this.addObserver(display);
+
+		// this.addObserver(display);
 	}
 
 	private void run() {
@@ -132,5 +134,10 @@ public class Game extends Observable {
 
 	public boolean getStatus(int x, int y) {
 		return board.getStatus(x, y);
+	}
+
+	public void getObserver(GoLMenu golMenu) {
+		this.golMenu = golMenu;
+		this.addObserver(golMenu);
 	}
 }
