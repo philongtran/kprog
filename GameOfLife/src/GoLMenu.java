@@ -39,8 +39,16 @@ class GoLMenu extends JInternalFrame implements Observer { // Klasse fuer
 	} // end Konstruktor
 
 	private void createMenu() {
+		ActionListener al = new ActionListener() {// AL als anonyme Klasse
+			@Override
+			public void actionPerformed(ActionEvent e) {// ... fuer alle
+														// MenuItems
+				game.startPause();
+			}
+		};
 		JMenu menus = new JMenu("Modus");
 		JMenuItem items = new JMenuItem("Start/Stop");
+		items.addActionListener(al);
 		JMenuBar mb = new JMenuBar();
 		menus.add(items);
 		mb.add(menus);

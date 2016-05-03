@@ -12,6 +12,8 @@ public class Game extends Observable {
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
 	GoLMenu golMenu;
+	Timer timer;
+	boolean start = true;
 
 	Menu mydesk;// Referenz auf Hauptfenster
 
@@ -34,7 +36,8 @@ public class Game extends Observable {
 				run();
 			}
 		};
-		new Timer(delay, taskPerformer).start();
+		timer = new Timer(delay, taskPerformer);
+		timer.start();
 
 		// this.addObserver(display);
 	}
@@ -139,5 +142,15 @@ public class Game extends Observable {
 	public void getObserver(GoLMenu golMenu) {
 		this.golMenu = golMenu;
 		this.addObserver(golMenu);
+	}
+
+	public void startPause() {
+		if (start) {
+			start = false;
+			timer.stop();
+		} else {
+			start = true;
+			timer.start();
+		}
 	}
 }
