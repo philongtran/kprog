@@ -12,7 +12,12 @@ public class Game extends Observable {
 	private Position[] actualBorders = new Position[8];
 	private int livingCells;
 
+	Menu mydesk;// Referenz auf Hauptfenster
+
 	public Game(int sizeX, int sizeY) {
+		// mydesk = dft;
+		// GoLMenu golMenu = new GoLMenu(mydesk, this);
+		// mydesk.addChild(golMenu, 0, 0);
 		board = new Board(sizeX, sizeY);
 		temporaryBoard = new Board(sizeX, sizeY);
 		board.setStatus(1, 2, true);
@@ -111,5 +116,21 @@ public class Game extends Observable {
 		actualBorders[5] = ld;
 		actualBorders[6] = d;
 		actualBorders[7] = rd;
+	}
+
+	public int getSizeX() {
+		return board.getSizeX();
+	}
+
+	public int getSizeY() {
+		return board.getSizeY();
+	}
+
+	public void setStatus(int x, int y, boolean status) {
+		board.setStatus(x, y, status);
+	}
+
+	public boolean getStatus(int x, int y) {
+		return board.getStatus(x, y);
 	}
 }
