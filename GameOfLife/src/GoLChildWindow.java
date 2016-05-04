@@ -46,14 +46,19 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 				JMenuItem item = (JMenuItem) e.getSource();
 				if (item.getActionCommand().equals("Start/Stop")) {
 					game.startPause();
+				} else if (item.getActionCommand().equals("Exit")) {
+					System.exit(0);
 				}
 			}
 		};
 		JMenu menus = new JMenu("Modus");
 		JMenuItem items = new JMenuItem("Start/Stop");
+		JMenuItem items2 = new JMenuItem("Exit");
 		items.addActionListener(al);
+		items2.addActionListener(al);
 		JMenuBar mb = new JMenuBar();
 		menus.add(items);
+		menus.add(items2);
 		mb.add(menus);
 		setJMenuBar(mb);
 	}
@@ -94,7 +99,7 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 		buttonsIndex = 0;
 	}
 
-	ActionListener al = new ActionListener() {
+	private ActionListener al = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -149,7 +154,6 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 			}
 		}
 		buttonsIndex = 0;
-
 	}
 
 } // end class ChildFrame
