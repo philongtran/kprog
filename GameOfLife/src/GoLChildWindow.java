@@ -13,7 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
-															// Kindfenster
+	// Kindfenster
 	/**
 	 * 
 	 */
