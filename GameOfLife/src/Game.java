@@ -15,7 +15,7 @@ public class Game extends Observable {
 	Timer timer;
 	boolean start = true;
 	// timer which sends an action every 1sec.
-	int delay = 1000; // milliseconds
+	int delay = 500; // milliseconds
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
 
@@ -173,7 +173,7 @@ public class Game extends Observable {
 	}
 
 	public void resetDelay() {
-		timer.setDelay(1000);
+		timer.setDelay(500);
 		setChanged();
 		notifyObservers();
 	}
