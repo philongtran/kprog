@@ -14,6 +14,8 @@ public class Game extends Observable {
 	GoLChildWindow golCildWindow;
 	Timer timer;
 	boolean start = true;
+	// timer which sends an action every 1sec.
+	int delay = 1000; // milliseconds
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
 
@@ -28,8 +30,6 @@ public class Game extends Observable {
 		board.setStatus(3, 2, true);
 		// Display display = new Display(board);
 
-		// timer which sends an action every 1sec.
-		int delay = 1000; // milliseconds
 		ActionListener taskPerformer = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
@@ -155,6 +155,22 @@ public class Game extends Observable {
 			start = true;
 			timer.start();
 		}
+		setChanged();
+		notifyObservers();
+	}
+
+	public void slower() {
+		if (delay > 200) {
+			delay -= 100;
+			timer.setDelay(delay);
+			setChanged();
+			notifyObservers();
+		}
+	}
+
+	public void faster() {
+		delay += 100;
+		timer.setDelay(delay);
 		setChanged();
 		notifyObservers();
 	}
