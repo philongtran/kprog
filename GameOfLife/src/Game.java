@@ -145,6 +145,11 @@ public class Game extends Observable {
 		this.addObserver(golMenu);
 	}
 
+	public void getObserverLeft(GoLViewLeft golMenu) {
+		// this.golCildWindow = golMenu;
+		this.addObserver(golMenu);
+	}
+
 	public void startPause() {
 		if (start) {
 			start = false;

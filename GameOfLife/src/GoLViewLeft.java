@@ -12,8 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
-																	// fuer
+class GoLViewLeft extends JInternalFrame implements Observer { // Klasse fuer
 	// Kindfenster
 	/**
 	 * 
@@ -25,9 +24,9 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
 
-	public GoLChildWindow(MainWindow dft, Game game) { // Konstruktor
-		super("Game of Life " + game.golWindowNumber, true, true);// vergroesserbar,
-																	// schliessbar
+	public GoLViewLeft(MainWindow dft, Game game) { // Konstruktor
+		super("Game of Life " + game.golWindowNumber + " - Left", true, true);// vergroesserbar,
+		// schliessbar
 		// setBackground(col[nr % col.length]);// Start-Farbe
 		mydesk = dft;// Hauptfenster merken
 		// cp.setLayout(new FlowLayout());// FlowLayout
@@ -60,13 +59,6 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 					game.addBlinker();
 				} else if (item.getActionCommand().equals("Gleiter")) {
 					game.addGlider();
-				} else if (item.getActionCommand().equals("Sicht nach Links")) {
-					GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game);
-					mydesk.addChildGoL(golChildWindow, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800,
-							600);
-					game.getObserverLeft(golChildWindow);
-					GameSelectChildWindow.xpos += 20;
-					GameSelectChildWindow.ypos += 20;
 				}
 			}
 		};
@@ -80,9 +72,8 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
 				new JMenu("Figuren") };
 		JMenuItem[] menuItems = { new JMenuItem("Start/Stop"), new JMenuItem("Exit"), new JMenuItem("Schneller"),
-				new JMenuItem("Langsamer"), new JMenuItem("Reset"), new JMenuItem("Sicht nach Links"),
-				new JMenuItem("Sicht nach Rechts"), new JMenuItem("Sicht upside down"), new JMenuItem("Blinker"),
-				new JMenuItem("Gleiter") };
+				new JMenuItem("Langsamer"), new JMenuItem("Reset"), new JMenuItem("View"), new JMenuItem("View 2"),
+				new JMenuItem("View 3"), new JMenuItem("Blinker"), new JMenuItem("Gleiter") };
 		for (int i = 0; i < menuItems.length; i++) {
 			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 8) ? 2 : 3].add(menuItems[i]);
 			menuItems[i].addActionListener(al);
