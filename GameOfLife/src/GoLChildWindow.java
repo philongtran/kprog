@@ -49,9 +49,11 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 				} else if (item.getActionCommand().equals("Exit")) {
 					System.exit(0);
 				} else if (item.getActionCommand().equals("Schneller")) {
-					game.slower();
-				} else if (item.getActionCommand().equals("Langsamer")) {
 					game.faster();
+				} else if (item.getActionCommand().equals("Langsamer")) {
+					game.slower();
+				} else if (item.getActionCommand().equals("Blinker")) {
+					game.addBlinker();
 				}
 			}
 		};

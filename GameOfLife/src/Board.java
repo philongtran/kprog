@@ -9,6 +9,10 @@ public class Board {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		board = new boolean[sizeY][sizeX];
+		resetBoard();
+	}
+
+	public void resetBoard() {
 		for (int y = 0; y < sizeY; y++) {
 			for (int x = 0; x < sizeX; x++) {
 				board[y][x] = false;
@@ -16,6 +20,7 @@ public class Board {
 			}
 			// System.out.println();
 		}
+
 	}
 
 	public int getSizeX() {

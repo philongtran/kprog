@@ -25,9 +25,6 @@ public class Game extends Observable {
 		// mydesk.addChild(golMenu, 0, 0);
 		board = new Board(sizeX, sizeY);
 		temporaryBoard = new Board(sizeX, sizeY);
-		board.setStatus(1, 2, true);
-		board.setStatus(2, 2, true);
-		board.setStatus(3, 2, true);
 		// Display display = new Display(board);
 
 		ActionListener taskPerformer = new ActionListener() {
@@ -160,7 +157,14 @@ public class Game extends Observable {
 	}
 
 	public void slower() {
-		if (delay > 200) {
+		delay += 100;
+		timer.setDelay(delay);
+		setChanged();
+		notifyObservers();
+	}
+
+	public void faster() {
+		if (delay >= 200) {
 			delay -= 100;
 			timer.setDelay(delay);
 			setChanged();
@@ -168,9 +172,11 @@ public class Game extends Observable {
 		}
 	}
 
-	public void faster() {
-		delay += 100;
-		timer.setDelay(delay);
+	public void addBlinker() {
+		board.resetBoard();
+		board.setStatus(1, 2, true);
+		board.setStatus(2, 2, true);
+		board.setStatus(3, 2, true);
 		setChanged();
 		notifyObservers();
 	}
