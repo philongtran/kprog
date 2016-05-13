@@ -16,7 +16,7 @@ public class Game extends Observable {
 	private boolean start = true;
 	// timer which sends an action every 1sec.
 	private int delay = 500; // milliseconds
-	private int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
+	public int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
 
