@@ -25,7 +25,8 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 	MainWindow mydesk;// Referenz auf Hauptfenster
 
 	public GoLChildWindow(MainWindow dft, Game game) { // Konstruktor
-		super("Game of Life", true, true);// vergroesserbar, schliessbar
+		super("Game of Life " + GameOfLife.GOLWINDOWNUMBER, true, true);// vergroesserbar,
+																		// schliessbar
 		// setBackground(col[nr % col.length]);// Start-Farbe
 		mydesk = dft;// Hauptfenster merken
 		// cp.setLayout(new FlowLayout());// FlowLayout

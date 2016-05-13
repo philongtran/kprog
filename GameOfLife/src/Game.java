@@ -11,11 +11,12 @@ public class Game extends Observable {
 	private Position lu, u, ru, l, r, ld, d, rd;
 	private Position[] actualBorders = new Position[8];
 	// private int livingCells;
-	GoLChildWindow golCildWindow;
-	Timer timer;
-	boolean start = true;
+	public GoLChildWindow golCildWindow;
+	private Timer timer;
+	private boolean start = true;
 	// timer which sends an action every 1sec.
-	int delay = 500; // milliseconds
+	private int delay = 500; // milliseconds
+	private int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
 

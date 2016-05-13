@@ -1,6 +1,8 @@
 
 public class GameOfLife {
 
+	public static int GOLWINDOWNUMBER = 1;
+
 	public static void main(String[] args) {
 		// new Game(5, 5);
 		MainWindow mainWindow = new MainWindow();

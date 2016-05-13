@@ -34,6 +34,7 @@ class GameSelectChildWindow extends JInternalFrame { // Klasse fuer Kindfenster
 				game.getObserver(golChildWindow);
 				xpos += 20;
 				ypos += 20;
+				GameOfLife.GOLWINDOWNUMBER++;
 			}
 		});
 		setIconifiable(true);
