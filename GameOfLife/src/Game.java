@@ -172,6 +172,12 @@ public class Game extends Observable {
 		}
 	}
 
+	public void resetDelay() {
+		timer.setDelay(1000);
+		setChanged();
+		notifyObservers();
+	}
+
 	public void addBlinker() {
 		board.resetBoard();
 		board.setStatus(1, 2, true);
