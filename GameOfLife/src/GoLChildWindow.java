@@ -54,6 +54,8 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 					game.slower();
 				} else if (item.getActionCommand().equals("Blinker")) {
 					game.addBlinker();
+				} else if (item.getActionCommand().equals("Gleiter")) {
+					game.addGlider();
 				}
 			}
 		};
@@ -68,7 +70,7 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse fuer
 				new JMenu("Figuren") };
 		JMenuItem[] menuItems = { new JMenuItem("Start/Stop"), new JMenuItem("Exit"), new JMenuItem("Schneller"),
 				new JMenuItem("Langsamer"), new JMenuItem("View"), new JMenuItem("View 2"), new JMenuItem("View 3"),
-				new JMenuItem("Blinker") };
+				new JMenuItem("Blinker"), new JMenuItem("Gleiter") };
 		for (int i = 0; i < menuItems.length; i++) {
 			menus[(i < 2) ? 0 : (i < 4) ? 1 : (i < 7) ? 2 : 3].add(menuItems[i]);
 			menuItems[i].addActionListener(al);

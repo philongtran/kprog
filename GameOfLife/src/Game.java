@@ -180,4 +180,15 @@ public class Game extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+
+	public void addGlider() {
+		board.resetBoard();
+		board.setStatus(1, 3, true);
+		board.setStatus(2, 3, true);
+		board.setStatus(3, 3, true);
+		board.setStatus(3, 2, true);
+		board.setStatus(2, 1, true);
+		setChanged();
+		notifyObservers();
+	}
 }
