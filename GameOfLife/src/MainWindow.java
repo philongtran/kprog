@@ -25,4 +25,12 @@ public class MainWindow extends JApplet {
 		child.setVisible(true);// und sichtbar machen
 	} // end addChild
 
+	public void addChildGoL(JInternalFrame child, int x, int y) {// Hinzufuegen
+		child.setLocation(x, y);// Ort und
+		child.setSize(800, 600);// Groessesetzen
+		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);// Schiessoperation
+		desk.add(child);// Kindfenstereinfuegen
+		child.setVisible(true);// und sichtbar machen
+	} // end addChild
+
 }
