@@ -1,6 +1,5 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
@@ -8,7 +7,8 @@ public class Game extends Observable {
 
 	private Board board;
 	private Board temporaryBoard;
-	private Position lu, u, ru, l, r, ld, d, rd;
+	private Position leftUpperCorner, upperCorner, rightUpperCorner, leftCorner, rightCorner, leftBottomCorner,
+			bottomCorner, rightBottomCorner;
 	private Position[] actualBorders = new Position[8];
 	// private int livingCells;
 	public GoLChildWindow golCildWindow;
@@ -19,6 +19,7 @@ public class Game extends Observable {
 	public int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
+	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
 
 	public Game(MainWindow dft, int sizeX, int sizeY) {
 		mydesk = dft;
@@ -27,31 +28,21 @@ public class Game extends Observable {
 		board = new Board(sizeX, sizeY);
 		temporaryBoard = new Board(sizeX, sizeY);
 		// Display display = new Display(board);
-
-		ActionListener taskPerformer = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent evt) {
-				run();
-			}
-		};
-		timer = new Timer(delay, taskPerformer);
-		timer.start();
-
 		// this.addObserver(display);
+		timer = new Timer(ONESECOND, taskPerformer -> {
+			run();
+		});
+		timer.start();
 	}
 
 	private void run() {
+		cloneBoard();
+
 		int livingCells = 0;
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
-				temporaryBoard.setStatus(x, y, board.getStatus(x, y));
-			}
-		}
-
-		for (int y = 0; y < board.getSizeY(); y++) {
-			for (int x = 0; x < board.getSizeX(); x++) {
-				getBorderPosition(x, y);
-				for (int i = 0; i < 8; i++) {
+				calculateBorders(x, y);
+				for (int i = 0; i < actualBorders.length; i++) {
 					if (board.getStatus(actualBorders[i].getPositionX(), actualBorders[i].getPositionY())) {
 						livingCells++;
 					}
@@ -78,7 +69,15 @@ public class Game extends Observable {
 		notifyObservers();
 	}
 
-	private void getBorderPosition(int x, int y) {
+	private void cloneBoard() {
+		for (int y = 0; y < board.getSizeY(); y++) {
+			for (int x = 0; x < board.getSizeX(); x++) {
+				temporaryBoard.setStatus(x, y, board.getStatus(x, y));
+			}
+		}
+	}
+
+	private void calculateBorders(int x, int y) {
 		int newXLeft, newYUp, newXRight, newYDown;
 
 		if (x - 1 < 0) {
@@ -103,23 +102,23 @@ public class Game extends Observable {
 			newYDown = y + 1;
 		}
 
-		lu = new Position(newXLeft, newYUp);
-		u = new Position(x, newYUp);
-		ru = new Position(newXRight, newYUp);
-		l = new Position(newXLeft, y);
-		r = new Position(newXRight, y);
-		ld = new Position(newXLeft, newYDown);
-		d = new Position(x, newYDown);
-		rd = new Position(newXRight, newYDown);
+		leftUpperCorner = new Position(newXLeft, newYUp);
+		upperCorner = new Position(x, newYUp);
+		rightUpperCorner = new Position(newXRight, newYUp);
+		leftCorner = new Position(newXLeft, y);
+		rightCorner = new Position(newXRight, y);
+		leftBottomCorner = new Position(newXLeft, newYDown);
+		bottomCorner = new Position(x, newYDown);
+		rightBottomCorner = new Position(newXRight, newYDown);
 
-		actualBorders[0] = lu;
-		actualBorders[1] = u;
-		actualBorders[2] = ru;
-		actualBorders[3] = l;
-		actualBorders[4] = r;
-		actualBorders[5] = ld;
-		actualBorders[6] = d;
-		actualBorders[7] = rd;
+		actualBorders[0] = leftUpperCorner;
+		actualBorders[1] = upperCorner;
+		actualBorders[2] = rightUpperCorner;
+		actualBorders[3] = leftCorner;
+		actualBorders[4] = rightCorner;
+		actualBorders[5] = leftBottomCorner;
+		actualBorders[6] = bottomCorner;
+		actualBorders[7] = rightBottomCorner;
 	}
 
 	public int getSizeX() {

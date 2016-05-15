@@ -13,9 +13,6 @@ import javax.swing.JMenuItem;
 
 public class Display extends JFrame implements Observer {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JFrame frame;
@@ -83,7 +80,6 @@ public class Display extends JFrame implements Observer {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			boolean x = true;
 			String coordinates = e.getActionCommand();
 			String spositionX = "";
@@ -118,7 +114,6 @@ public class Display extends JFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
 				if (board.getStatus(x, y)) {
