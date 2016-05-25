@@ -6,7 +6,6 @@ import javax.swing.Timer;
 public class Game extends Observable {
 
 	private Board board;
-	private Board temporaryBoard;
 	private Position leftUpperCorner, upperCorner, rightUpperCorner, leftCorner, rightCorner, leftBottomCorner,
 			bottomCorner, rightBottomCorner;
 	private Position[] actualBorders = new Position[8];
@@ -26,7 +25,6 @@ public class Game extends Observable {
 		// GoLMenu golMenu = new GoLMenu(mydesk, this);
 		// mydesk.addChild(golMenu, 0, 0);
 		board = new Board(sizeX, sizeY);
-		temporaryBoard = new Board(sizeX, sizeY);
 		// Display display = new Display(board);
 		// this.addObserver(display);
 		timer = new Timer(ONESECOND, taskPerformer -> {
@@ -36,14 +34,15 @@ public class Game extends Observable {
 	}
 
 	private void run() {
-		cloneBoard();
 
 		int livingCells = 0;
+		Board temporaryBoard = board.copy();
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
 				calculateBorders(x, y);
 				for (int i = 0; i < actualBorders.length; i++) {
-					if (board.getStatus(actualBorders[i].getPositionX(), actualBorders[i].getPositionY())) {
+					Position border = actualBorders[i];
+					if (board.getStatus(border.getPositionX(), border.getPositionY())) {
 						livingCells++;
 					}
 				}
@@ -67,14 +66,6 @@ public class Game extends Observable {
 		}
 		setChanged();
 		notifyObservers();
-	}
-
-	private void cloneBoard() {
-		for (int y = 0; y < board.getSizeY(); y++) {
-			for (int x = 0; x < board.getSizeX(); x++) {
-				temporaryBoard.setStatus(x, y, board.getStatus(x, y));
-			}
-		}
 	}
 
 	private void calculateBorders(int x, int y) {

@@ -39,4 +39,19 @@ public class Board {
 		return board[y][x];
 	}
 
+	/**
+	 * Copies the current state of the board in a new instance
+	 * 
+	 * @return a copy of the current board
+	 */
+	public Board copy() {
+		Board copiedBoard = new Board(getSizeX(), getSizeY());
+		for (int y = 0; y < getSizeY(); y++) {
+			for (int x = 0; x < getSizeX(); x++) {
+				copiedBoard.setStatus(x, y, getStatus(x, y));
+			}
+		}
+		return copiedBoard;
+	}
+
 }
