@@ -17,6 +17,7 @@ public class Game extends Observable {
 	// timer which sends an action every 1sec.
 	private int delay = 500; // milliseconds
 	public int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
+	private boolean running = true;
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
 	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
@@ -157,6 +158,7 @@ public class Game extends Observable {
 			start = true;
 			timer.start();
 		}
+		running = !running;
 		setChanged();
 		notifyObservers();
 	}
@@ -201,5 +203,9 @@ public class Game extends Observable {
 		board.setStatus(2, 1, true);
 		setChanged();
 		notifyObservers();
+	}
+
+	public boolean isRunning() {
+		return running;
 	}
 }
