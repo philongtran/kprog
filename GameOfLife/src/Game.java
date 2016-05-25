@@ -17,11 +17,9 @@ public class Game extends Observable {
 	private int delay = 500; // milliseconds
 	public int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
 
-	MainWindow mydesk;// Referenz auf Hauptfenster
 	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
 
-	public Game(MainWindow dft, int sizeX, int sizeY) {
-		mydesk = dft;
+	public Game(int sizeX, int sizeY) {
 		// GoLMenu golMenu = new GoLMenu(mydesk, this);
 		// mydesk.addChild(golMenu, 0, 0);
 		board = new Board(sizeX, sizeY);
