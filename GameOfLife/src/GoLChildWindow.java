@@ -107,7 +107,9 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 				JButton button = new JButton(x + "," + y);
 				buttons[buttonsIndex] = button;
 				add(button);
-				button.addActionListener(al);
+				button.addActionListener(cellButtonClickListenerEvent -> {
+					onCellButtonClick(cellButtonClickListenerEvent);
+				});
 				buttonsIndex++;
 			}
 		}
@@ -130,44 +132,39 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 		buttonsIndex = 0;
 	}
 
-	private ActionListener al = new ActionListener() {
+	private void onCellButtonClick(ActionEvent e) {
+		boolean x = true;
+		String coordinates = e.getActionCommand();
+		String spositionX = "";
+		String spositionY = "";
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			boolean x = true;
-			String coordinates = e.getActionCommand();
-			String spositionX = "";
-			String spositionY = "";
+		int positionX;
+		int positionY;
 
-			int positionX;
-			int positionY;
-
-			for (int i = 0; i < coordinates.length(); i++) {
-				if (coordinates.substring(i, i + 1).equals(",")) {
-					x = false;
-					i++;
-				}
-				if (x) {
-					spositionX = spositionX + (coordinates.substring(i, i + 1));
-				} else {
-					spositionY = spositionY + (coordinates.substring(i, i + 1));
-				}
+		for (int i = 0; i < coordinates.length(); i++) {
+			if (coordinates.substring(i, i + 1).equals(",")) {
+				x = false;
+				i++;
 			}
-			positionX = Integer.parseInt(spositionX);
-			positionY = Integer.parseInt(spositionY);
-			game.setStatus(positionX, positionY, !game.getStatus(positionX, positionY));
-
-			JButton button = (JButton) e.getSource();
-			if (game.getStatus(positionX, positionY)) {
-				button.setBackground(Color.GREEN);
-				button.setForeground(Color.GREEN);
+			if (x) {
+				spositionX = spositionX + (coordinates.substring(i, i + 1));
 			} else {
-				button.setBackground(Color.RED);
-				button.setForeground(Color.RED);
+				spositionY = spositionY + (coordinates.substring(i, i + 1));
 			}
 		}
-	};
+		positionX = Integer.parseInt(spositionX);
+		positionY = Integer.parseInt(spositionY);
+		game.setStatus(positionX, positionY, !game.getStatus(positionX, positionY));
+
+		JButton button = (JButton) e.getSource();
+		if (game.getStatus(positionX, positionY)) {
+			button.setBackground(Color.GREEN);
+			button.setForeground(Color.GREEN);
+		} else {
+			button.setBackground(Color.RED);
+			button.setForeground(Color.RED);
+		}
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
