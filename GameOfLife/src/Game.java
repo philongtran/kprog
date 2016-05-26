@@ -117,7 +117,7 @@ public class Game extends Observable {
 	}
 
 	public void addBlinker() {
-		board.resetBoard();
+		board.reset();
 		board.setStatus(1, 2, true);
 		board.setStatus(2, 2, true);
 		board.setStatus(3, 2, true);
@@ -126,7 +126,7 @@ public class Game extends Observable {
 	}
 
 	public void addGlider() {
-		board.resetBoard();
+		board.reset();
 		board.setStatus(1, 3, true);
 		board.setStatus(2, 3, true);
 		board.setStatus(3, 3, true);
