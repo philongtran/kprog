@@ -1,4 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Class is responsible for holding the information about the positions of
+ * borders of any given cell
+ */
 public class Borders {
 
 	private final Position leftUpperCorner, upperCorner, rightUpperCorner, leftCorner, rightCorner, leftBottomCorner,
@@ -64,36 +70,16 @@ public class Borders {
 		return borders;
 	}
 
-	public Position getLeftUpperCorner() {
-		return leftUpperCorner;
+	public List<Position> getPositions() {
+		List<Position> borders = new ArrayList<>();
+		borders.add(leftUpperCorner);
+		borders.add(upperCorner);
+		borders.add(rightUpperCorner);
+		borders.add(leftCorner);
+		borders.add(rightCorner);
+		borders.add(leftBottomCorner);
+		borders.add(bottomCorner);
+		borders.add(rightBottomCorner);
+		return borders;
 	}
-
-	public Position getUpperCorner() {
-		return upperCorner;
-	}
-
-	public Position getRightUpperCorner() {
-		return rightUpperCorner;
-	}
-
-	public Position getLeftCorner() {
-		return leftCorner;
-	}
-
-	public Position getRightCorner() {
-		return rightCorner;
-	}
-
-	public Position getLeftBottomCorner() {
-		return leftBottomCorner;
-	}
-
-	public Position getBottomCorner() {
-		return bottomCorner;
-	}
-
-	public Position getRightBottomCorner() {
-		return rightBottomCorner;
-	}
-
 }
