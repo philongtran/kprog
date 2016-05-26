@@ -48,11 +48,8 @@ public class Game extends Observable {
 				}
 			}
 		}
-		for (int y = 0; y < board.getSizeY(); y++) {
-			for (int x = 0; x < board.getSizeX(); x++) {
-				board.setStatus(x, y, temporaryBoard.getStatus(x, y));
-			}
-		}
+
+		board = temporaryBoard.copy();
 		setChanged();
 		notifyObservers();
 	}
