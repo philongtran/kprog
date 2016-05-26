@@ -32,11 +32,10 @@ public class Game extends Observable {
 	}
 
 	private void run() {
-
-		int livingCells = 0;
 		Board temporaryBoard = board.copy();
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
+				int livingCells = 0;
 				calculateBorders(x, y);
 				for (int i = 0; i < actualBorders.length; i++) {
 					Position border = actualBorders[i];
@@ -54,7 +53,6 @@ public class Game extends Observable {
 						temporaryBoard.setStatus(x, y, false);
 					}
 				}
-				livingCells = 0;
 			}
 		}
 		for (int y = 0; y < board.getSizeY(); y++) {
