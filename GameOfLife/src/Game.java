@@ -8,7 +8,7 @@ public class Game extends Observable {
 	private Board board;
 	public GoLChildWindow golCildWindow;
 	private Timer timer;
-	private boolean start = true;
+	private boolean start;
 	private int delay = 500; // milliseconds
 	public int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
 
@@ -23,7 +23,6 @@ public class Game extends Observable {
 		timer = new Timer(ONESECOND, taskPerformer -> {
 			run();
 		});
-		timer.start();
 	}
 
 	private void run() {
