@@ -22,7 +22,7 @@ class GoLViewLeft extends GoLChildWindow implements Observer {
 
 	@Override
 	protected void createCells() {
-		// do nothing
+		// do nothing - createButtons should be called later
 	}
 
 	private void createButtons() {
