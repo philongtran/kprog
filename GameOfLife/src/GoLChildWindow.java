@@ -12,14 +12,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
-																	// fuer
-	// Kindfenster
-	/**
-	 * 
-	 */
+class GoLChildWindow extends JInternalFrame implements Observer {
+
 	private static final long serialVersionUID = 1L;
-	private JButton[] buttons;
+	private JButton[][] buttons;
 	private Game game;
 	private int leftOffset;
 
@@ -106,17 +102,15 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 	}
 
 	private void createButtons() {
-		int buttonsIndex = 0;
-		buttons = new JButton[game.getSizeX() * game.getSizeY()];
+		buttons = new JButton[game.getSizeX()][game.getSizeY()];
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
 				JButton button = new JButton(x + "," + y);
-				buttons[buttonsIndex] = button;
+				buttons[x][y] = button;
 				add(button);
 				button.addActionListener(cellButtonClickListenerEvent -> {
 					onCellButtonClick(cellButtonClickListenerEvent);
 				});
-				buttonsIndex++;
 			}
 		}
 	}
@@ -161,20 +155,17 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 	}
 
 	private void setButtonBackgroundColor() {
-		int buttonsIndex = 0;
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
 				if (game.getStatus(x, y)) {
-					buttons[buttonsIndex].setBackground(Color.GREEN);
-					buttons[buttonsIndex].setForeground(Color.GREEN);
+					buttons[x][y].setBackground(Color.GREEN);
+					buttons[x][y].setForeground(Color.GREEN);
 				} else {
-					buttons[buttonsIndex].setBackground(Color.RED);
-					buttons[buttonsIndex].setForeground(Color.RED);
+					buttons[x][y].setBackground(Color.RED);
+					buttons[x][y].setForeground(Color.RED);
 				}
-				buttonsIndex++;
 			}
 		}
-		buttonsIndex = 0;
 	}
 
 	protected void setLeftOffset(int leftOffset) {
@@ -189,7 +180,7 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 		return game;
 	}
 
-	protected JButton[] getButtons() {
+	protected JButton[][] getButtons() {
 		return buttons;
 	}
 
