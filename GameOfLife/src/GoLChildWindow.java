@@ -21,7 +21,6 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 	private static final long serialVersionUID = 1L;
 	private JButton[] buttons;
 	private Game game;
-	private int buttonsIndex = 0;
 	private int leftOffset;
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
@@ -101,7 +100,13 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 		cp.setLayout(new GridLayout(game.getSizeY(), game.getSizeX()));
 	}
 
-	private void createCells() {
+	protected void createCells() {
+		createButtons();
+		setButtonBackgroundColor();
+	}
+
+	private void createButtons() {
+		int buttonsIndex = 0;
 		buttons = new JButton[game.getSizeX() * game.getSizeY()];
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
@@ -114,26 +119,9 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 				buttonsIndex++;
 			}
 		}
-
-		buttonsIndex = 0;
-		// board.setStatus(5, 5, false);
-
-		for (int y = 0; y < game.getSizeY(); y++) {
-			for (int x = 0; x < game.getSizeX(); x++) {
-				if (game.getStatus(x, y)) {
-					buttons[buttonsIndex].setBackground(Color.GREEN);
-					buttons[buttonsIndex].setForeground(Color.GREEN);
-				} else {
-					buttons[buttonsIndex].setBackground(Color.RED);
-					buttons[buttonsIndex].setForeground(Color.RED);
-				}
-				buttonsIndex++;
-			}
-		}
-		buttonsIndex = 0;
 	}
 
-	private void onCellButtonClick(ActionEvent e) {
+	protected void onCellButtonClick(ActionEvent e) {
 		boolean x = true;
 		String coordinates = e.getActionCommand();
 		String spositionX = "";
@@ -169,7 +157,11 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		setButtonBackgroundColor();
+	}
+
+	private void setButtonBackgroundColor() {
+		int buttonsIndex = 0;
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
 				if (game.getStatus(x, y)) {
@@ -191,6 +183,14 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 
 	protected int getLeftOffset() {
 		return this.leftOffset;
+	}
+
+	protected Game getGame() {
+		return game;
+	}
+
+	protected JButton[] getButtons() {
+		return buttons;
 	}
 
 } // end class ChildFrame
