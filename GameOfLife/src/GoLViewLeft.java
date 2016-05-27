@@ -30,12 +30,17 @@ class GoLViewLeft extends GoLChildWindow implements Observer {
 		buttons = new JButton[game.getSizeX()][game.getSizeY()];
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
-				JButton button = new JButton(x + "," + y);
+				int xPosition = x + getLeftOffset();
+				JButton button = new JButton(xPosition + "," + y);
 				buttons[x][y] = button;
 				add(button);
-				button.addActionListener(cellButtonClickListenerEvent -> {
-					onCellButtonClick(cellButtonClickListenerEvent);
-				});
+
+				// ignore clicks outside of game
+				if (xPosition < getGame().getSizeX()) {
+					button.addActionListener(cellButtonClickListenerEvent -> {
+						onCellButtonClick(cellButtonClickListenerEvent);
+					});
+				}
 			}
 		}
 		setButtonBackgroundColor();
@@ -47,24 +52,18 @@ class GoLViewLeft extends GoLChildWindow implements Observer {
 	}
 
 	private void setButtonBackgroundColor() {
-		setAllRed();
-
 		for (int y = 0; y < getGame().getSizeY(); y++) {
 			for (int x = 0; x < getGame().getSizeX(); x++) {
 				int currentIndex = x - getLeftOffset();
 				int xIndex = getButtonIndex(currentIndex);
+				JButton button = buttons[xIndex][y];
 				if (currentIndex >= 0 && getGame().getStatus(x, y)) {
-					buttons[xIndex][y].setBackground(Color.GREEN);
-					buttons[xIndex][y].setForeground(Color.GREEN);
+					button.setBackground(Color.GREEN);
+					button.setForeground(Color.GREEN);
+				} else {
+					button.setBackground(Color.RED);
+					button.setForeground(Color.RED);
 				}
-			}
-		}
-	}
-
-	private void setAllRed() {
-		for (int y = 0; y < getGame().getSizeY(); y++) {
-			for (int x = 0; x < getGame().getSizeX(); x++) {
-				buttons[x][y].setBackground(Color.RED);
 			}
 		}
 	}
