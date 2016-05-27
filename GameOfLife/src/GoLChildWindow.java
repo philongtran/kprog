@@ -140,13 +140,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		game.setStatus(positionX, positionY, !game.getStatus(positionX, positionY));
 
 		JButton button = (JButton) e.getSource();
-		if (game.getStatus(positionX, positionY)) {
-			button.setBackground(Color.GREEN);
-			button.setForeground(Color.GREEN);
-		} else {
-			button.setBackground(Color.RED);
-			button.setForeground(Color.RED);
-		}
+		setButtonColorBasedOnGame(button, positionX, positionY);
 	}
 
 	@Override
@@ -157,13 +151,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	private void setButtonBackgroundColor() {
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
-				if (game.getStatus(x, y)) {
-					buttons[x][y].setBackground(Color.GREEN);
-					buttons[x][y].setForeground(Color.GREEN);
-				} else {
-					buttons[x][y].setBackground(Color.RED);
-					buttons[x][y].setForeground(Color.RED);
-				}
+				setButtonColorBasedOnGame(buttons[x][y], x, y);
 			}
 		}
 	}
@@ -182,6 +170,12 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 
 	protected JButton[][] getButtons() {
 		return buttons;
+	}
+
+	private void setButtonColorBasedOnGame(JButton button, int x, int y) {
+		Color colorToSet = game.getStatus(x, y) ? Color.GREEN : Color.RED;
+		button.setBackground(colorToSet);
+		button.setForeground(colorToSet);
 	}
 
 } // end class ChildFrame
