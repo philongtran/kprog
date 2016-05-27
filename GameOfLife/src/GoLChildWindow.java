@@ -22,6 +22,7 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 	private JButton[] buttons;
 	private Game game;
 	private int buttonsIndex = 0;
+	private int leftOffset;
 
 	MainWindow mydesk;// Referenz auf Hauptfenster
 
@@ -61,7 +62,7 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 				} else if (item.getActionCommand().equals("Gleiter")) {
 					game.addGlider();
 				} else if (item.getActionCommand().equals("Sicht nach Links")) {
-					GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game);
+					GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game, getLeftOffset());
 					mydesk.addChildGoL(golChildWindow, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800,
 							600);
 					game.getObserverLeft(golChildWindow);
@@ -182,6 +183,14 @@ class GoLChildWindow extends JInternalFrame implements Observer { // Klasse
 			}
 		}
 		buttonsIndex = 0;
+	}
+
+	protected void setLeftOffset(int leftOffset) {
+		this.leftOffset = leftOffset;
+	}
+
+	protected int getLeftOffset() {
+		return this.leftOffset;
 	}
 
 } // end class ChildFrame
