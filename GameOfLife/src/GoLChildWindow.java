@@ -1,11 +1,14 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
@@ -75,10 +78,10 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		 */
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
 				new JMenu("Figuren") };
-		JMenuItem[] menuItems = { new JMenuItem("Start/Stop"), new JMenuItem("Exit"), new JMenuItem("Schneller"),
-				new JMenuItem("Langsamer"), new JMenuItem("Reset"), new JMenuItem("Sicht nach Links"),
-				new JMenuItem("Sicht nach Rechts"), new JMenuItem("Sicht upside down"), new JMenuItem("Blinker"),
-				new JMenuItem("Gleiter") };
+		JMenuItem[] menuItems = { new JMenuItem("Start/Stop", getIcon("pause-play.png")), new JMenuItem("Exit"),
+				new JMenuItem("Schneller"), new JMenuItem("Langsamer"), new JMenuItem("Reset"),
+				new JMenuItem("Sicht nach Links"), new JMenuItem("Sicht nach Rechts"),
+				new JMenuItem("Sicht upside down"), new JMenuItem("Blinker"), new JMenuItem("Gleiter") };
 		for (int i = 0; i < menuItems.length; i++) {
 			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 8) ? 2 : 3].add(menuItems[i]);
 			menuItems[i].addActionListener(al);
@@ -88,6 +91,12 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 			mb.add(menus[i]);
 		}
 		setJMenuBar(mb);
+	}
+
+	private ImageIcon getIcon(String imageName) {
+		URL imagePath = getClass().getResource("resources/icons/" + imageName);
+		Image resizedImage = new ImageIcon(imagePath).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		return new ImageIcon(resizedImage);
 	}
 
 	private void createFrame() {
