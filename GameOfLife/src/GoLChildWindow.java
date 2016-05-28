@@ -3,7 +3,6 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -40,44 +39,6 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	} // end Konstruktor
 
 	private void createMenu() {
-		ActionListener al = new ActionListener() {// AL als anonyme Klasse
-			@Override
-			public void actionPerformed(ActionEvent e) {// ... fuer alle
-														// MenuItems
-				JMenuItem item = (JMenuItem) e.getSource();
-				if (item.getActionCommand().equals("Start/Stop")) {
-					game.startPause();
-				} else if (item.getActionCommand().equals("Exit")) {
-					System.exit(0);
-				} else if (item.getActionCommand().equals("Schneller")) {
-					game.faster();
-				} else if (item.getActionCommand().equals("Langsamer")) {
-					game.slower();
-				} else if (item.getActionCommand().equals("Reset")) {
-					game.resetDelay();
-				} else if (item.getActionCommand().equals("Blinker")) {
-					game.addBlinker();
-				} else if (item.getActionCommand().equals("Gleiter")) {
-					game.addGlider();
-				} else if (item.getActionCommand().equals("Gleiterkanone")) {
-					game.addGliderCannon();
-				} else if (item.getActionCommand().equals("Sicht nach Links")) {
-					GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game, getLeftOffset());
-					mydesk.addChildGoL(golChildWindow, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800,
-							600);
-					game.getObserverLeft(golChildWindow);
-					GameSelectChildWindow.xpos += 20;
-					GameSelectChildWindow.ypos += 20;
-				}
-			}
-		};
-		/*
-		 * JMenu menus = new JMenu("Modus"); JMenuItem items = new
-		 * JMenuItem("Start/Stop"); JMenuItem items2 = new JMenuItem("Exit");
-		 * items.addActionListener(al); items2.addActionListener(al); JMenuBar
-		 * mb = new JMenuBar(); menus.add(items); menus.add(items2);
-		 * mb.add(menus);
-		 */
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
 				new JMenu("Figuren") };
 		JMenuItem[] menuItems = { new JMenuItem("Start/Stop", getIcon("pause-play.png")),
@@ -85,10 +46,14 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 				new JMenuItem("Reset"), new JMenuItem("Sicht nach Links"), new JMenuItem("Sicht nach Rechts"),
 				new JMenuItem("Sicht upside down"), new JMenuItem("Blinker"), new JMenuItem("Gleiter"),
 				new JMenuItem("Gleiterkanone") };
+
 		for (int i = 0; i < menuItems.length; i++) {
 			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 8) ? 2 : 3].add(menuItems[i]);
-			menuItems[i].addActionListener(al);
+			menuItems[i].addActionListener(menuItemClickEvent -> {
+				onMenuItemClick(menuItemClickEvent);
+			});
 		}
+
 		JMenuBar mb = new JMenuBar();
 		for (int i = 0; i < menus.length; i++) {
 			mb.add(menus[i]);
@@ -100,6 +65,34 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		URL imagePath = getClass().getResource("resources/icons/" + imageName);
 		Image resizedImage = new ImageIcon(imagePath).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		return new ImageIcon(resizedImage);
+	}
+
+	private void onMenuItemClick(ActionEvent e) {
+		JMenuItem item = (JMenuItem) e.getSource();
+		String actionCommand = item.getActionCommand();
+		if (actionCommand.equals("Start/Stop")) {
+			game.startPause();
+		} else if (actionCommand.equals("Exit")) {
+			System.exit(0);
+		} else if (actionCommand.equals("Schneller")) {
+			game.faster();
+		} else if (actionCommand.equals("Langsamer")) {
+			game.slower();
+		} else if (actionCommand.equals("Reset")) {
+			game.resetDelay();
+		} else if (actionCommand.equals("Blinker")) {
+			game.addBlinker();
+		} else if (actionCommand.equals("Gleiter")) {
+			game.addGlider();
+		} else if (actionCommand.equals("Gleiterkanone")) {
+			game.addGliderCannon();
+		} else if (actionCommand.equals("Sicht nach Links")) {
+			GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game, getLeftOffset());
+			mydesk.addChildGoL(golChildWindow, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
+			game.getObserverLeft(golChildWindow);
+			GameSelectChildWindow.xpos += 20;
+			GameSelectChildWindow.ypos += 20;
+		}
 	}
 
 	private void createFrame() {
