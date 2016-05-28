@@ -78,9 +78,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		 */
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
 				new JMenu("Figuren") };
-		JMenuItem[] menuItems = { new JMenuItem("Start/Stop", getIcon("pause-play.png")), new JMenuItem("Exit"),
-				new JMenuItem("Schneller"), new JMenuItem("Langsamer"), new JMenuItem("Reset"),
-				new JMenuItem("Sicht nach Links"), new JMenuItem("Sicht nach Rechts"),
+		JMenuItem[] menuItems = { new JMenuItem("Start/Stop", getIcon("pause-play.png")),
+				new JMenuItem("Exit", getIcon("exit.png")), new JMenuItem("Schneller"), new JMenuItem("Langsamer"),
+				new JMenuItem("Reset"), new JMenuItem("Sicht nach Links"), new JMenuItem("Sicht nach Rechts"),
 				new JMenuItem("Sicht upside down"), new JMenuItem("Blinker"), new JMenuItem("Gleiter") };
 		for (int i = 0; i < menuItems.length; i++) {
 			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 8) ? 2 : 3].add(menuItems[i]);
