@@ -134,4 +134,53 @@ public class Game extends Observable {
 		setChanged();
 		notifyObservers();
 	}
+
+	public void addGliderCannon() {
+		board.reset();
+		// square
+		board.setStatus(1, 6, true);
+		board.setStatus(2, 6, true);
+		board.setStatus(1, 7, true);
+		board.setStatus(2, 7, true);
+
+		// head
+		board.setStatus(16, 5, true);
+		board.setStatus(14, 4, true);
+		board.setStatus(13, 4, true);
+		board.setStatus(12, 5, true);
+		board.setStatus(11, 6, true);
+		board.setStatus(11, 7, true);
+		board.setStatus(11, 8, true);
+		board.setStatus(12, 9, true);
+		board.setStatus(13, 10, true);
+		board.setStatus(14, 10, true);
+		board.setStatus(15, 7, true); // eye
+		board.setStatus(16, 9, true);
+		board.setStatus(17, 6, true);
+		board.setStatus(17, 7, true);
+		board.setStatus(17, 8, true);
+		board.setStatus(18, 7, true); // nose
+		board.setStatus(21, 4, true);
+		board.setStatus(21, 5, true);
+		board.setStatus(21, 6, true);
+		board.setStatus(22, 4, true);
+		board.setStatus(22, 5, true);
+		board.setStatus(22, 6, true);
+		board.setStatus(23, 3, true);
+		board.setStatus(23, 7, true);
+		board.setStatus(25, 2, true);
+		board.setStatus(25, 3, true);
+		board.setStatus(25, 7, true);
+		board.setStatus(25, 8, true);
+
+		// cannon ball
+		board.setStatus(35, 4, true);
+		board.setStatus(35, 5, true);
+		board.setStatus(36, 4, true);
+		board.setStatus(36, 5, true);
+
+		setChanged();
+		notifyObservers();
+
+	}
 }
