@@ -1,13 +1,10 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
@@ -41,11 +38,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	private void createMenu() {
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
 				new JMenu("Figuren") };
-		JMenuItem[] menuItems = { new JMenuItem("Start/Stop", getIcon("pause-play.png")),
-				new JMenuItem("Exit", getIcon("exit.png")), new JMenuItem("Schneller"), new JMenuItem("Langsamer"),
-				new JMenuItem("Reset"), new JMenuItem("Sicht nach Links"), new JMenuItem("Sicht nach Rechts"),
-				new JMenuItem("Sicht upside down"), new JMenuItem("Blinker"), new JMenuItem("Gleiter"),
-				new JMenuItem("Gleiterkanone") };
+		JMenuItem[] menuItems = { MenuAction.START_STOP.asMenuItem(), MenuAction.EXIT.asMenuItem(),
+				MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(), MenuAction.RESET.asMenuItem(),
+				MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(),
+				MenuAction.VIEWUPSIDEDOWN.asMenuItem(), MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
+				MenuAction.GLIDERCANNON.asMenuItem() };
 
 		for (int i = 0; i < menuItems.length; i++) {
 			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 8) ? 2 : 3].add(menuItems[i]);
@@ -61,37 +58,46 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		setJMenuBar(mb);
 	}
 
-	private ImageIcon getIcon(String imageName) {
-		URL imagePath = getClass().getResource("resources/icons/" + imageName);
-		Image resizedImage = new ImageIcon(imagePath).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-		return new ImageIcon(resizedImage);
-	}
-
 	private void onMenuItemClick(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
-		String actionCommand = item.getActionCommand();
-		if (actionCommand.equals("Start/Stop")) {
-			game.startPause();
-		} else if (actionCommand.equals("Exit")) {
-			System.exit(0);
-		} else if (actionCommand.equals("Schneller")) {
-			game.faster();
-		} else if (actionCommand.equals("Langsamer")) {
-			game.slower();
-		} else if (actionCommand.equals("Reset")) {
-			game.resetDelay();
-		} else if (actionCommand.equals("Blinker")) {
+		switch (MenuAction.of(item.getActionCommand())) {
+		case BLINKER:
 			game.addBlinker();
-		} else if (actionCommand.equals("Gleiter")) {
+			break;
+		case EXIT:
+			System.exit(0);
+			break;
+		case FASTER:
+			game.faster();
+			break;
+		case GLIDER:
 			game.addGlider();
-		} else if (actionCommand.equals("Gleiterkanone")) {
+			break;
+		case GLIDERCANNON:
 			game.addGliderCannon();
-		} else if (actionCommand.equals("Sicht nach Links")) {
+			break;
+		case LEFTVIEW:
 			GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game, getLeftOffset());
 			mydesk.addChildGoL(golChildWindow, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
 			game.getObserverLeft(golChildWindow);
 			GameSelectChildWindow.xpos += 20;
 			GameSelectChildWindow.ypos += 20;
+			break;
+		case RESET:
+			game.resetDelay();
+			break;
+		case RIGHTVIEW:
+			break;
+		case SLOWER:
+			game.slower();
+			break;
+		case START_STOP:
+			game.startPause();
+			break;
+		case VIEWUPSIDEDOWN:
+			break;
+		default:
+			break;
 		}
 	}
 
