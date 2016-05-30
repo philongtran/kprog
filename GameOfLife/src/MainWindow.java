@@ -31,6 +31,8 @@ public class MainWindow extends JApplet {
 		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);// Schiessoperation
 		desk.add(child);// Kindfenstereinfuegen
 		child.setVisible(true);// und sichtbar machen
+		GameSelectChildWindow.xpos += 20;
+		GameSelectChildWindow.ypos += 20;
 	} // end addChild
 
 }

@@ -16,13 +16,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	private static final long serialVersionUID = 1L;
 	private JButton[][] buttons;
 	private Game game;
-	private int leftOffset;
+	private int leftOffset, rightOffset;
+	private MainWindow mydesk;// Referenz auf Hauptfenster
 
-	MainWindow mydesk;// Referenz auf Hauptfenster
-
-	public GoLChildWindow(MainWindow dft, Game game) { // Konstruktor
-		super("Game of Life " + game.golWindowNumber, true, true);// vergroesserbar,
-																	// schliessbar
+	public GoLChildWindow(MainWindow dft, Game game) {
+		super("Game of Life " + game.golWindowNumber, true, true);
 		// setBackground(col[nr % col.length]);// Start-Farbe
 		mydesk = dft;// Hauptfenster merken
 		// cp.setLayout(new FlowLayout());// FlowLayout
@@ -33,7 +31,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		createMenu();
 		createFrame();
 		createCells();
-	} // end Konstruktor
+	}
 
 	private void createMenu() {
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
@@ -79,14 +77,15 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		case LEFTVIEW:
 			GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game, getLeftOffset());
 			mydesk.addChildGoL(golChildWindow, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
-			game.getObserverLeft(golChildWindow);
-			GameSelectChildWindow.xpos += 20;
-			GameSelectChildWindow.ypos += 20;
+			game.addObserver(golChildWindow);
 			break;
 		case RESET:
 			game.resetDelay();
 			break;
 		case RIGHTVIEW:
+			GoLViewRight viewRight = new GoLViewRight(mydesk, game, getRightOffset());
+			mydesk.addChildGoL(viewRight, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
+			game.addObserver(viewRight);
 			break;
 		case SLOWER:
 			game.slower();
@@ -169,6 +168,18 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 
 	protected int getLeftOffset() {
 		return this.leftOffset;
+	}
+
+	protected void setLeftOffset(int offset) {
+		leftOffset = offset;
+	}
+
+	protected int getRightOffset() {
+		return this.rightOffset;
+	}
+
+	protected void setRightOffset(int offset) {
+		rightOffset = offset;
 	}
 
 	protected Game getGame() {

@@ -4,13 +4,14 @@ import java.util.Observer;
 
 import javax.swing.JButton;
 
-class GoLViewLeft extends GoLChildWindow implements Observer {
+public class GoLViewRight extends GoLChildWindow implements Observer {
+
 	private static final long serialVersionUID = 1L;
 	private JButton[][] buttons;
 
-	public GoLViewLeft(MainWindow dft, Game game, int offset) {
+	public GoLViewRight(MainWindow dft, Game game, int offset) {
 		super(dft, game);
-		setLeftOffset(offset + 1);
+		setRightOffset(offset + 1);
 		createButtons();
 	}
 
@@ -24,13 +25,13 @@ class GoLViewLeft extends GoLChildWindow implements Observer {
 		buttons = new JButton[game.getSizeX()][game.getSizeY()];
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
-				int xPosition = x + getLeftOffset();
+				int xPosition = x - getRightOffset();
 				JButton button = new JButton(xPosition + "," + y);
 				buttons[x][y] = button;
 				add(button);
 
 				// ignore clicks outside of game
-				if (xPosition < getGame().getSizeX()) {
+				if (xPosition >= 0) {
 					button.addActionListener(cellButtonClickListenerEvent -> {
 						onCellButtonClick(cellButtonClickListenerEvent);
 					});
@@ -48,7 +49,7 @@ class GoLViewLeft extends GoLChildWindow implements Observer {
 	private void setButtonBackgroundColor() {
 		for (int y = 0; y < getGame().getSizeY(); y++) {
 			for (int x = 0; x < getGame().getSizeX(); x++) {
-				int currentIndex = x - getLeftOffset();
+				int currentIndex = x + getRightOffset();
 				int xIndex = getButtonIndex(currentIndex);
 				JButton button = buttons[xIndex][y];
 				if (currentIndex >= 0 && getGame().getStatus(x, y)) {
@@ -63,10 +64,10 @@ class GoLViewLeft extends GoLChildWindow implements Observer {
 	}
 
 	private int getButtonIndex(int currentIndex) {
-		if (currentIndex < 0) {
-			return 0;
+		int maxSizeX = getGame().getSizeX();
+		if (currentIndex >= maxSizeX) {
+			return maxSizeX - 1;
 		}
 		return currentIndex;
 	}
-
 }
