@@ -167,10 +167,6 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		}
 	}
 
-	protected void setLeftOffset(int leftOffset) {
-		this.leftOffset = leftOffset;
-	}
-
 	protected int getLeftOffset() {
 		return this.leftOffset;
 	}
@@ -189,4 +185,4 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		button.setForeground(colorToSet);
 	}
 
-} // end class ChildFrame
+}
