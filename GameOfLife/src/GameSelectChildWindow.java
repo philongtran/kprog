@@ -31,7 +31,7 @@ class GameSelectChildWindow extends JInternalFrame { // Klasse fuer Kindfenster
 				Game game = new Game(50, 50);
 				GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game);
 				mydesk.addChildGoL(golChildWindow, xpos, ypos, 800, 600);
-				game.getObserver(golChildWindow);
+				game.addObserver(golChildWindow);
 				GameOfLife.GOLWINDOWNUMBER++;
 			}
 		});

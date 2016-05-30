@@ -6,7 +6,6 @@ import javax.swing.Timer;
 public class Game extends Observable {
 
 	private Board board;
-	public GoLChildWindow golCildWindow;
 	private Timer timer;
 	private boolean start;
 	private int delay = 500; // milliseconds
@@ -69,11 +68,6 @@ public class Game extends Observable {
 
 	public boolean getStatus(int x, int y) {
 		return board.getStatus(x, y);
-	}
-
-	public void getObserver(GoLChildWindow golMenu) {
-		this.golCildWindow = golMenu;
-		this.addObserver(golMenu);
 	}
 
 	public void startPause() {
