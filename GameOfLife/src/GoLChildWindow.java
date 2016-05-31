@@ -18,18 +18,25 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	private Game game;
 	private int leftOffset, rightOffset;
 	private MainWindow mydesk;// Referenz auf Hauptfenster
+	private boolean rotated = false;
 
-	public GoLChildWindow(MainWindow dft, Game game) {
+	public GoLChildWindow(MainWindow dft, Game game, boolean rotated) {
 		super("Game of Life " + game.golWindowNumber, true, true);
 		// setBackground(col[nr % col.length]);// Start-Farbe
 		mydesk = dft;// Hauptfenster merken
+
+		this.rotated = rotated;
 		// cp.setLayout(new FlowLayout());// FlowLayout
 		setIconifiable(true);
 		setMaximizable(true);
 		setClosable(true);// weitere Parameter setzen
 		this.game = game;
 		createMenu();
-		createFrame();
+		if (!rotated) {
+			createFrame();
+		} else {
+			createFrameRotated();
+		}
 		createCells();
 	}
 
@@ -38,12 +45,12 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 				new JMenu("Figuren") };
 		JMenuItem[] menuItems = { MenuAction.START_STOP.asMenuItem(), MenuAction.EXIT.asMenuItem(),
 				MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(), MenuAction.RESET.asMenuItem(),
-				MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(),
-				MenuAction.VIEWUPSIDEDOWN.asMenuItem(), MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
-				MenuAction.GLIDERCANNON.asMenuItem() };
+				MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(), MenuAction.ROTATELEFT.asMenuItem(),
+				MenuAction.ROTATERIGHT.asMenuItem(), MenuAction.VIEWUPSIDEDOWN.asMenuItem(),
+				MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(), MenuAction.GLIDERCANNON.asMenuItem() };
 
 		for (int i = 0; i < menuItems.length; i++) {
-			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 8) ? 2 : 3].add(menuItems[i]);
+			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 10) ? 2 : 3].add(menuItems[i]);
 			menuItems[i].addActionListener(menuItemClickEvent -> {
 				onMenuItemClick(menuItemClickEvent);
 			});
@@ -87,6 +94,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 			mydesk.addChildGoL(viewRight, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
 			game.addObserver(viewRight);
 			break;
+		case ROTATELEFT:
+			GoLChildWindow rotateLeft = new GoLChildWindow(mydesk, game, true);
+			mydesk.addChildGoL(rotateLeft, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
+			game.addObserver(rotateLeft);
+			break;
 		case SLOWER:
 			game.slower();
 			break;
@@ -106,15 +118,40 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		cp.setLayout(new GridLayout(game.getSizeY(), game.getSizeX()));
 	}
 
+	private void createFrameRotated() {
+		Container cp = getContentPane();// Fenster-Container
+		cp.setSize(game.getSizeXRotated() * 60, game.getSizeYRotated() * 60);
+		cp.setLayout(new GridLayout(game.getSizeYRotated(), game.getSizeXRotated()));
+	}
+
 	protected void createCells() {
-		createButtons();
-		setButtonBackgroundColor();
+		if (!rotated) {
+			createButtons();
+			setButtonBackgroundColor();
+		} else {
+			createButtonsRotated();
+			setButtonBackgroundColorRotated();
+		}
 	}
 
 	private void createButtons() {
 		buttons = new JButton[game.getSizeX()][game.getSizeY()];
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
+				JButton button = new JButton(x + "," + y);
+				buttons[x][y] = button;
+				add(button);
+				button.addActionListener(cellButtonClickListenerEvent -> {
+					onCellButtonClick(cellButtonClickListenerEvent);
+				});
+			}
+		}
+	}
+
+	private void createButtonsRotated() {
+		buttons = new JButton[game.getSizeXRotated()][game.getSizeYRotated()];
+		for (int y = 0; y < game.getSizeYRotated(); y++) {
+			for (int x = 0; x < game.getSizeXRotated(); x++) {
 				JButton button = new JButton(x + "," + y);
 				buttons[x][y] = button;
 				add(button);
@@ -147,7 +184,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		}
 		positionX = Integer.parseInt(spositionX);
 		positionY = Integer.parseInt(spositionY);
-		game.setStatus(positionX, positionY, !game.getStatus(positionX, positionY));
+		if (!rotated) {
+			game.setStatus(positionX, positionY, !game.getStatus(positionX, positionY));
+		} else {
+			game.setStatusRotated(positionX, positionY, !game.getStatusRotated(positionX, positionY));
+		}
 
 		JButton button = (JButton) e.getSource();
 		setButtonColorBasedOnGame(button, positionX, positionY);
@@ -155,13 +196,26 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		setButtonBackgroundColor();
+		if (!rotated) {
+			setButtonBackgroundColor();
+		} else {
+			setButtonBackgroundColorRotated();
+		}
+		game.boardRotateLeft();
 	}
 
 	private void setButtonBackgroundColor() {
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
 				setButtonColorBasedOnGame(buttons[x][y], x, y);
+			}
+		}
+	}
+
+	private void setButtonBackgroundColorRotated() {
+		for (int y = 0; y < game.getSizeYRotated(); y++) {
+			for (int x = 0; x < game.getSizeXRotated(); x++) {
+				setButtonColorBasedOnGameRotated(buttons[x][y], x, y);
 			}
 		}
 	}
@@ -196,4 +250,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		button.setForeground(colorToSet);
 	}
 
+	private void setButtonColorBasedOnGameRotated(JButton button, int x, int y) {
+		Color colorToSet = game.getStatusRotated(x, y) ? Color.GREEN : Color.RED;
+		button.setBackground(colorToSet);
+		button.setForeground(colorToSet);
+	}
 }
