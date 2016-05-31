@@ -176,14 +176,18 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	}
 
 	protected void onCellButtonClick(ActionEvent e) {
+		onButtonAction((JButton) e.getSource());
+	}
+
+	private void onButtonAction(JButton source) {
 		boolean x = true;
-		String coordinates = e.getActionCommand();
 		String spositionX = "";
 		String spositionY = "";
 
 		int positionX;
 		int positionY;
 
+		String coordinates = source.getActionCommand();
 		for (int i = 0; i < coordinates.length(); i++) {
 			if (coordinates.substring(i, i + 1).equals(",")) {
 				x = false;
@@ -203,8 +207,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 			game.setStatusRotated(positionX, positionY, !game.getStatusRotated(positionX, positionY));
 		}
 
-		JButton button = (JButton) e.getSource();
-		setButtonColorBasedOnGame(button, positionX, positionY);
+		setButtonColorBasedOnGame(source, positionX, positionY);
 	}
 
 	@Override
@@ -275,7 +278,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 			Object source = e.getSource();
 			if (source instanceof JButton && game.getDraw()) {
 				JButton jbutton = JButton.class.cast(source);
-				System.out.println(jbutton.getActionCommand());
+				onButtonAction(jbutton);
 			}
 		}
 
