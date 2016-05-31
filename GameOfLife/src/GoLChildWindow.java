@@ -2,9 +2,9 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseMotionAdapter;
+import java.util.EventObject;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -150,33 +150,42 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		buttons = new JButton[game.getSizeX()][game.getSizeY()];
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
-				JButton button = new JButton(x + "," + y);
-				buttons[x][y] = button;
-				add(button);
-				button.addMouseMotionListener(mml);
-				button.addActionListener(cellButtonClickListenerEvent -> {
-					onCellButtonClick(cellButtonClickListenerEvent);
-				});
+				createButtonOnPosition(x, y);
 			}
 		}
+	}
+
+	private void createButtonOnPosition(int x, int y) {
+		JButton button = new JButton(x + "," + y);
+		buttons[x][y] = button;
+		add(button);
+		button.addMouseMotionListener(new MouseMotionAdapter() {
+			public void mouseMoved(MouseEvent e) {
+				if (game.getDraw()) {
+					onCellButtonAction(e);
+				}
+			};
+		});
+		button.addActionListener(cellButtonClickListenerEvent -> {
+			onCellButtonAction(cellButtonClickListenerEvent);
+		});
 	}
 
 	private void createButtonsRotated() {
 		buttons = new JButton[game.getSizeXRotated()][game.getSizeYRotated()];
 		for (int y = 0; y < game.getSizeYRotated(); y++) {
 			for (int x = 0; x < game.getSizeXRotated(); x++) {
-				JButton button = new JButton(x + "," + y);
-				buttons[x][y] = button;
-				add(button);
-				button.addActionListener(cellButtonClickListenerEvent -> {
-					onCellButtonClick(cellButtonClickListenerEvent);
-				});
+				createButtonOnPosition(x, y);
 			}
 		}
 	}
 
-	protected void onCellButtonClick(ActionEvent e) {
-		onButtonAction((JButton) e.getSource());
+	protected void onCellButtonAction(EventObject e) {
+		Object source = e.getSource();
+		if (source instanceof JButton) {
+			JButton jbutton = JButton.class.cast(source);
+			onButtonAction(jbutton);
+		}
 	}
 
 	private void onButtonAction(JButton source) {
@@ -271,16 +280,4 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		button.setBackground(colorToSet);
 		button.setForeground(colorToSet);
 	}
-
-	MouseMotionListener mml = new MouseAdapter() {
-		@Override
-		public void mouseMoved(MouseEvent e) {
-			Object source = e.getSource();
-			if (source instanceof JButton && game.getDraw()) {
-				JButton jbutton = JButton.class.cast(source);
-				onButtonAction(jbutton);
-			}
-		}
-
-	};
 }
