@@ -6,6 +6,7 @@ import javax.swing.Timer;
 public class Game extends Observable {
 
 	private Board board;
+	private Board boardRotatedLeft;
 	private Timer timer;
 	private boolean start;
 	private int delay = 500; // milliseconds
@@ -17,6 +18,7 @@ public class Game extends Observable {
 		// GoLMenu golMenu = new GoLMenu(mydesk, this);
 		// mydesk.addChild(golMenu, 0, 0);
 		board = new Board(sizeX, sizeY);
+		boardRotatedLeft = new Board(sizeY, sizeX);
 		// Display display = new Display(board);
 		// this.addObserver(display);
 		timer = new Timer(ONESECOND, taskPerformer -> {
@@ -24,8 +26,22 @@ public class Game extends Observable {
 		});
 	}
 
+	public void boardRotateLeft() {
+		int xnew = 0;
+		int ynew = 0;
+		for (int x = board.getSizeX() - 1; x >= 0; x--) {
+			for (int y = 0; y < board.getSizeY(); y++) {
+				boardRotatedLeft.setStatus(xnew, ynew, board.getStatus(x, y));
+				xnew++;
+			}
+			ynew++;
+			xnew = 0;
+		}
+	}
+
 	private void run() {
 		Board temporaryBoard = board.copy();
+		boardRotateLeft();
 		for (int y = 0; y < board.getSizeY(); y++) {
 			for (int x = 0; x < board.getSizeX(); x++) {
 				int livingCells = 0;
@@ -60,14 +76,32 @@ public class Game extends Observable {
 		return board.getSizeY();
 	}
 
+	public int getSizeXRotated() {
+		return board.getSizeY();
+	}
+
+	public int getSizeYRotated() {
+		return board.getSizeX();
+	}
+
 	public void setStatus(int x, int y, boolean status) {
 		board.setStatus(x, y, status);
 		setChanged();
 		notifyObservers();
 	}
 
+	public void setStatusRotated(int x, int y, boolean status) {
+		board.setStatus(y, x, status);
+		setChanged();
+		notifyObservers();
+	}
+
 	public boolean getStatus(int x, int y) {
 		return board.getStatus(x, y);
+	}
+
+	public boolean getStatusRotated(int x, int y) {
+		return boardRotatedLeft.getStatus(x, y);
 	}
 
 	public void startPause() {
