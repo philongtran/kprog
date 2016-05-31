@@ -273,6 +273,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			Object source = e.getSource();
+
 			if (source instanceof JButton && game.getDraw()) {
 				JButton jbutton = JButton.class.cast(source);
 				System.out.println(jbutton.getActionCommand());
