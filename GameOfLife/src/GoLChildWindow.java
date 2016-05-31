@@ -46,7 +46,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		JMenuItem[] menuItems = { MenuAction.START_STOP.asMenuItem(), MenuAction.EXIT.asMenuItem(),
 				MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(), MenuAction.RESET.asMenuItem(),
 				MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(), MenuAction.ROTATELEFT.asMenuItem(),
-				MenuAction.ROTATERIGHT.asMenuItem(), MenuAction.VIEWUPSIDEDOWN.asMenuItem(),
+				MenuAction.MAINVIEW.asMenuItem(), MenuAction.VIEWUPSIDEDOWN.asMenuItem(),
 				MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(), MenuAction.GLIDERCANNON.asMenuItem() };
 
 		for (int i = 0; i < menuItems.length; i++) {
@@ -98,6 +98,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 			GoLChildWindow rotateLeft = new GoLChildWindow(mydesk, game, true);
 			mydesk.addChildGoL(rotateLeft, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
 			game.addObserver(rotateLeft);
+			break;
+		case MAINVIEW:
+			GoLChildWindow mainView = new GoLChildWindow(mydesk, game, false);
+			mydesk.addChildGoL(mainView, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
+			game.addObserver(mainView);
 			break;
 		case SLOWER:
 			game.slower();
