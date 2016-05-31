@@ -196,12 +196,12 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		game.boardRotateLeft();
 		if (!rotated) {
 			setButtonBackgroundColor();
 		} else {
 			setButtonBackgroundColorRotated();
 		}
-		game.boardRotateLeft();
 	}
 
 	private void setButtonBackgroundColor() {

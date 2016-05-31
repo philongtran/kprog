@@ -28,7 +28,7 @@ class GameSelectChildWindow extends JInternalFrame { // Klasse fuer Kindfenster
 		jb.addActionListener(new ActionListener() {// AL fuer Farbknopf
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Game game = new Game(5, 10);
+				Game game = new Game(50, 50);
 				GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game, false);
 				mydesk.addChildGoL(golChildWindow, xpos, ypos, 800, 600);
 				game.addObserver(golChildWindow);
