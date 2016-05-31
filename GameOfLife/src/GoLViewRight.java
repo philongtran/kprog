@@ -33,7 +33,7 @@ public class GoLViewRight extends GoLChildWindow implements Observer {
 				// ignore clicks outside of game
 				if (xPosition >= 0) {
 					button.addActionListener(cellButtonClickListenerEvent -> {
-						onCellButtonClick(cellButtonClickListenerEvent);
+						onCellButtonAction(cellButtonClickListenerEvent);
 					});
 				}
 			}
