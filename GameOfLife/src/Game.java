@@ -11,6 +11,7 @@ public class Game extends Observable {
 	private boolean start;
 	private int delay = 500; // milliseconds
 	public int golWindowNumber = GameOfLife.GOLWINDOWNUMBER;
+	private boolean draw = false;
 
 	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
 
@@ -102,6 +103,16 @@ public class Game extends Observable {
 
 	public boolean getStatusRotated(int x, int y) {
 		return boardRotatedLeft.getStatus(x, y);
+	}
+
+	public void setDraw() {
+		draw = !draw;
+		setChanged();
+		notifyObservers();
+	}
+
+	public boolean getDraw() {
+		return draw;
 	}
 
 	public void startPause() {

@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -43,14 +46,15 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	private void createMenu() {
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
 				new JMenu("Figuren") };
-		JMenuItem[] menuItems = { MenuAction.START_STOP.asMenuItem(), MenuAction.EXIT.asMenuItem(),
-				MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(), MenuAction.RESET.asMenuItem(),
-				MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(), MenuAction.ROTATELEFT.asMenuItem(),
-				MenuAction.MAINVIEW.asMenuItem(), MenuAction.VIEWUPSIDEDOWN.asMenuItem(),
-				MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(), MenuAction.GLIDERCANNON.asMenuItem() };
+		JMenuItem[] menuItems = { MenuAction.START_STOP.asMenuItem(), MenuAction.DRAW.asMenuItem(),
+				MenuAction.EXIT.asMenuItem(), MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(),
+				MenuAction.RESET.asMenuItem(), MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(),
+				MenuAction.ROTATELEFT.asMenuItem(), MenuAction.MAINVIEW.asMenuItem(),
+				MenuAction.VIEWUPSIDEDOWN.asMenuItem(), MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
+				MenuAction.GLIDERCANNON.asMenuItem() };
 
 		for (int i = 0; i < menuItems.length; i++) {
-			menus[(i < 2) ? 0 : (i < 5) ? 1 : (i < 10) ? 2 : 3].add(menuItems[i]);
+			menus[(i < 3) ? 0 : (i < 6) ? 1 : (i < 11) ? 2 : 3].add(menuItems[i]);
 			menuItems[i].addActionListener(menuItemClickEvent -> {
 				onMenuItemClick(menuItemClickEvent);
 			});
@@ -112,6 +116,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 			break;
 		case VIEWUPSIDEDOWN:
 			break;
+		case DRAW:
+			game.setDraw();
+			break;
 		default:
 			break;
 		}
@@ -146,6 +153,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 				JButton button = new JButton(x + "," + y);
 				buttons[x][y] = button;
 				add(button);
+				button.addMouseMotionListener(mml);
 				button.addActionListener(cellButtonClickListenerEvent -> {
 					onCellButtonClick(cellButtonClickListenerEvent);
 				});
@@ -260,4 +268,16 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		button.setBackground(colorToSet);
 		button.setForeground(colorToSet);
 	}
+
+	MouseMotionListener mml = new MouseAdapter() {
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			Object source = e.getSource();
+			if (source instanceof JButton && game.getDraw()) {
+				JButton jbutton = JButton.class.cast(source);
+				System.out.println(jbutton.getActionCommand());
+			}
+		}
+
+	};
 }

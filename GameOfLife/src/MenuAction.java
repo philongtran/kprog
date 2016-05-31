@@ -10,7 +10,7 @@ import javax.swing.JMenuItem;
  */
 public enum MenuAction {
 
-	NONE("Unknown"), START_STOP("Start/Stop"), EXIT("Exit"), FASTER("Faster"), SLOWER("Slower"), RESET(
+	NONE("Unknown"), START_STOP("Start/Stop"), DRAW("Draw"), EXIT("Exit"), FASTER("Faster"), SLOWER("Slower"), RESET(
 			"Reset"), LEFTVIEW("Shift view to left"), RIGHTVIEW("Shift view to right"), VIEWUPSIDEDOWN(
 					"Flip View"), ROTATELEFT("Rotate view to left"), MAINVIEW(
 							"Main view"), BLINKER("Blinker"), GLIDER("Glider"), GLIDERCANNON("Glider cannon");
