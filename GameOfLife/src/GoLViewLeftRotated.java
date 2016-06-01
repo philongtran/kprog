@@ -24,8 +24,8 @@ public class GoLViewLeftRotated extends GoLChildWindow {
 	private JButton[][] rotateIt(JButton[][] unrotatedButtonsArray, int sizeX, int sizeY) {
 		rotatedButtons = new JButton[sizeX][sizeY];
 
-		for (int i = 0; i < sizeX; ++i) {
-			for (int j = 0; j < sizeY; ++j) {
+		for (int i = 0; i < sizeX; i++) {
+			for (int j = 0; j < sizeY; j++) {
 				rotatedButtons[i][j] = unrotatedButtonsArray[sizeX - j - 1][i];
 			}
 		}
