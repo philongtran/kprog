@@ -171,7 +171,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		case VIEWUPSIDEDOWN:
 			break;
 		case DRAW:
-			game.setDraw();
+			game.toggleDrawingMode();
 			break;
 		default:
 			break;
@@ -219,7 +219,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	protected void addButtonActions(JButton button) {
 		button.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseMoved(MouseEvent e) {
-				if (game.getDraw()) {
+				if (game.isDrawingMode()) {
 					onCellButtonAction(e);
 				}
 			};

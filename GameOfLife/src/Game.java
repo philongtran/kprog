@@ -101,13 +101,13 @@ public class Game extends Observable {
 		return boardRotatedLeft.getStatus(x, y);
 	}
 
-	public void setDraw() {
+	public void toggleDrawingMode() {
 		draw = !draw;
 		setChanged();
 		notifyObservers();
 	}
 
-	public boolean getDraw() {
+	public boolean isDrawingMode() {
 		return draw;
 	}
 
