@@ -22,8 +22,11 @@ public class MainWindow extends JApplet {
 	}
 
 	public void addChildGoL(JInternalFrame child, int x, int y, int sizeX, int sizeY) {
-		addChild(child, x, y);
+		child.setLocation(x, y);
 		child.setSize(sizeX, sizeY);
+		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		desk.add(child);
+		child.setVisible(true);
 		GameSelectChildWindow.xpos += 20;
 		GameSelectChildWindow.ypos += 20;
 	}
