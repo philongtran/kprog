@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.EventObject;
@@ -9,10 +10,12 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 class GoLChildWindow extends JInternalFrame implements Observer {
 
@@ -22,6 +25,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	private int leftOffset, rightOffset;
 	private MainWindow mydesk;// Referenz auf Hauptfenster
 	private boolean rotated = false;
+	private JPopupMenu popupMenu;
+	private Color aliveColor;
+	private Color deadColor;
 
 	public GoLChildWindow(MainWindow dft, Game game, boolean rotated) {
 		super("Game of Life " + game.golWindowNumber, true, true);
@@ -35,12 +41,55 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		setClosable(true);// weitere Parameter setzen
 		this.game = game;
 		createMenu();
+		createPopupMenu();
 		if (!rotated) {
 			createFrame();
 		} else {
 			createFrameRotated();
 		}
 		createCells();
+	}
+
+	private void createPopupMenu() {
+		popupMenu = new JPopupMenu("Color");
+		JMenuItem colorMenuItem = new JMenuItem("Change Color");
+		colorMenuItem.addActionListener(listener -> {
+			createColorChooser(listener);
+		});
+		popupMenu.add(colorMenuItem);
+	}
+
+	private void createColorChooser(ActionEvent e) {
+		JInternalFrame internalFrame = new JInternalFrame("ColorChooser");
+		JColorChooser colorChooser = new JColorChooser(Color.blue);
+		internalFrame.setClosable(true);
+		colorChooser.getSelectionModel().addChangeListener(listener -> {
+			onColorChoose(colorChooser);
+		});
+		JButton okButton = new JButton("OK");
+		internalFrame.add(okButton);
+		internalFrame.add(colorChooser);
+		mydesk.addChild(internalFrame, GameSelectChildWindow.xpos + 20, GameSelectChildWindow.ypos + 20);
+		internalFrame.setSize(400, 400);
+	}
+
+	private void onColorChoose(JColorChooser colorChooser) {
+		aliveColor = colorChooser.getColor();
+		Color invertedColor = new Color(255 - aliveColor.getRed(), 255 - aliveColor.getGreen(),
+				255 - aliveColor.getBlue());
+		deadColor = invertedColor;
+		JButton[][] existingButtons = getButtons();
+		for (int y = 0; y < game.getSizeY(); y++) {
+			for (int x = 0; x < game.getSizeX(); x++) {
+				JButton cell = existingButtons[x][y];
+				if (game.getStatus(x, y)) {
+					cell.setBackground(aliveColor);
+				} else {
+					cell.setBackground(invertedColor);
+				}
+			}
+		}
+
 	}
 
 	private void createMenu() {
@@ -166,6 +215,24 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 				}
 			};
 		});
+		button.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				showPopupOnRightClick(e);
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				showPopupOnRightClick(e);
+			}
+
+			private void showPopupOnRightClick(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					popupMenu.show(e.getComponent(), e.getX(), e.getY());
+				}
+			}
+		});
 		button.addActionListener(cellButtonClickListenerEvent -> {
 			onCellButtonAction(cellButtonClickListenerEvent);
 		});
@@ -270,7 +337,12 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	}
 
 	private void setButtonColorBasedOnGame(JButton button, int x, int y) {
-		Color colorToSet = game.getStatus(x, y) ? Color.GREEN : Color.RED;
+		Color colorToSet;
+		if (aliveColor != null && deadColor != null) {
+			colorToSet = game.getStatus(x, y) ? aliveColor : deadColor;
+		} else {
+			colorToSet = game.getStatus(x, y) ? Color.GREEN : Color.RED;
+		}
 		button.setBackground(colorToSet);
 		button.setForeground(colorToSet);
 	}
