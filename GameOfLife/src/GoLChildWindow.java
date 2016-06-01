@@ -104,7 +104,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 				MenuAction.EXIT.asMenuItem(), MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(),
 				MenuAction.RESET.asMenuItem(), MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(),
 				MenuAction.ROTATELEFT.asMenuItem(), MenuAction.MAINVIEW.asMenuItem(),
-				MenuAction.VIEWUPSIDEDOWN.asMenuItem(), MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
+				MenuAction.FLIPVIEW.asMenuItem(), MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
 				MenuAction.GLIDERCANNON.asMenuItem() };
 
 		for (int i = 0; i < menuItems.length; i++) {
@@ -168,7 +168,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		case START_STOP:
 			game.startPause();
 			break;
-		case VIEWUPSIDEDOWN:
+		case FLIPVIEW:
 			break;
 		case DRAW:
 			game.toggleDrawingMode();
