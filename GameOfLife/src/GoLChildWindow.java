@@ -24,7 +24,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	private JButton[][] buttons;
 	private Game game;
 	private int leftOffset, rightOffset;
-	private MainWindow mydesk;// Referenz auf Hauptfenster
+	private MainWindow mydesk; // reference to the main window
 	private boolean rotated = false;
 	private JPopupMenu popupMenu;
 	private Color aliveColor;
@@ -103,9 +103,8 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		JMenuItem[] menuItems = { MenuAction.START_STOP.asMenuItem(), MenuAction.DRAW.asMenuItem(),
 				MenuAction.EXIT.asMenuItem(), MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(),
 				MenuAction.RESET.asMenuItem(), MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(),
-				MenuAction.ROTATELEFT.asMenuItem(), MenuAction.MAINVIEW.asMenuItem(),
-				MenuAction.FLIPVIEW.asMenuItem(), MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
-				MenuAction.GLIDERCANNON.asMenuItem() };
+				MenuAction.ROTATELEFT.asMenuItem(), MenuAction.MAINVIEW.asMenuItem(), MenuAction.FLIPVIEW.asMenuItem(),
+				MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(), MenuAction.GLIDERCANNON.asMenuItem() };
 
 		for (int i = 0; i < menuItems.length; i++) {
 			menus[(i < 3) ? 0 : (i < 6) ? 1 : (i < 11) ? 2 : 3].add(menuItems[i]);
