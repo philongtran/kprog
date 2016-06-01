@@ -1,9 +1,3 @@
-
-/* this class calculates the surrounding cell positions
- * 
-
- */
-
 import java.util.ArrayList;
 import java.util.List;
 

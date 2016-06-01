@@ -1,13 +1,13 @@
 
-/* This class represents the rotated left view
+import javax.swing.JButton;
+
+/**
+ * This class represents the rotated left view
  * 
  * @author Phi Long Tran <191624>
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-
-import javax.swing.JButton;
-
 public class GoLViewLeftRotated extends GoLChildWindow {
 
 	// instance variables

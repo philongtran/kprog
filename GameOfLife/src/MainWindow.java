@@ -1,15 +1,16 @@
 
-/* This class creates the main window
+import javax.swing.DefaultDesktopManager;
+import javax.swing.JApplet;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+
+/**
+ * This class creates the main window
  * 
  * @author Phi Long Tran <191624>
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-
-import javax.swing.DefaultDesktopManager;
-import javax.swing.JApplet;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
 
 public class MainWindow extends JApplet {
 	private static final long serialVersionUID = 1L;

@@ -1,15 +1,15 @@
 
-/* This class was given to us. It's used to run the applet as an application
+import javax.swing.JApplet;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/**
+ * This class was given to us. It's used to run the applet as an application
  * 
  * @author Phi Long Tran <191624>
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-
-import javax.swing.JApplet;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 public class Konsole {
 	public static String title(Object o) {
 		String t = o.getClass().toString();

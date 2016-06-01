@@ -1,16 +1,17 @@
 
-/* This class represents the game select child window
- * @author Phi Long Tran <191624>
- * @author Manuel Wessner <191711>
- * @author Steve Nono <191709>
- */
-
 import java.awt.Container;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
+/**
+ * This class represents the game select child window
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 class GameSelectChildWindow extends JInternalFrame {
 
 	// instance variables

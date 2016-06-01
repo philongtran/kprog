@@ -1,11 +1,4 @@
 
-/* this class represents the game of life child window. 
- * 
- * @author Phi Long Tran <191624>
- * @author Manuel Wessner <191711>
- * @author Steve Nono <191709>
- */
-
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -26,6 +19,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 
+/**
+ * this class represents the game of life child window.
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 class GoLChildWindow extends JInternalFrame implements Observer {
 
 	// instance variables

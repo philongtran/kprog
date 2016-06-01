@@ -1,4 +1,5 @@
-/* this class represents the board of the game
+/**
+ * this class represents the board of the game
  * 
  * @author Phi Long Tran <191624>
  * @author Manuel Wessner <191711>

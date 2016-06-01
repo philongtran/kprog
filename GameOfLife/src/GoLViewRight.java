@@ -1,16 +1,16 @@
 
-/* this class shifts the board to the right
- * 
- * @author Phi Long Tran <191624>
- * @author Manuel Wessner <191711>
- * @author Steve Nono <191709>
- */
-
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
 
+/**
+ * this class shifts the board to the right
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 public class GoLViewRight extends GoLChildWindow implements Observer {
 
 	private static final long serialVersionUID = 1L;

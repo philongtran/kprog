@@ -1,10 +1,11 @@
-/* This class is responsible for the coordinates of the buttons
+
+/**
+ * This class is responsible for the coordinates of the buttons
  * 
  * @author Phi Long Tran <191624>
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-
 public class Position {
 
 	// Instance variables

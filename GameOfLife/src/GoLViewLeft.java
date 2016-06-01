@@ -1,16 +1,16 @@
 
-/* this class shifts the view to the left
- * 
- * @author Phi Long Tran <191624>
- * @author Manuel Wessner <191711>
- * @author Steve Nono <191709>
- */
-
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
 
+/**
+ * this class shifts the view to the left
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 class GoLViewLeft extends GoLChildWindow implements Observer {
 	private static final long serialVersionUID = 1L;
 	private JButton[][] buttons;
