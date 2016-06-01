@@ -1,16 +1,16 @@
 
-/* This class represents the game
- * 
- * @author Phi Long Tran <191624>
- * @author Manuel Wessner <191711>
- * @author Steve Nono <191709>
- */
-
 import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
+/**
+ * This class represents the game
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 public class Game extends Observable {
 
 	// instance variables
