@@ -4,7 +4,7 @@ public class GoLViewLeftRotated extends GoLChildWindow {
 	private static final long serialVersionUID = 1L;
 	private JButton[][] rotatedButtons;
 
-	public GoLViewLeftRotated(MainWindow dft, Game game, boolean rotated, int rotateCount) {
+	public GoLViewLeftRotated(MainWindow dft, Game game, int rotateCount) {
 		super(dft, game);
 		setRotateLeftCount(rotateCount + 1);
 		rotateButtons();

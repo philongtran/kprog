@@ -147,7 +147,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 			game.addObserver(viewRight);
 			break;
 		case ROTATELEFT:
-			GoLChildWindow rotatedLeft = new GoLViewLeftRotated(mydesk, game, false, rotateLeftCount);
+			GoLChildWindow rotatedLeft = new GoLViewLeftRotated(mydesk, game, rotateLeftCount);
 			mydesk.addChildGoL(rotatedLeft, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800, 600);
 			game.addObserver(rotatedLeft);
 			break;
