@@ -1,3 +1,11 @@
+
+/* This class represents the game
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 import java.util.Observable;
 import java.util.concurrent.TimeUnit;
 
@@ -5,6 +13,7 @@ import javax.swing.Timer;
 
 public class Game extends Observable {
 
+	// instance variables
 	private Board board;
 	private Timer timer;
 	private boolean start;
@@ -14,6 +23,7 @@ public class Game extends Observable {
 
 	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
 
+	// constructor
 	public Game(int sizeX, int sizeY) {
 		board = new Board(sizeX, sizeY);
 		timer = new Timer(ONESECOND, taskPerformer -> {
@@ -21,6 +31,7 @@ public class Game extends Observable {
 		});
 	}
 
+	// calculates the living cells around the current cell
 	private void run() {
 		Board temporaryBoard = board.copy();
 		for (int y = 0; y < board.getSizeY(); y++) {
@@ -49,6 +60,7 @@ public class Game extends Observable {
 		notifyObservers();
 	}
 
+	// getter and setter for some variables
 	public int getSizeX() {
 		return board.getSizeX();
 	}
@@ -75,6 +87,7 @@ public class Game extends Observable {
 		return board.getStatus(x, y);
 	}
 
+	// draw mode
 	public void toggleDrawingMode() {
 		draw = !draw;
 		setChanged();
@@ -85,6 +98,7 @@ public class Game extends Observable {
 		return draw;
 	}
 
+	// game speed modes
 	public void startPause() {
 		if (start) {
 			start = false;
@@ -119,6 +133,7 @@ public class Game extends Observable {
 		notifyObservers();
 	}
 
+	// add figures
 	public void addBlinker() {
 		board.reset();
 		board.setStatus(1, 2, true);

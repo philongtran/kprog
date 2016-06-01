@@ -1,3 +1,11 @@
+
+/* Enum for the menu bar
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 import java.awt.Image;
 import java.net.URL;
 import java.util.Optional;
@@ -10,10 +18,11 @@ import javax.swing.JMenuItem;
  */
 public enum MenuAction {
 
+	// menu items
 	NONE("Unknown"), START_STOP("Start/Stop"), DRAW("Draw"), EXIT("Exit"), FASTER("Faster"), SLOWER("Slower"), RESET(
 			"Reset"), LEFTVIEW("Shift view to left"), RIGHTVIEW("Shift view to right"), FLIPVIEW(
-					"Flip View"), ROTATELEFT("Rotate view to the left"), MAINVIEW("Main view"), BLINKER(
-							"Blinker"), GLIDER("Glider"), GLIDERCANNON("Glider cannon");
+					"Flip View"), ROTATELEFT("Rotate view to the left"), MAINVIEW(
+							"Main view"), BLINKER("Blinker"), GLIDER("Glider"), GLIDERCANNON("Glider cannon");
 
 	private static final String IMAGEFILEEXTENSION = ".png";
 	private final String description;
@@ -26,6 +35,7 @@ public enum MenuAction {
 		return description;
 	}
 
+	// add menu item and give it an icon if needed
 	public JMenuItem asMenuItem() {
 		Optional<ImageIcon> icon = Optional.ofNullable(getIcon());
 		JMenuItem menuItem = new JMenuItem(getDescription());

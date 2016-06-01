@@ -1,3 +1,11 @@
+
+/* this class calculates the surrounding cell positions
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +78,7 @@ public class Borders {
 		return borders;
 	}
 
+	// add all surrounding cell positions to a list
 	public List<Position> getPositions() {
 		List<Position> borders = new ArrayList<>();
 		borders.add(leftUpperCorner);

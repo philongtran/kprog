@@ -1,3 +1,11 @@
+
+/* This class was given to us. It's used to run the applet as an application
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

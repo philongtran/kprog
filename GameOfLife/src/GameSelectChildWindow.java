@@ -1,3 +1,10 @@
+
+/* This class represents the game select child window
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 import java.awt.Container;
 import java.awt.FlowLayout;
 
@@ -5,10 +12,13 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
 class GameSelectChildWindow extends JInternalFrame {
+
+	// instance variables
 	private static final long serialVersionUID = 1L;
 	static int nr = -1, xpos = 30, ypos = 30;
 	private MainWindow mydesk;
 
+	// constructor
 	public GameSelectChildWindow(MainWindow dft) {
 		super("Select Game", false, false);
 		mydesk = dft;
@@ -25,6 +35,8 @@ class GameSelectChildWindow extends JInternalFrame {
 		setClosable(false);
 	}
 
+	// if create new game of life game button is pressed create a new game of
+	// life child window
 	private void createGameInNewWindow() {
 		Game game = new Game(50, 50);
 		GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game);

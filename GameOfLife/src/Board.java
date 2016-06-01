@@ -1,10 +1,17 @@
-
+/* this class represents the board of the game
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 public class Board {
 
+	// instace variables
 	private boolean[][] board;
 	private int sizeX;
 	private int sizeY;
 
+	// constructor
 	public Board(int sizeX, int sizeY) {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
@@ -12,6 +19,7 @@ public class Board {
 		reset();
 	}
 
+	// make all cells dead
 	public void reset() {
 		for (int y = 0; y < sizeY; y++) {
 			for (int x = 0; x < sizeX; x++) {
@@ -21,6 +29,7 @@ public class Board {
 
 	}
 
+	// board size
 	public int getSizeX() {
 		return sizeX;
 	}
@@ -29,6 +38,7 @@ public class Board {
 		return sizeY;
 	}
 
+	// set and get cell status
 	public void setStatus(int x, int y, boolean status) {
 		board[y][x] = status;
 	}

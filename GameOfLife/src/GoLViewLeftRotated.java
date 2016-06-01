@@ -1,15 +1,27 @@
+
+/* This class represents the rotated left view
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 import javax.swing.JButton;
 
 public class GoLViewLeftRotated extends GoLChildWindow {
+
+	// instance variables
 	private static final long serialVersionUID = 1L;
 	private JButton[][] rotatedButtons;
 
+	// constructor
 	public GoLViewLeftRotated(MainWindow dft, Game game, int rotateCount) {
 		super(dft, game);
 		setRotateLeftCount(rotateCount + 1);
 		rotateButtons();
 	}
 
+	// rotate the buttons to the left
 	private void rotateButtons() {
 		int sizeX = getGame().getSizeX();
 		int sizeY = getGame().getSizeY();
@@ -21,6 +33,7 @@ public class GoLViewLeftRotated extends GoLChildWindow {
 		}
 	}
 
+	// add the rotated buttons to an array
 	private JButton[][] rotateIt(JButton[][] unrotatedButtonsArray, int sizeX, int sizeY) {
 		rotatedButtons = new JButton[sizeX][sizeY];
 
