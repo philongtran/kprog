@@ -16,6 +16,7 @@ public class GoLViewLeftRotated extends GoLChildWindow {
 
 	// constructor
 	public GoLViewLeftRotated(MainWindow dft, Game game, int rotateCount) {
+
 		super(dft, game);
 		setRotateLeftCount(rotateCount + 1);
 		rotateButtons();
@@ -37,8 +38,8 @@ public class GoLViewLeftRotated extends GoLChildWindow {
 	private JButton[][] rotateIt(JButton[][] unrotatedButtonsArray, int sizeX, int sizeY) {
 		rotatedButtons = new JButton[sizeX][sizeY];
 
-		for (int i = 0; i < sizeX; i++) {
-			for (int j = 0; j < sizeY; j++) {
+		for (int i = 0; i < sizeY; i++) {
+			for (int j = 0; j < sizeX; j++) {
 				rotatedButtons[i][j] = unrotatedButtonsArray[sizeX - j - 1][i];
 			}
 		}
