@@ -54,7 +54,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		createCells();
 	}
 
-	// create a pop up when right clicking a cell to change color
+	/**
+	 * create a pop up when right clicking a cell to change color
+	 */
 	private void createPopupMenu() {
 		popupMenu = new JPopupMenu("Color");
 		JMenuItem colorMenuItem = new JMenuItem("Change Color");
@@ -104,7 +106,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 
 	}
 
-	// creates the menu bar in the game of life child window
+	/**
+	 * creates the menu bar in the game of life child window
+	 */
 	private void createMenu() {
 		JMenu[] menus = { new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
 				new JMenu("Figuren") };
@@ -129,7 +133,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		setJMenuBar(mb);
 	}
 
-	// action listener for the menu items
+	/**
+	 * action listener for the menu items
+	 */
 	private void onMenuItemClick(ActionEvent e) {
 		JMenuItem item = (JMenuItem) e.getSource();
 		switch (MenuAction.of(item.getActionCommand())) {
@@ -220,7 +226,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		addButtonActions(button);
 	}
 
-	// action listener for the cells
+	/**
+	 * action listener for the cells
+	 * 
+	 * @param button
+	 */
 	protected void addButtonActions(JButton button) {
 		button.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -261,7 +271,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		}
 	}
 
-	// toggle cells to life or dead
+	/**
+	 * toggle cells to life or dead
+	 * 
+	 * @param source
+	 */
 	private void onButtonAction(JButton source) {
 		boolean x = true;
 		String spositionX = "";
@@ -294,7 +308,9 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		setButtonBackgroundColor();
 	}
 
-	// sets background color of the buttons
+	/**
+	 * sets background color of the buttons
+	 */
 	private void setButtonBackgroundColor() {
 		for (int y = 0; y < game.getSizeY(); y++) {
 			for (int x = 0; x < game.getSizeX(); x++) {
@@ -347,7 +363,13 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		return buttons;
 	}
 
-	// sets button color
+	/**
+	 * sets button color
+	 * 
+	 * @param button
+	 * @param x
+	 * @param y
+	 */
 	private void setButtonColorBasedOnGame(JButton button, int x, int y) {
 		Color colorToSet = getColor(game.getStatus(x, y));
 		button.setBackground(colorToSet);
