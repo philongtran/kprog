@@ -32,14 +32,11 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 
 	public GoLChildWindow(MainWindow dft, Game game, boolean rotated) {
 		super("Game of Life " + game.golWindowNumber, true, true);
-		// setBackground(col[nr % col.length]);// Start-Farbe
-		mydesk = dft;// Hauptfenster merken
-
+		mydesk = dft;
 		this.rotated = rotated;
-		// cp.setLayout(new FlowLayout());// FlowLayout
 		setIconifiable(true);
 		setMaximizable(true);
-		setClosable(true);// weitere Parameter setzen
+		setClosable(true);
 		this.game = game;
 		createMenu();
 		createPopupMenu();

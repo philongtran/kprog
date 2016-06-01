@@ -16,9 +16,7 @@ public class Board {
 		for (int y = 0; y < sizeY; y++) {
 			for (int x = 0; x < sizeX; x++) {
 				board[y][x] = false;
-				// System.out.print(board[y][x] + ", ");
 			}
-			// System.out.println();
 		}
 
 	}

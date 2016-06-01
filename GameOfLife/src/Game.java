@@ -16,12 +16,8 @@ public class Game extends Observable {
 	private final static int ONESECOND = (int) TimeUnit.SECONDS.toMillis(1);
 
 	public Game(int sizeX, int sizeY) {
-		// GoLMenu golMenu = new GoLMenu(mydesk, this);
-		// mydesk.addChild(golMenu, 0, 0);
 		board = new Board(sizeX, sizeY);
 		boardRotatedLeft = new Board(sizeY, sizeX);
-		// Display display = new Display(board);
-		// this.addObserver(display);
 		timer = new Timer(ONESECOND, taskPerformer -> {
 			run();
 		});

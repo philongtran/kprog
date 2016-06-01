@@ -4,10 +4,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
 public class MainWindow extends JApplet {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JDesktopPane desk;
 
@@ -17,22 +13,19 @@ public class MainWindow extends JApplet {
 		setContentPane(desk);
 	}
 
-	public void addChild(JInternalFrame child, int x, int y) {// Hinzufuegen
-		child.setLocation(x, y);// Ort und
-		child.setSize(200, 150);// Groessesetzen
-		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);// Schiessoperation
-		desk.add(child);// Kindfenstereinfuegen
-		child.setVisible(true);// und sichtbar machen
-	} // end addChild
+	public void addChild(JInternalFrame child, int x, int y) {
+		child.setLocation(x, y);
+		child.setSize(200, 150);
+		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
+		desk.add(child);
+		child.setVisible(true);
+	}
 
-	public void addChildGoL(JInternalFrame child, int x, int y, int sizeX, int sizeY) {// Hinzufuegen
-		child.setLocation(x, y);// Ort und
-		child.setSize(sizeX, sizeY);// Groessesetzen
-		child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);// Schiessoperation
-		desk.add(child);// Kindfenstereinfuegen
-		child.setVisible(true);// und sichtbar machen
+	public void addChildGoL(JInternalFrame child, int x, int y, int sizeX, int sizeY) {
+		addChild(child, x, y);
+		child.setSize(sizeX, sizeY);
 		GameSelectChildWindow.xpos += 20;
 		GameSelectChildWindow.ypos += 20;
-	} // end addChild
+	}
 
 }
