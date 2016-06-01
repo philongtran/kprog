@@ -8,7 +8,7 @@ class GoLViewLeft extends GoLChildWindow implements Observer {
 	private JButton[][] buttons;
 
 	public GoLViewLeft(MainWindow dft, Game game, int offset) {
-		super(dft, game, false);
+		super(dft, game);
 		setLeftOffset(offset + 1);
 		createButtons();
 	}

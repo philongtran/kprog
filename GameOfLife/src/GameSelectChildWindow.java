@@ -27,7 +27,7 @@ class GameSelectChildWindow extends JInternalFrame {
 
 	private void createGameInNewWindow() {
 		Game game = new Game(50, 50);
-		GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game, false);
+		GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game);
 		mydesk.addChildGoL(golChildWindow, xpos, ypos, 800, 600);
 		game.addObserver(golChildWindow);
 		GameOfLife.GOLWINDOWNUMBER++;
