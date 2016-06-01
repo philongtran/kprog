@@ -1,35 +1,35 @@
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
 class GameSelectChildWindow extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
-	static int nr = -1, xpos = 30, ypos = 30;// statische Variablen
-	private MainWindow mydesk;// Referenz auf Hauptfenster
+	static int nr = -1, xpos = 30, ypos = 30;
+	private MainWindow mydesk;
 
-	public GameSelectChildWindow(MainWindow dft) { // Konstruktor
-		super("Select Game", false, false);// vergroesserbar, schliessbar
-		mydesk = dft;// Hauptfenster merken
-		Container cp = getContentPane();// Fenster-Container
-		cp.setLayout(new FlowLayout());// FlowLayout
-		JButton jb = new JButton("Game of Life");// Knopf fuer Farbe
-		cp.add(jb);// einfuegen
-		jb.addActionListener(new ActionListener() {// AL fuer Farbknopf
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Game game = new Game(50, 50);
-				GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game, false);
-				mydesk.addChildGoL(golChildWindow, xpos, ypos, 800, 600);
-				game.addObserver(golChildWindow);
-				GameOfLife.GOLWINDOWNUMBER++;
-			}
+	public GameSelectChildWindow(MainWindow dft) {
+		super("Select Game", false, false);
+		mydesk = dft;
+		Container cp = getContentPane();// window-Container
+		cp.setLayout(new FlowLayout());
+		JButton jb = new JButton("Game of Life");
+		cp.add(jb);
+		jb.addActionListener(listener -> {
+			createGameInNewWindow();
 		});
+
 		setIconifiable(true);
 		setMaximizable(false);
-		setClosable(false);// weitere Parameter setzen
+		setClosable(false);
+	}
+
+	private void createGameInNewWindow() {
+		Game game = new Game(50, 50);
+		GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game, false);
+		mydesk.addChildGoL(golChildWindow, xpos, ypos, 800, 600);
+		game.addObserver(golChildWindow);
+		GameOfLife.GOLWINDOWNUMBER++;
 	}
 }
