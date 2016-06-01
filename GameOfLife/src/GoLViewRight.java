@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,9 +31,7 @@ public class GoLViewRight extends GoLChildWindow implements Observer {
 
 				// ignore clicks outside of game
 				if (xPosition >= 0) {
-					button.addActionListener(cellButtonClickListenerEvent -> {
-						onCellButtonAction(cellButtonClickListenerEvent);
-					});
+					addButtonActions(button);
 				}
 			}
 		}
@@ -53,11 +50,11 @@ public class GoLViewRight extends GoLChildWindow implements Observer {
 				int xIndex = getButtonIndex(currentIndex);
 				JButton button = buttons[xIndex][y];
 				if (currentIndex >= 0 && getGame().getStatus(x, y)) {
-					button.setBackground(Color.GREEN);
-					button.setForeground(Color.GREEN);
+					button.setBackground(getAliveColor());
+					button.setForeground(getAliveColor());
 				} else {
-					button.setBackground(Color.RED);
-					button.setForeground(Color.RED);
+					button.setBackground(getDeadColor());
+					button.setForeground(getDeadColor());
 				}
 			}
 		}
@@ -69,5 +66,10 @@ public class GoLViewRight extends GoLChildWindow implements Observer {
 			return maxSizeX - 1;
 		}
 		return currentIndex;
+	}
+
+	@Override
+	protected JButton[][] getButtons() {
+		return buttons;
 	}
 }

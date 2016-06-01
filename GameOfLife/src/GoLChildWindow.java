@@ -16,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 
 class GoLChildWindow extends JInternalFrame implements Observer {
 
@@ -60,17 +61,24 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	}
 
 	private void createColorChooser(ActionEvent e) {
-		JInternalFrame internalFrame = new JInternalFrame("ColorChooser");
-		JColorChooser colorChooser = new JColorChooser(Color.blue);
+		JInternalFrame internalFrame = new JInternalFrame("Color Chooser");
+		JColorChooser colorChooser = new JColorChooser(getDeadColor());
+		for (AbstractColorChooserPanel panel : colorChooser.getChooserPanels()) {
+			if (!panel.getDisplayName().equals("Swatches")) {
+				colorChooser.removeChooserPanel(panel);
+			}
+		}
 		internalFrame.setClosable(true);
 		colorChooser.getSelectionModel().addChangeListener(listener -> {
 			onColorChoose(colorChooser);
 		});
+
 		JButton okButton = new JButton("OK");
 		internalFrame.add(okButton);
 		internalFrame.add(colorChooser);
 		mydesk.addChild(internalFrame, GameSelectChildWindow.xpos + 20, GameSelectChildWindow.ypos + 20);
 		internalFrame.setSize(400, 400);
+
 	}
 
 	private void onColorChoose(JColorChooser colorChooser) {
@@ -208,6 +216,10 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 		JButton button = new JButton(x + "," + y);
 		buttons[x][y] = button;
 		add(button);
+		addButtonActions(button);
+	}
+
+	protected void addButtonActions(JButton button) {
 		button.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseMoved(MouseEvent e) {
 				if (game.getDraw()) {
@@ -337,19 +349,26 @@ class GoLChildWindow extends JInternalFrame implements Observer {
 	}
 
 	private void setButtonColorBasedOnGame(JButton button, int x, int y) {
-		Color colorToSet;
-		if (aliveColor != null && deadColor != null) {
-			colorToSet = game.getStatus(x, y) ? aliveColor : deadColor;
-		} else {
-			colorToSet = game.getStatus(x, y) ? Color.GREEN : Color.RED;
-		}
+		Color colorToSet = getColor(game.getStatus(x, y));
 		button.setBackground(colorToSet);
 		button.setForeground(colorToSet);
 	}
 
 	private void setButtonColorBasedOnGameRotated(JButton button, int x, int y) {
-		Color colorToSet = game.getStatusRotated(x, y) ? Color.GREEN : Color.RED;
+		Color colorToSet = getColor(game.getStatusRotated(x, y));
 		button.setBackground(colorToSet);
 		button.setForeground(colorToSet);
+	}
+
+	protected Color getColor(boolean isAlive) {
+		return isAlive ? getAliveColor() : getDeadColor();
+	}
+
+	protected Color getAliveColor() {
+		return aliveColor != null ? aliveColor : Color.GREEN;
+	}
+
+	protected Color getDeadColor() {
+		return deadColor != null ? deadColor : Color.RED;
 	}
 }
