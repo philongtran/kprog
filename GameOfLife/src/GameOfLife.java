@@ -1,4 +1,4 @@
-/*
+/**
  * This application simulates the game of life from conway.
  * 
  * 

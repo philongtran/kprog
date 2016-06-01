@@ -1,9 +1,7 @@
 
 /* this class calculates the surrounding cell positions
  * 
- * @author Phi Long Tran <191624>
- * @author Manuel Wessner <191711>
- * @author Steve Nono <191709>
+
  */
 
 import java.util.ArrayList;
@@ -12,6 +10,10 @@ import java.util.List;
 /**
  * Class is responsible for holding the information about the positions of
  * borders of any given cell
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
  */
 public class Borders {
 
