@@ -10,18 +10,18 @@
  */
 public class GameOfLife {
 
-	public static int GOLWINDOWNUMBER = 1;
+  public static int GOLWINDOWNUMBER = 1;
 
-	/**
-	 * entry point of the program
-	 * 
-	 * @param args
-	 */
+  /**
+   * entry point of the program
+   * 
+   * @param args
+   */
 
-	public static void main(String[] args) {
-		MainWindow mainWindow = new MainWindow();
-		mainWindow.addChild(new GameSelectChildWindow(mainWindow), 0, 0);
-		Konsole.run(mainWindow, 1024, 768);
-	}
+  public static void main(String[] args) {
+    MainWindow mainWindow = new MainWindow();
+    mainWindow.addChild(new GameSelectChildWindow(mainWindow), 0, 0);
+    Konsole.run(mainWindow, 1024, 768);
+  }
 
 }

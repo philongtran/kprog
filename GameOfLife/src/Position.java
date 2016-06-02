@@ -8,30 +8,30 @@
  */
 public class Position {
 
-	// Instance variables
-	private int positionX;
-	private int positionY;
+  // Instance variables
+  private int positionX;
+  private int positionY;
 
-	// Constructor
-	public Position(int positionX, int positionY) {
-		this.positionX = positionX;
-		this.positionY = positionY;
-	}
+  // Constructor
+  public Position(int positionX, int positionY) {
+    this.positionX = positionX;
+    this.positionY = positionY;
+  }
 
-	public Position getPosition() {
-		return this;
-	}
+  public Position getPosition() {
+    return this;
+  }
 
-	public int getPositionX() {
-		return positionX;
-	}
+  public int getPositionX() {
+    return positionX;
+  }
 
-	public int getPositionY() {
-		return positionY;
-	}
+  public int getPositionY() {
+    return positionY;
+  }
 
-	@Override
-	public String toString() {
-		return "" + positionX + "," + positionY;
-	}
+  @Override
+  public String toString() {
+    return "" + positionX + "," + positionY;
+  }
 }
