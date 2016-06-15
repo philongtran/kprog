@@ -25,7 +25,6 @@ public class MainWindow extends JApplet {
   // add game select child window
   public void addChild(JInternalFrame child, int x, int y) {
     child.setLocation(x, y);
-    child.setSize(200, 150);
     desk.add(child);
     child.setVisible(true);
   }
