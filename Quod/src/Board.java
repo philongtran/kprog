@@ -2,23 +2,17 @@
 public class Board {
 
   private static final int DEFAULTBOARDSIZE = 11;
-  private final int height;
-  private final int width;
+  private final int size;
 
   public Board() {
-    this(DEFAULTBOARDSIZE, DEFAULTBOARDSIZE);
+    this(DEFAULTBOARDSIZE);
   }
 
-  public Board(int width, int height) {
-    this.width = width;
-    this.height = height;
+  private Board(int size) {
+    this.size = size;
   }
 
-  public int getWidth() {
-    return width;
-  }
-
-  public int getHeight() {
-    return height;
+  public int getSize() {
+    return size;
   }
 }

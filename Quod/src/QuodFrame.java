@@ -11,8 +11,9 @@ public class QuodFrame extends JInternalFrame {
   public QuodFrame(Game game) {
     super("Quod", true, true);
     JPanel gameBoard = new JPanel();
-    gameBoard.setLayout(new GridLayout(11, 11, 1, 1));
-    for (int i = 1; i < 11 * 11; i++) {
+    int boardSize = game.getBoard().getSize();
+    gameBoard.setLayout(new GridLayout(boardSize, boardSize, 1, 1));
+    for (int i = 1; i < boardSize * boardSize; i++) {
       gameBoard.add(createCell(String.valueOf(i)));
     }
     add(gameBoard);
@@ -21,13 +22,8 @@ public class QuodFrame extends JInternalFrame {
   }
 
   private JButton createCell(String buttonNr) {
-    JButton button = new JButton(buttonNr);
-
-    // check if all chars are 1 (left upper corner, right upper corner, left
-    // down corner)
-    boolean invisible = buttonNr.chars().allMatch(c -> c == '1');
-    button.setVisible(!invisible);
-    return button;
+    Cell cell = new Cell(buttonNr);
+    return cell.asButton();
   }
 
 }
