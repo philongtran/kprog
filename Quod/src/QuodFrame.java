@@ -8,10 +8,10 @@ import javax.swing.JPanel;
 public class QuodFrame extends JInternalFrame {
   private static final long serialVersionUID = 5613284283010650242L;
 
-  public QuodFrame(QuodGame game) {
+  public QuodFrame() {
     super("Quod", true, true);
     JPanel gameBoard = new JPanel();
-    int boardSize = game.getBoard().getSize();
+    int boardSize = QuodGame.getInstance().getBoard().getSize();
     gameBoard.setLayout(new GridLayout(boardSize, boardSize, 1, 1));
     for (int i = 1; i < boardSize * boardSize; i++) {
       gameBoard.add(createCell(String.valueOf(i)));
