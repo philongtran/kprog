@@ -1,10 +1,10 @@
 
-public class Game {
+public class QuodGame {
 
 
   private final Board board;
 
-  public Game() {
+  public QuodGame() {
     board = new Board();
   }
 

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class QuodFrame extends JInternalFrame {
   private static final long serialVersionUID = 5613284283010650242L;
 
-  public QuodFrame(Game game) {
+  public QuodFrame(QuodGame game) {
     super("Quod", true, true);
     JPanel gameBoard = new JPanel();
     int boardSize = game.getBoard().getSize();
