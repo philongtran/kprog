@@ -6,12 +6,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.EventObject;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -114,15 +122,16 @@ class GoLChildWindow extends JInternalFrame implements Observer {
     JMenu[] menus = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
         new JMenu("Figuren")};
     JMenuItem[] menuItems = {MenuAction.START_STOP.asMenuItem(), MenuAction.DRAW.asMenuItem(),
-        MenuAction.EXIT.asMenuItem(), MenuAction.FASTER.asMenuItem(),
-        MenuAction.SLOWER.asMenuItem(), MenuAction.RESET.asMenuItem(),
-        MenuAction.LEFTVIEW.asMenuItem(), MenuAction.RIGHTVIEW.asMenuItem(),
-        MenuAction.ROTATELEFT.asMenuItem(), MenuAction.ROTATERIGHT.asMenuItem(),
-        MenuAction.MAINVIEW.asMenuItem(), MenuAction.BLINKER.asMenuItem(),
-        MenuAction.GLIDER.asMenuItem(), MenuAction.GLIDERCANNON.asMenuItem()};
+        MenuAction.SAVE.asMenuItem(), MenuAction.LOAD.asMenuItem(), MenuAction.EXIT.asMenuItem(),
+        MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(),
+        MenuAction.RESET.asMenuItem(), MenuAction.LEFTVIEW.asMenuItem(),
+        MenuAction.RIGHTVIEW.asMenuItem(), MenuAction.ROTATELEFT.asMenuItem(),
+        MenuAction.ROTATERIGHT.asMenuItem(), MenuAction.MAINVIEW.asMenuItem(),
+        MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
+        MenuAction.GLIDERCANNON.asMenuItem()};
 
     for (int i = 0; i < menuItems.length; i++) {
-      menus[(i < 3) ? 0 : (i < 6) ? 1 : (i < 11) ? 2 : 3].add(menuItems[i]);
+      menus[(i < 5) ? 0 : (i < 9) ? 1 : (i < 14) ? 2 : 3].add(menuItems[i]);
       menuItems[i].addActionListener(menuItemClickEvent -> {
         onMenuItemClick(menuItemClickEvent);
       });
@@ -197,6 +206,33 @@ class GoLChildWindow extends JInternalFrame implements Observer {
         break;
       case DRAW:
         game.toggleDrawingMode();
+        break;
+      case SAVE:
+        JFileChooser saveDialog = new JFileChooser();
+        int saveReturnCode = saveDialog.showSaveDialog(this);
+        if (saveReturnCode == JFileChooser.APPROVE_OPTION) {
+          Path saveFile = saveDialog.getSelectedFile().toPath();
+          try (OutputStream outputStream = Files.newOutputStream(saveFile);
+              ObjectOutputStream objectOutStream = new ObjectOutputStream(outputStream);) {
+            objectOutStream.writeObject(getGame().getBoard());
+          } catch (IOException e1) {
+            e1.printStackTrace();
+          }
+        }
+        break;
+      case LOAD:
+        JFileChooser openDialog = new JFileChooser();
+        int openDialogReturnCode = openDialog.showOpenDialog(this);
+        if (openDialogReturnCode == JFileChooser.APPROVE_OPTION) {
+          Path loadedFile = openDialog.getSelectedFile().toPath();
+          try (InputStream inputStream = Files.newInputStream(loadedFile);
+              ObjectInputStream objectInStream = new ObjectInputStream(inputStream);) {
+            Board board = (Board) objectInStream.readObject();
+            getGame().setBoard(board);
+          } catch (IOException | ClassNotFoundException e1) {
+            e1.printStackTrace();
+          }
+        }
         break;
       case NONE:
         break;

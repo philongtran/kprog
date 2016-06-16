@@ -61,6 +61,17 @@ public class Game extends Observable {
   }
 
   // getter and setter for some variables
+
+  public void setBoard(Board board) {
+    this.board = board;
+    setChanged();
+    notifyObservers();
+  }
+
+  public Board getBoard() {
+    return board;
+  }
+
   public int getSizeX() {
     return board.getSizeX();
   }

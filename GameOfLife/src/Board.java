@@ -1,3 +1,5 @@
+import java.io.Serializable;
+
 /**
  * this class represents the board of the game
  * 
@@ -5,8 +7,9 @@
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-public class Board {
+public class Board implements Serializable {
 
+  private static final long serialVersionUID = -8580171586180858490L;
   // instace variables
   private boolean[][] board;
   private int sizeX;
