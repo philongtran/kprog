@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.EventObject;
 import java.util.Observable;
 import java.util.Observer;
@@ -26,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * this class represents the game of life child window.
@@ -35,6 +37,8 @@ import javax.swing.colorchooser.AbstractColorChooserPanel;
  * @author Steve Nono <191709>
  */
 class GoLChildWindow extends JInternalFrame implements Observer {
+
+  private static final String FILEEXTENSION = "gof";
 
   // instance variables
   private static final long serialVersionUID = 1L;
@@ -208,10 +212,15 @@ class GoLChildWindow extends JInternalFrame implements Observer {
         game.toggleDrawingMode();
         break;
       case SAVE:
-        JFileChooser saveDialog = new JFileChooser();
+        JFileChooser saveDialog = createFileChooser();
         int saveReturnCode = saveDialog.showSaveDialog(this);
         if (saveReturnCode == JFileChooser.APPROVE_OPTION) {
           Path saveFile = saveDialog.getSelectedFile().toPath();
+          String saveFileAsString = saveFile.toString();
+          boolean hasGofFileExtension = saveFileAsString.endsWith(".gof");
+          if (!hasGofFileExtension) {
+            saveFile = Paths.get(saveFileAsString + ".gof");
+          }
           try (OutputStream outputStream = Files.newOutputStream(saveFile);
               ObjectOutputStream objectOutStream = new ObjectOutputStream(outputStream);) {
             objectOutStream.writeObject(getGame().getBoard());
@@ -221,7 +230,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
         }
         break;
       case LOAD:
-        JFileChooser openDialog = new JFileChooser();
+        JFileChooser openDialog = createFileChooser();
         int openDialogReturnCode = openDialog.showOpenDialog(this);
         if (openDialogReturnCode == JFileChooser.APPROVE_OPTION) {
           Path loadedFile = openDialog.getSelectedFile().toPath();
@@ -237,6 +246,16 @@ class GoLChildWindow extends JInternalFrame implements Observer {
       case NONE:
         break;
     }
+  }
+
+  private JFileChooser createFileChooser() {
+    JFileChooser openDialog = new JFileChooser();
+    FileNameExtensionFilter extensionFilter =
+        new FileNameExtensionFilter("GameOfLife-File (*.gof)", FILEEXTENSION);
+    openDialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
+    openDialog.addChoosableFileFilter(extensionFilter);
+    openDialog.setFileFilter(extensionFilter);
+    return openDialog;
   }
 
   // create the contents of the child window
