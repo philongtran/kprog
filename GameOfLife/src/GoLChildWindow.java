@@ -112,19 +112,18 @@ class GoLChildWindow extends JInternalFrame implements Observer {
    * creates the menu bar in the game of life child window
    */
   private void createMenu() {
-    JMenu[] menus = {new JMenu("Modus"), new JMenu("Geschwindigkeit"), new JMenu("Fenster"),
-        new JMenu("Figuren")};
+    JMenu[] menus =
+        {new JMenu("Mode"), new JMenu("Speed"), new JMenu("Window"), new JMenu("Figures")};
     JMenuItem[] menuItems = {MenuAction.START_STOP.asMenuItem(), MenuAction.DRAW.asMenuItem(),
         MenuAction.SAVE.asMenuItem(), MenuAction.LOAD.asMenuItem(), MenuAction.EXIT.asMenuItem(),
         MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(),
-        MenuAction.RESET.asMenuItem(), MenuAction.LEFTVIEW.asMenuItem(),
-        MenuAction.RIGHTVIEW.asMenuItem(), MenuAction.ROTATELEFT.asMenuItem(),
+        MenuAction.RESET.asMenuItem(), MenuAction.ROTATELEFT.asMenuItem(),
         MenuAction.ROTATERIGHT.asMenuItem(), MenuAction.MAINVIEW.asMenuItem(),
         MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
         MenuAction.GLIDERCANNON.asMenuItem()};
 
     for (int i = 0; i < menuItems.length; i++) {
-      menus[(i < 5) ? 0 : (i < 9) ? 1 : (i < 14) ? 2 : 3].add(menuItems[i]);
+      menus[(i < 5) ? 0 : (i < 8) ? 1 : (i < 10) ? 2 : 3].add(menuItems[i]);
       menuItems[i].addActionListener(menuItemClickEvent -> {
         onMenuItemClick(menuItemClickEvent);
       });
@@ -158,20 +157,8 @@ class GoLChildWindow extends JInternalFrame implements Observer {
       case GLIDERCANNON:
         game.addGliderCannon();
         break;
-      case LEFTVIEW:
-        GoLViewLeft golChildWindow = new GoLViewLeft(mydesk, game, getLeftOffset());
-        mydesk.addChildGoL(golChildWindow, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos,
-            800, 600);
-        game.addObserver(golChildWindow);
-        break;
       case RESET:
         game.resetDelay();
-        break;
-      case RIGHTVIEW:
-        GoLViewRight viewRight = new GoLViewRight(mydesk, game, getRightOffset());
-        mydesk.addChildGoL(viewRight, GameSelectChildWindow.xpos, GameSelectChildWindow.ypos, 800,
-            600);
-        game.addObserver(viewRight);
         break;
       case ROTATELEFT:
         GoLChildWindow rotatedLeft = new GoLViewLeftRotated(mydesk, game, rotateLeftCount);

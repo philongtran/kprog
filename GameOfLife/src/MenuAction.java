@@ -17,10 +17,9 @@ public enum MenuAction {
 
   // menu items
   NONE("Unknown"), START_STOP("Start/Stop"), DRAW("Draw"), SAVE("Save"), LOAD("Load"), EXIT(
-      "Exit"), FASTER("Faster"), SLOWER("Slower"), RESET(
-          "Reset"), LEFTVIEW("Shift view to left"), RIGHTVIEW("Shift view to right"), ROTATELEFT(
-              "Rotate view to the left"), ROTATERIGHT("Rotate view to the right"), MAINVIEW(
-                  "Main view"), BLINKER("Blinker"), GLIDER("Glider"), GLIDERCANNON("Glider cannon");
+      "Exit"), FASTER("Faster"), SLOWER("Slower"), RESET("Reset"), ROTATELEFT(
+          "Rotate view to the left"), ROTATERIGHT("Rotate view to the right"), MAINVIEW(
+              "Main view"), BLINKER("Blinker"), GLIDER("Glider"), GLIDERCANNON("Glider cannon");
 
   private static final String IMAGEFILEEXTENSION = ".png";
   private final String description;
