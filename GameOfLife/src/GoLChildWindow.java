@@ -123,7 +123,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
         MenuAction.GLIDERCANNON.asMenuItem()};
 
     for (int i = 0; i < menuItems.length; i++) {
-      menus[(i < 5) ? 0 : (i < 8) ? 1 : (i < 10) ? 2 : 3].add(menuItems[i]);
+      menus[(i < 5) ? 0 : (i < 8) ? 1 : (i < 11) ? 2 : 3].add(menuItems[i]);
       menuItems[i].addActionListener(menuItemClickEvent -> {
         onMenuItemClick(menuItemClickEvent);
       });
