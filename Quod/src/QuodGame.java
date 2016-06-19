@@ -20,4 +20,11 @@ public class QuodGame extends Observable {
     }
     return _game;
   }
+
+  public void setBoard(int x, int y, int playerID) {
+    board.setBoard(x, y, playerID);
+    setChanged();
+    notifyObservers();
+  }
+
 }

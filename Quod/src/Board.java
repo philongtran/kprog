@@ -8,6 +8,11 @@ public class Board {
 
   public Board() {
     this(DEFAULTBOARDSIZE);
+    for (int y = 0; y < DEFAULTBOARDSIZE; y++) {
+      for (int x = 0; x < DEFAULTBOARDSIZE; x++) {
+        board[y][x] = 0;
+      }
+    }
   }
 
   private Board(int size) {
