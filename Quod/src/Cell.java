@@ -9,6 +9,8 @@ public class Cell {
   private boolean invisible;
   private JButton button;
 
+  private int player = 0;
+
   public Cell(String cellText) {
     this.cellText = cellText;
     // check if all chars are 1 (left upper corner, right upper corner, left
@@ -23,6 +25,14 @@ public class Cell {
       onClick(event);
     });
     return button;
+  }
+
+  public int getPlayer() {
+    return player;
+  }
+
+  public void setPlayer(int playerID) {
+    player = playerID;
   }
 
   public void onClick(ActionEvent e) {
