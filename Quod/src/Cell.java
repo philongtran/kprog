@@ -8,6 +8,8 @@ public class Cell {
   private String cellText;
   private boolean invisible;
   private JButton button;
+  private Color[] colors = {Color.WHITE, Color.BLUE, Color.RED, Color.DARK_GRAY};
+  private int colorID = 0;
 
   private int player = 0;
 
@@ -36,7 +38,15 @@ public class Cell {
   }
 
   public void onClick(ActionEvent e) {
-
+    if (player < 3) { // toggle cell between players for testing purposes
+      player++;
+      colorID++;
+    } else {
+      colorID = 0;
+      player = 0;
+    }
+    setColor(colors[colorID]);
+    System.out.println(player);
   }
 
   void setColor(Color color) {
