@@ -45,6 +45,7 @@ public class Cell {
       colorID = 0;
       player = 0;
     }
+
     setColor(colors[colorID]);
     System.out.println(player);
   }
