@@ -1,11 +1,13 @@
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 
-public class QuodFrame extends JInternalFrame {
+public class QuodFrame extends JInternalFrame implements Observer {
   private static final long serialVersionUID = 5613284283010650242L;
 
   public QuodFrame() {
@@ -36,6 +38,12 @@ public class QuodFrame extends JInternalFrame {
   private JButton createCell(String buttonNr) {
     Cell cell = new Cell(buttonNr);
     return cell.asButton();
+  }
+
+  @Override
+  public void update(Observable o, Object arg) {
+    // TODO Auto-generated method stub
+
   }
 
 }

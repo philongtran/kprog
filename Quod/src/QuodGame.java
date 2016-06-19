@@ -1,5 +1,6 @@
+import java.util.Observable;
 
-public class QuodGame {
+public class QuodGame extends Observable {
 
 
   private static QuodGame _game;
