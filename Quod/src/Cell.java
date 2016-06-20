@@ -45,11 +45,11 @@ public class Cell {
       x = Integer.parseInt(actionCommand.substring(0, commaPosition));
       y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
       // System.out.println(x + "," + y);
-      Player p = game.getPlayer();
-      setColor(p.getColor());
+      Player player = game.getPlayer();
+      setColor(player.getColor());
       // System.out.println(e.getActionCommand());
 
-      game.setBoard(x, y, p);
+      game.setBoard(x, y, player);
       game.switchPlayer();
     }
   }
