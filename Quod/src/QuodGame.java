@@ -12,6 +12,7 @@ public class QuodGame extends Observable {
   private Player player1;
   private Player player2;
   private Player currentPlayer;
+  private boolean isRunning = true;
 
   QuodGame() {
     board = new Board();
@@ -55,12 +56,13 @@ public class QuodGame extends Observable {
               lineStone.getPositionX() - verticalStone.getPositionY() + lineStone.getPositionY(),
               lineStone.getPositionY() + verticalStone.getPositionX() - lineStone.getPositionX());
 
-          System.out.println("ToFind-Line: " + lineStoneToFind);
-          System.out.println("ToFind-Vertical: " + verticalStoneToFind);
+          // System.out.println("ToFind-Line: " + lineStoneToFind);
+          // System.out.println("ToFind-Vertical: " + verticalStoneToFind);
           boolean lineStoneFound = hasStone(lineStoneToFind, playerStones);
           boolean verticalStoneFound = hasStone(verticalStoneToFind, playerStones);
           if (lineStoneFound && verticalStoneFound) {
             System.out.println(getPlayer() + " won");
+            isRunning = false;
             return;
           }
         }
@@ -87,5 +89,9 @@ public class QuodGame extends Observable {
     } else {
       currentPlayer = player1;
     }
+  }
+
+  public boolean isRunning() {
+    return isRunning;
   }
 }

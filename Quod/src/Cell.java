@@ -39,17 +39,19 @@ public class Cell {
   }
 
   public void onClick(ActionEvent e) {
-    String actionCommand = e.getActionCommand();
-    int commaPosition = actionCommand.indexOf(",");
-    x = Integer.parseInt(actionCommand.substring(0, commaPosition));
-    y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
-    // System.out.println(x + "," + y);
-    Player p = game.getPlayer();
-    setColor(p.getColor());
-    // System.out.println(e.getActionCommand());
+    if (game.isRunning()) {
+      String actionCommand = e.getActionCommand();
+      int commaPosition = actionCommand.indexOf(",");
+      x = Integer.parseInt(actionCommand.substring(0, commaPosition));
+      y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
+      // System.out.println(x + "," + y);
+      Player p = game.getPlayer();
+      setColor(p.getColor());
+      // System.out.println(e.getActionCommand());
 
-    game.setBoard(x, y, p);
-    game.switchPlayer();
+      game.setBoard(x, y, p);
+      game.switchPlayer();
+    }
   }
 
   void setColor(Color color) {
