@@ -58,8 +58,8 @@ public class QuodGame extends Observable {
 
           // System.out.println("ToFind-Line: " + lineStoneToFind);
           // System.out.println("ToFind-Vertical: " + verticalStoneToFind);
-          boolean lineStoneFound = hasStone(lineStoneToFind, playerStones);
-          boolean verticalStoneFound = hasStone(verticalStoneToFind, playerStones);
+          boolean lineStoneFound = playerStones.contains(lineStoneToFind);
+          boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
           if (lineStoneFound && verticalStoneFound) {
             System.out.println(getPlayer() + " won");
             isRunning = false;
@@ -70,14 +70,6 @@ public class QuodGame extends Observable {
     }
   }
 
-  private boolean hasStone(Position stoneToFind, List<Position> playerStones) {
-    for (Position stone : playerStones) {
-      if (stone.equals(stoneToFind)) {
-        return true;
-      }
-    }
-    return false;
-  }
 
   public Player getPlayer() {
     return currentPlayer;
