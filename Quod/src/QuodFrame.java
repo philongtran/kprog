@@ -9,9 +9,11 @@ import javax.swing.JPanel;
 
 public class QuodFrame extends JInternalFrame implements Observer {
   private static final long serialVersionUID = 5613284283010650242L;
+  private QuodGame game;
 
-  public QuodFrame() {
+  public QuodFrame(QuodGame game) {
     super("Quod", true, true);
+    this.game = game;
     JPanel gameBoard = new JPanel();
     JButton[][] buttons = new JButton[11][11];
     int boardSize = QuodGame.getInstance().getBoard().getSize();
@@ -23,7 +25,7 @@ public class QuodFrame extends JInternalFrame implements Observer {
       tempButton.setActionCommand(x + "," + y);
       gameBoard.add(tempButton);
       buttons[y][x] = tempButton;
-      System.out.println(tempButton.getActionCommand());
+      // System.out.println(tempButton.getActionCommand());
       x++;
       if (x >= boardSize) {
         x = 0;
@@ -36,9 +38,10 @@ public class QuodFrame extends JInternalFrame implements Observer {
   }
 
   private JButton createCell(String buttonNr) {
-    Cell cell = new Cell(buttonNr);
+    Cell cell = new Cell(buttonNr, game);
     return cell.asButton();
   }
+
 
   @Override
   public void update(Observable o, Object arg) {

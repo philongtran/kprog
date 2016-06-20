@@ -19,6 +19,7 @@ class GameSelectChildWindow extends JInternalFrame {
   static int nr = -1, xpos = 30, ypos = 30;
   private MainWindow mydesk;
 
+
   public GameSelectChildWindow(MainWindow dft) {
     super("Select Game", false, false);
     mydesk = dft;
@@ -41,6 +42,7 @@ class GameSelectChildWindow extends JInternalFrame {
   }
 
   private void createQuodGameInNewWindow() {
-    mydesk.addChild(new QuodFrame(), 10, 10);
+    QuodGame game = new QuodGame();
+    mydesk.addChild(new QuodFrame(game), 10, 10);
   }
 }
