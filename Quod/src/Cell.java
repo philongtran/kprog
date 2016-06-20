@@ -8,8 +8,6 @@ public class Cell {
   private String cellText;
   private boolean invisible;
   private JButton button;
-  private Color[] colors = {Color.WHITE, Color.BLUE, Color.RED, Color.DARK_GRAY};
-  private int colorID = 0;
   private QuodGame game;
   private int x, y;
 
@@ -46,18 +44,12 @@ public class Cell {
     x = Integer.parseInt(actionCommand.substring(0, commaPosition));
     y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
     // System.out.println(x + "," + y);
-    if (player < 3) { // toggle cell between players for testing purposes
-      player++;
-      colorID++;
-    } else {
-      colorID = 0;
-      player = 0;
-    }
-
-    setColor(colors[colorID]);
+    Player p = game.getPlayer();
+    setColor(p.getColor());
     // System.out.println(e.getActionCommand());
 
-    game.setBoard(x, y, 1);
+    game.setBoard(x, y, p);
+    game.switchPlayer();
   }
 
   void setColor(Color color) {

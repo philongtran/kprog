@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -8,36 +9,43 @@ public class QuodGame extends Observable {
   private final Board board;
   private List<Position> player1Stones;
   private List<Position> player2Stones;
+  private Player player1;
+  private Player player2;
+  private Player currentPlayer;
 
   QuodGame() {
     board = new Board();
     player1Stones = new ArrayList<>();
     player2Stones = new ArrayList<>();
+    player1 = new Player(Color.blue);
+    player2 = new Player(Color.red);
+    currentPlayer = player1;
   }
 
   public Board getBoard() {
     return board;
   }
 
-  public void setBoard(int x, int y, int playerID) {
+  public void setBoard(int x, int y, Player p) {
     Position position = new Position(x, y);
-    if (playerID == 1) {
+    if (p.equals(player1)) {
       player1Stones.add(position);
-    } else if (playerID == 2) {
+      positionCheckForPlayer(player1Stones);
+    } else if (p.equals(player2)) {
       player2Stones.add(position);
+      positionCheckForPlayer(player2Stones);
     }
-    board.setBoard(x, y, playerID);
-    positionCheck(playerID, position);
+    // board.setBoard(x, y, p);
     setChanged();
     notifyObservers();
   }
 
-  public void positionCheck(int playerID, Position currentStone) {
-    for (int lineIndex = 0; lineIndex < player1Stones.size(); lineIndex++) {
-      for (int verticalIndex = 0; verticalIndex < player1Stones.size(); verticalIndex++) {
+  private void positionCheckForPlayer(List<Position> playerStones) {
+    for (int lineIndex = 0; lineIndex < playerStones.size(); lineIndex++) {
+      for (int verticalIndex = 0; verticalIndex < playerStones.size(); verticalIndex++) {
         if (lineIndex != verticalIndex) {
-          Position lineStone = player1Stones.get(lineIndex);
-          Position verticalStone = player1Stones.get(verticalIndex);
+          Position lineStone = playerStones.get(lineIndex);
+          Position verticalStone = playerStones.get(verticalIndex);
           Position lineStoneToFind = new Position(
               verticalStone.getPositionX() - verticalStone.getPositionY()
                   + lineStone.getPositionY(),
@@ -49,22 +57,34 @@ public class QuodGame extends Observable {
 
           System.out.println("ToFind-Line: " + lineStoneToFind);
           System.out.println("ToFind-Vertical: " + verticalStoneToFind);
-          boolean lineStoneFound = hasStone(lineStoneToFind);
-          boolean verticalStoneFound = hasStone(verticalStoneToFind);
+          boolean lineStoneFound = hasStone(lineStoneToFind, playerStones);
+          boolean verticalStoneFound = hasStone(verticalStoneToFind, playerStones);
           if (lineStoneFound && verticalStoneFound) {
-            System.out.println("won");
+            System.out.println(getPlayer() + " won");
           }
         }
       }
     }
   }
 
-  private boolean hasStone(Position stoneToFind) {
-    for (Position stone : player1Stones) {
+  private boolean hasStone(Position stoneToFind, List<Position> playerStones) {
+    for (Position stone : playerStones) {
       if (stone.equals(stoneToFind)) {
         return true;
       }
     }
     return false;
+  }
+
+  public Player getPlayer() {
+    return currentPlayer;
+  }
+
+  public void switchPlayer() {
+    if (currentPlayer.equals(player1)) {
+      currentPlayer = player2;
+    } else {
+      currentPlayer = player1;
+    }
   }
 }
