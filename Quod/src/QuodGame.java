@@ -61,6 +61,7 @@ public class QuodGame extends Observable {
           boolean verticalStoneFound = hasStone(verticalStoneToFind, playerStones);
           if (lineStoneFound && verticalStoneFound) {
             System.out.println(getPlayer() + " won");
+            return;
           }
         }
       }
