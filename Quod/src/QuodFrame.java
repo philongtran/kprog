@@ -16,7 +16,7 @@ public class QuodFrame extends JInternalFrame implements Observer {
     this.game = game;
     JPanel gameBoard = new JPanel();
     JButton[][] buttons = new JButton[11][11];
-    int boardSize = QuodGame.getInstance().getBoard().getSize();
+    int boardSize = game.getBoard().getSize();
     gameBoard.setLayout(new GridLayout(boardSize, boardSize, 1, 1));
     int x = 0;
     int y = 0;
