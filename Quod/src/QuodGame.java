@@ -46,16 +46,21 @@ public class QuodGame extends Observable {
     if (playerID == 1) {
       int j = 0;
       while (j < player1Stones.length - 1) {
-        for (int i = 0; i < player1Stones.length; i++) {
-          newX = player1Stones[j].getPositionX() - player1Stones[i + 1].getPositionX();
-          newY = player1Stones[j].getPositionY() - player1Stones[i + 1].getPositionY();
-          rotatedX = newY;
-          rotatedY = -newX;
-          System.out.println(rotatedX + "," + rotatedY);
-          for (int k = j; k < player1Stones.length; k++) {
-            if (player1Stones[k].getPositionX() == rotatedX
-                && player1Stones[k].getPositionY() == rotatedY) {
-              System.out.println("true");
+        for (int i = j; i < player1Stones.length - 1; i++) {
+          Position firstStone = player1Stones[i];
+          Position secondStone = player1Stones[i + 1];
+          if (firstStone != null && secondStone != null) {
+            newX = firstStone.getPositionX() - secondStone.getPositionX();
+            newY = firstStone.getPositionY() - secondStone.getPositionY();
+            rotatedX = newY;
+            rotatedY = -newX;
+            System.out.println(rotatedX + "," + rotatedY);
+            for (int k = j; k < player1Stones.length; k++) {
+              Position position = player1Stones[k];
+              if (position != null && position.getPositionX() == rotatedX
+                  && position.getPositionY() == rotatedY) {
+                // System.out.println("true");
+              }
             }
           }
         }
