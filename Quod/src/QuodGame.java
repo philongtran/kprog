@@ -44,8 +44,7 @@ public class QuodGame extends Observable {
     int newX, newY;
     int rotatedX, rotatedY;
     if (playerID == 1) {
-      int j = 0;
-      while (j < player1Stones.length - 1) {
+      for (int j = 0; j < player1Stones.length - 1; j++) {
         for (int i = j; i < player1Stones.length - 1; i++) {
           Position firstStone = player1Stones[i];
           Position secondStone = player1Stones[i + 1];
@@ -63,9 +62,6 @@ public class QuodGame extends Observable {
               }
             }
           }
-        }
-        if (j < player1Stones.length) {
-          j++;
         }
       }
     } else if (playerID == 2 && player2Stones.length > 3) {
