@@ -28,9 +28,11 @@ class GameSelectChildWindow extends JInternalFrame {
     JButton quodButton = new JButton("Quod");
     JButton gameOfLifeButton = new JButton("Game of Life");
     JButton lockGameButton = new JButton("Rotating Lock V2");
+    JButton maxButton = new JButton("MAX");
     cp.add(quodButton);
     cp.add(gameOfLifeButton);
     cp.add(lockGameButton);
+    cp.add(maxButton);
     quodButton.addActionListener(listener -> {
       createQuodGameInNewWindow();
     });
@@ -40,6 +42,9 @@ class GameSelectChildWindow extends JInternalFrame {
     lockGameButton.addActionListener(listener -> {
       createRotatingLockGameInNewWindow();
     });
+    maxButton.addActionListener(listener -> {
+      createMAXGameInNewWindow();
+    });
 
     setSize(200, 150);
     setIconifiable(true);
@@ -47,12 +52,16 @@ class GameSelectChildWindow extends JInternalFrame {
     setClosable(false);
   }
 
+  private void createMAXGameInNewWindow() {
+    mydesk.addChild(new MAXGame(8, 8, 2).getDisplay(), xpos, ypos);
+  }
+
   private void createRotatingLockGameInNewWindow() {
-    mydesk.addChild(new DrehSchlossV2(), 10, 10);
+    mydesk.addChild(new DrehSchlossV2(), xpos, ypos);
   }
 
   private void createQuodGameInNewWindow() {
-    mydesk.addChild(new QuodFrame(new QuodGame()), 10, 10);
+    mydesk.addChild(new QuodFrame(new QuodGame()), xpos, ypos);
   }
 
   /**
