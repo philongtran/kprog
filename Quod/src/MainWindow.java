@@ -1,4 +1,6 @@
 
+import java.awt.Dimension;
+
 import javax.swing.DefaultDesktopManager;
 import javax.swing.JApplet;
 import javax.swing.JDesktopPane;
@@ -27,14 +29,16 @@ public class MainWindow extends JApplet {
     child.setLocation(x, y);
     desk.add(child);
     child.setVisible(true);
+    child.toFront();
+  }
+
+  public void addChild(JInternalFrame child, int x, int y, Dimension size) {
+    addChild(child, x, y);
+    child.setSize(size);
   }
 
   public void addChildGoL(JInternalFrame child, int x, int y, int sizeX, int sizeY) {
-    child.setLocation(x, y);
-    child.setSize(sizeX, sizeY);
-    child.setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-    desk.add(child);
-    child.setVisible(true);
+    addChild(child, x, y, new Dimension(sizeX, sizeY));
     GameSelectChildWindow.xpos += 20;
     GameSelectChildWindow.ypos += 20;
   }
