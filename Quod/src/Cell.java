@@ -47,7 +47,7 @@ public class Cell {
       y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
       // System.out.println(x + "," + y);
       Player player = game.getPlayer();
-      if (!player.getDone() && !game.getUseGreyStones()) {
+      if (!player.isDone() && !game.getUseGreyStones()) {
         player.setStones();
         setColor(player.getColor());
         System.out.println("Player stones left: " + player.getStones());

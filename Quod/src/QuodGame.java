@@ -19,8 +19,8 @@ public class QuodGame extends Observable {
     board = new Board();
     player1Stones = new ArrayList<>();
     player2Stones = new ArrayList<>();
-    player1 = new Player(Color.blue);
-    player2 = new Player(Color.red);
+    player1 = new Player(Color.blue, "Player One");
+    player2 = new Player(Color.red, "Player Two");
     currentPlayer = player1;
   }
 

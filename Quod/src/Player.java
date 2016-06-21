@@ -6,9 +6,11 @@ public class Player {
   private int stones = 2;
   private int greyStones = 6;
   private boolean done = false;
+  private final String playerDescription;
 
-  public Player(Color color) {
+  public Player(Color color, String playerDescription) {
     this.color = color;
+    this.playerDescription = playerDescription;
   }
 
   public Color getColor() {
@@ -17,7 +19,7 @@ public class Player {
 
   @Override
   public String toString() {
-    return color.toString();
+    return getPlayerDescription();
   }
 
   public boolean setStones() {
@@ -49,7 +51,11 @@ public class Player {
     done = true;
   }
 
-  public boolean getDone() {
+  public boolean isDone() {
     return done;
+  }
+
+  public String getPlayerDescription() {
+    return playerDescription;
   }
 }
