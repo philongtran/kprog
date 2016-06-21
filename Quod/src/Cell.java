@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
@@ -9,10 +11,7 @@ public class Cell {
   private boolean invisible;
   private JButton button;
   private QuodGame game;
-  private int x, y;
-  private boolean used = false;
-
-  private int player = 0;
+  private CellContent content;
 
   public Cell(String cellText, QuodGame game) {
     this.cellText = cellText;
@@ -20,6 +19,7 @@ public class Cell {
     // check if all chars are 1 (left upper corner, right upper corner, left
     // down corner)
     this.invisible = cellText.chars().allMatch(c -> c == '1');
+    this.content = CellContent.EMPTY;
   }
 
   public JButton asButton() {
@@ -28,48 +28,57 @@ public class Cell {
     button.addActionListener(event -> {
       onClick(event);
     });
+    button.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mousePressed(MouseEvent e) {
+        onRightClick(e);
+      }
+    });
     return button;
   }
 
-  public int getPlayer() {
-    return player;
-  }
-
-  public void setPlayer(int playerID) {
-    player = playerID;
-  }
-
-  public void onClick(ActionEvent e) {
-    if (game.isRunning() && !used) {
-      String actionCommand = e.getActionCommand();
-      int commaPosition = actionCommand.indexOf(",");
-      x = Integer.parseInt(actionCommand.substring(0, commaPosition));
-      y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
-      // System.out.println(x + "," + y);
+  private void onClick(ActionEvent e) {
+    if (isFree() && game.isRunning()) {
       Player player = game.getPlayer();
       if (!player.isDone() && !game.getUseGreyStones()) {
         player.reduceRemainingStones();
-        setColor(player.getColor());
         System.out.println("Player stones left: " + player.getRemainingStones());
+        setContent(CellContent.QUAD);
+        setColor(player.getColor());
 
-        game.setBoard(x, y, player);
-
-
+        Position position = Position.fromActionCommand(e.getActionCommand());
+        game.setBoard(position, player);
         game.switchPlayer();
-        used = true;
-      } else if (player.getGreyStones() > 0 && game.getUseGreyStones()) {
-        player.setGreyStones();
-        setColor(Color.WHITE);
-        System.out.println("Grey stones left: " + player.getGreyStones());
-        used = true;
       }
+    }
+  }
 
+  private void onRightClick(MouseEvent e) {
+    boolean isRightClick = e.getButton() == MouseEvent.BUTTON3;
+    Player player = game.getPlayer();
+    if (isRightClick && player.hasGreyStones() && isFree()) {
+      player.reduceGreyStones();
+      setContent(CellContent.QUASAR);
+      setColor(Color.GRAY);
+      System.out.println("Grey stones left: " + player.hasGreyStones());
     }
   }
 
   void setColor(Color color) {
     button.setForeground(color);
     button.setBackground(color);
+  }
+
+  public boolean isFree() {
+    return getContent().equals(CellContent.EMPTY);
+  }
+
+  public CellContent getContent() {
+    return content;
+  }
+
+  public void setContent(CellContent content) {
+    this.content = content;
   }
 
 }

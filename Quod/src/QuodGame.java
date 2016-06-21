@@ -13,7 +13,7 @@ public class QuodGame extends Observable {
   private boolean useGreyStones = false;
 
   QuodGame() {
-    board = new Board();
+    board = new Board(this);
     player1 = new Player(Color.blue, "Player One");
     player2 = new Player(Color.red, "Player Two");
     currentPlayer = player1;
@@ -23,9 +23,8 @@ public class QuodGame extends Observable {
     return board;
   }
 
-  public void setBoard(int x, int y, Player player) {
-    Position position = new Position(x, y);
-    player.getExistingStones().add(position);
+  public void setBoard(Position stonePosition, Player player) {
+    player.getExistingStones().add(stonePosition);
     positionCheckForPlayer(player.getExistingStones());
     // board.setBoard(x, y, p);
     setChanged();
@@ -47,8 +46,6 @@ public class QuodGame extends Observable {
               lineStone.getPositionX() - verticalStone.getPositionY() + lineStone.getPositionY(),
               lineStone.getPositionY() + verticalStone.getPositionX() - lineStone.getPositionX());
 
-          // System.out.println("ToFind-Line: " + lineStoneToFind);
-          // System.out.println("ToFind-Vertical: " + verticalStoneToFind);
           boolean lineStoneFound = playerStones.contains(lineStoneToFind);
           boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
           if (lineStoneFound && verticalStoneFound) {
