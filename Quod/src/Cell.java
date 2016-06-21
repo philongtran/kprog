@@ -13,6 +13,7 @@ public class Cell {
   private boolean used = false;
 
   private int player = 0;
+  private CellContent content;
 
   public Cell(String cellText, QuodGame game) {
     this.cellText = cellText;
@@ -20,6 +21,7 @@ public class Cell {
     // check if all chars are 1 (left upper corner, right upper corner, left
     // down corner)
     this.invisible = cellText.chars().allMatch(c -> c == '1');
+    this.content = CellContent.EMPTY;
   }
 
   public JButton asButton() {
@@ -70,6 +72,18 @@ public class Cell {
   void setColor(Color color) {
     button.setForeground(color);
     button.setBackground(color);
+  }
+
+  public boolean isFree() {
+    return getContent().equals(CellContent.EMPTY);
+  }
+
+  public CellContent getContent() {
+    return content;
+  }
+
+  public void setContent(CellContent content) {
+    this.content = content;
   }
 
 }
