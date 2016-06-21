@@ -39,7 +39,7 @@ public class Cell {
 
   private void onClick(ActionEvent e) {
     if (isFree() && game.isRunning()) {
-      Player player = game.getPlayer();
+      QuodPlayer player = game.getPlayer();
       if (!player.isDone() && !game.getUseGreyStones()) {
         player.reduceRemainingStones();
         System.out.println("Player stones left: " + player.getRemainingStones());
@@ -55,7 +55,7 @@ public class Cell {
 
   private void onRightClick(MouseEvent e) {
     boolean isRightClick = e.getButton() == MouseEvent.BUTTON3;
-    Player player = game.getPlayer();
+    QuodPlayer player = game.getPlayer();
     if (isRightClick && player.hasGreyStones() && isFree()) {
       player.reduceGreyStones();
       setContent(CellContent.QUASAR);

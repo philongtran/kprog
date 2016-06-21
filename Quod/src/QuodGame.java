@@ -6,16 +6,16 @@ public class QuodGame extends Observable {
 
 
   private final QuodBoard board;
-  private Player player1;
-  private Player player2;
-  private Player currentPlayer;
+  private QuodPlayer player1;
+  private QuodPlayer player2;
+  private QuodPlayer currentPlayer;
   private boolean isRunning = true;
   private boolean useGreyStones = false;
 
   QuodGame() {
     board = new QuodBoard(this);
-    player1 = new Player(Color.blue, "Player One");
-    player2 = new Player(Color.red, "Player Two");
+    player1 = new QuodPlayer(Color.blue, "Player One");
+    player2 = new QuodPlayer(Color.red, "Player Two");
     currentPlayer = player1;
   }
 
@@ -23,7 +23,7 @@ public class QuodGame extends Observable {
     return board;
   }
 
-  public void setBoard(Position stonePosition, Player player) {
+  public void setBoard(Position stonePosition, QuodPlayer player) {
     player.getExistingStones().add(stonePosition);
     positionCheckForPlayer(player.getExistingStones());
     // board.setBoard(x, y, p);
@@ -59,7 +59,7 @@ public class QuodGame extends Observable {
   }
 
 
-  public Player getPlayer() {
+  public QuodPlayer getPlayer() {
     return currentPlayer;
   }
 
