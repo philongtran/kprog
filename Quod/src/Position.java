@@ -34,17 +34,6 @@ public class Position {
     return new Position(x, y);
   }
 
-  public String asActionCommand() {
-    return toString();
-  }
-
-  public static Position fromActionCommand(String actionCommand) {
-    int commaPosition = actionCommand.indexOf(",");
-    int x = Integer.parseInt(actionCommand.substring(0, commaPosition));
-    int y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
-    return of(x, y);
-  }
-
   @Override
   public String toString() {
     return positionX + "," + positionY;

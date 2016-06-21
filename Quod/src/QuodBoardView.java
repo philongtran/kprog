@@ -5,24 +5,16 @@ import javax.swing.JPanel;
 
 public class QuodBoardView {
 
-  public static JPanel asPanel(QuodGame game) {
+  public static JPanel asPanel(QuodBoard board) {
     JPanel gameBoard = new JPanel();
-    JButton[][] buttons = new JButton[11][11];
-    int boardSize = game.getBoard().getSize();
+    int boardSize = board.getSize();
     gameBoard.setLayout(new GridLayout(boardSize, boardSize, 1, 1));
-    int x = 0;
-    int y = 0;
-    for (int i = 1; i < boardSize * boardSize; i++) {
-      QuodCell cell = new QuodCell(String.valueOf(i), game);
-      JButton tempButton = cell.asButton();
-      tempButton.setActionCommand(Position.of(x, y).asActionCommand());
-      gameBoard.add(tempButton);
-      buttons[y][x] = tempButton;
-      // System.out.println(tempButton.getActionCommand());
-      x++;
-      if (x >= boardSize) {
-        x = 0;
-        y++;
+
+    for (int x = 0; x < boardSize; x++) {
+      for (int y = 0; y < boardSize; y++) {
+        QuodCell cell = board.getCell(Position.of(x, y));
+        JButton cellAsButton = cell.asButton();
+        gameBoard.add(cellAsButton);
       }
     }
     return gameBoard;

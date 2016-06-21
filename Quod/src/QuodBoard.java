@@ -11,7 +11,7 @@ public class QuodBoard {
     // initialize board
     for (int y = 0; y < DEFAULTBOARDSIZE; y++) {
       for (int x = 0; x < DEFAULTBOARDSIZE; x++) {
-        board[y][x] = new QuodCell("" + x + "," + y, quodGame);
+        board[y][x] = new QuodCell(Position.of(x, y), quodGame);
       }
     }
   }

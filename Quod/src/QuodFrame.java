@@ -9,7 +9,7 @@ public class QuodFrame extends JInternalFrame implements Observer {
 
   public QuodFrame(QuodGame game) {
     super("Quod", true, true);
-    add(QuodBoardView.asPanel(game));
+    add(QuodBoardView.asPanel(game.getBoard()));
     setSize(new Dimension(700, 700));
     setVisible(true);
   }

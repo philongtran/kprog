@@ -7,23 +7,21 @@ import javax.swing.JButton;
 
 public class QuodCell {
 
-  private String cellText;
   private boolean invisible;
   private JButton button;
-  private QuodGame game;
+  private final QuodGame game;
   private QuodCellContent content;
+  private final Position position;
 
-  public QuodCell(String cellText, QuodGame game) {
-    this.cellText = cellText;
+  public QuodCell(Position position, QuodGame game) {
+    this.position = position;
     this.game = game;
-    // check if all chars are 1 (left upper corner, right upper corner, left
-    // down corner)
-    this.invisible = cellText.chars().allMatch(c -> c == '1');
+    this.invisible = QuodCellBorders.get().contains(position);
     this.content = QuodCellContent.EMPTY;
   }
 
   public JButton asButton() {
-    button = new JButton(cellText);
+    button = new JButton();
     button.setVisible(!invisible);
     button.addActionListener(event -> {
       onClick(event);
@@ -46,7 +44,6 @@ public class QuodCell {
         setContent(QuodCellContent.QUAD);
         setColor(player.getColor());
 
-        Position position = Position.fromActionCommand(e.getActionCommand());
         game.setBoard(position, player);
         game.switchPlayer();
       }
