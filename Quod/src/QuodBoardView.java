@@ -3,7 +3,7 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class BoardView {
+public class QuodBoardView {
 
   public static JPanel asPanel(QuodGame game) {
     JPanel gameBoard = new JPanel();

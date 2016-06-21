@@ -5,7 +5,7 @@ import java.util.Observable;
 public class QuodGame extends Observable {
 
 
-  private final Board board;
+  private final QuodBoard board;
   private Player player1;
   private Player player2;
   private Player currentPlayer;
@@ -13,13 +13,13 @@ public class QuodGame extends Observable {
   private boolean useGreyStones = false;
 
   QuodGame() {
-    board = new Board(this);
+    board = new QuodBoard(this);
     player1 = new Player(Color.blue, "Player One");
     player2 = new Player(Color.red, "Player Two");
     currentPlayer = player1;
   }
 
-  public Board getBoard() {
+  public QuodBoard getBoard() {
     return board;
   }
 

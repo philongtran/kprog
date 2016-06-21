@@ -1,12 +1,12 @@
 
-public class Board {
+public class QuodBoard {
 
   private static final int DEFAULTBOARDSIZE = 11;
   private final int size;
 
   private Cell[][] board = new Cell[DEFAULTBOARDSIZE][DEFAULTBOARDSIZE];
 
-  public Board(QuodGame quodGame) {
+  public QuodBoard(QuodGame quodGame) {
     this.size = DEFAULTBOARDSIZE;
     // initialize board
     for (int y = 0; y < DEFAULTBOARDSIZE; y++) {
