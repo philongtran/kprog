@@ -32,8 +32,8 @@ class GameSelectChildWindow extends JInternalFrame {
     quodButton.addActionListener(listener -> {
       createQuodGameInNewWindow();
     });
-    quodButton.addActionListener(listener -> {
-      // open game of life
+    gameOfLifeButton.addActionListener(listener -> {
+      createGameOfLifeGameInNewWindow();
     });
     setSize(200, 150);
     setIconifiable(true);
@@ -44,5 +44,16 @@ class GameSelectChildWindow extends JInternalFrame {
   private void createQuodGameInNewWindow() {
     QuodGame game = new QuodGame();
     mydesk.addChild(new QuodFrame(game), 10, 10);
+  }
+
+  /**
+   * if create new game of life game button is pressed create a new game of life child window
+   */
+  private void createGameOfLifeGameInNewWindow() {
+    GoLGame game = new GoLGame(50, 50);
+    GoLChildWindow golChildWindow = new GoLChildWindow(mydesk, game);
+    mydesk.addChildGoL(golChildWindow, xpos, ypos, 800, 600);
+    game.addObserver(golChildWindow);
+    GoLGame.GOLWINDOWNUMBER++;
   }
 }
