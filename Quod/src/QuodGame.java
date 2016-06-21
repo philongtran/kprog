@@ -13,7 +13,7 @@ public class QuodGame extends Observable {
   private boolean useGreyStones = false;
 
   QuodGame() {
-    board = new Board();
+    board = new Board(this);
     player1 = new Player(Color.blue, "Player One");
     player2 = new Player(Color.red, "Player Two");
     currentPlayer = player1;
