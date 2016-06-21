@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-public final class QuodGameState {
+public final class GoLGameState {
   private static final String FILEEXTENSION = "gol";
   private static final String FILEEXTENSION_WITH_DOTPREFIX = "." + FILEEXTENSION;
 
