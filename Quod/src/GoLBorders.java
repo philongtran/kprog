@@ -8,12 +8,12 @@ import java.util.List;
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-public class Borders {
+public class GoLBorders {
 
   private final Position leftUpperCorner, upperCorner, rightUpperCorner, leftCorner, rightCorner,
       leftBottomCorner, bottomCorner, rightBottomCorner;
 
-  Borders(Position leftUpperCorner, Position upperCorner, Position rightUpperCorner,
+  GoLBorders(Position leftUpperCorner, Position upperCorner, Position rightUpperCorner,
       Position leftCorner, Position rightCorner, Position leftBottomCorner, Position bottomCorner,
       Position rightBottomCorner) {
     this.leftUpperCorner = leftUpperCorner;
@@ -34,7 +34,7 @@ public class Borders {
    * @param y - y position of cell, which the borders should be calculated
    * @return new instance of Borders
    */
-  public static Borders of(GoLBoard board, int x, int y) {
+  public static GoLBorders of(GoLBoard board, int x, int y) {
     int newXLeft, newYUp, newXRight, newYDown;
 
     if (x - 1 < 0) {
@@ -67,7 +67,7 @@ public class Borders {
     Position leftBottomCorner = new Position(newXLeft, newYDown);
     Position bottomCorner = new Position(x, newYDown);
     Position rightBottomCorner = new Position(newXRight, newYDown);
-    Borders borders = new Borders(leftUpperCorner, upperCorner, rightUpperCorner, leftCorner,
+    GoLBorders borders = new GoLBorders(leftUpperCorner, upperCorner, rightUpperCorner, leftCorner,
         rightCorner, leftBottomCorner, bottomCorner, rightBottomCorner);
     return borders;
   }

@@ -114,13 +114,13 @@ class GoLChildWindow extends JInternalFrame implements Observer {
   private void createMenu() {
     JMenu[] menus =
         {new JMenu("Mode"), new JMenu("Speed"), new JMenu("Window"), new JMenu("Figures")};
-    JMenuItem[] menuItems = {MenuAction.START_STOP.asMenuItem(), MenuAction.DRAW.asMenuItem(),
-        MenuAction.SAVE.asMenuItem(), MenuAction.LOAD.asMenuItem(), MenuAction.EXIT.asMenuItem(),
-        MenuAction.FASTER.asMenuItem(), MenuAction.SLOWER.asMenuItem(),
-        MenuAction.RESET.asMenuItem(), MenuAction.ROTATELEFT.asMenuItem(),
-        MenuAction.ROTATERIGHT.asMenuItem(), MenuAction.MAINVIEW.asMenuItem(),
-        MenuAction.BLINKER.asMenuItem(), MenuAction.GLIDER.asMenuItem(),
-        MenuAction.GLIDERCANNON.asMenuItem()};
+    JMenuItem[] menuItems = {GoLMenuAction.START_STOP.asMenuItem(), GoLMenuAction.DRAW.asMenuItem(),
+        GoLMenuAction.SAVE.asMenuItem(), GoLMenuAction.LOAD.asMenuItem(), GoLMenuAction.EXIT.asMenuItem(),
+        GoLMenuAction.FASTER.asMenuItem(), GoLMenuAction.SLOWER.asMenuItem(),
+        GoLMenuAction.RESET.asMenuItem(), GoLMenuAction.ROTATELEFT.asMenuItem(),
+        GoLMenuAction.ROTATERIGHT.asMenuItem(), GoLMenuAction.MAINVIEW.asMenuItem(),
+        GoLMenuAction.BLINKER.asMenuItem(), GoLMenuAction.GLIDER.asMenuItem(),
+        GoLMenuAction.GLIDERCANNON.asMenuItem()};
 
     for (int i = 0; i < menuItems.length; i++) {
       menus[(i < 5) ? 0 : (i < 8) ? 1 : (i < 11) ? 2 : 3].add(menuItems[i]);
@@ -141,7 +141,7 @@ class GoLChildWindow extends JInternalFrame implements Observer {
    */
   private void onMenuItemClick(ActionEvent e) {
     JMenuItem item = (JMenuItem) e.getSource();
-    switch (MenuAction.of(item.getActionCommand())) {
+    switch (GoLMenuAction.of(item.getActionCommand())) {
       case BLINKER:
         game.addBlinker();
         break;
@@ -188,10 +188,10 @@ class GoLChildWindow extends JInternalFrame implements Observer {
         game.toggleDrawingMode();
         break;
       case SAVE:
-        GameState.save(getGame().getBoard(), this);
+        QuodGameState.save(getGame().getBoard(), this);
         break;
       case LOAD:
-        Optional.ofNullable(GameState.load(this)).ifPresent(board -> game.setBoard(board));;
+        Optional.ofNullable(QuodGameState.load(this)).ifPresent(board -> game.setBoard(board));;
         break;
       case NONE:
         break;

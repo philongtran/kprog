@@ -13,7 +13,7 @@ public class QuodBoardView {
     int x = 0;
     int y = 0;
     for (int i = 1; i < boardSize * boardSize; i++) {
-      Cell cell = new Cell(String.valueOf(i), game);
+      QuodCell cell = new QuodCell(String.valueOf(i), game);
       JButton tempButton = cell.asButton();
       tempButton.setActionCommand(Position.of(x, y).asActionCommand());
       gameBoard.add(tempButton);

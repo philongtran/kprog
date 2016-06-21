@@ -37,7 +37,7 @@ public class GoLGame extends Observable {
     for (int y = 0; y < board.getSizeY(); y++) {
       for (int x = 0; x < board.getSizeX(); x++) {
         int livingCells = 0;
-        for (Position border : Borders.of(board, x, y).getPositions()) {
+        for (Position border : GoLBorders.of(board, x, y).getPositions()) {
           if (board.getStatus(border.getPositionX(), border.getPositionY())) {
             livingCells++;
           }

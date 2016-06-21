@@ -5,21 +5,21 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-public class Cell {
+public class QuodCell {
 
   private String cellText;
   private boolean invisible;
   private JButton button;
   private QuodGame game;
-  private CellContent content;
+  private QuodCellContent content;
 
-  public Cell(String cellText, QuodGame game) {
+  public QuodCell(String cellText, QuodGame game) {
     this.cellText = cellText;
     this.game = game;
     // check if all chars are 1 (left upper corner, right upper corner, left
     // down corner)
     this.invisible = cellText.chars().allMatch(c -> c == '1');
-    this.content = CellContent.EMPTY;
+    this.content = QuodCellContent.EMPTY;
   }
 
   public JButton asButton() {
@@ -43,7 +43,7 @@ public class Cell {
       if (!player.isDone() && !game.getUseGreyStones()) {
         player.reduceRemainingStones();
         System.out.println("Player stones left: " + player.getRemainingStones());
-        setContent(CellContent.QUAD);
+        setContent(QuodCellContent.QUAD);
         setColor(player.getColor());
 
         Position position = Position.fromActionCommand(e.getActionCommand());
@@ -58,7 +58,7 @@ public class Cell {
     QuodPlayer player = game.getPlayer();
     if (isRightClick && player.hasGreyStones() && isFree()) {
       player.reduceGreyStones();
-      setContent(CellContent.QUASAR);
+      setContent(QuodCellContent.QUASAR);
       setColor(Color.GRAY);
       System.out.println("Grey stones left: " + player.hasGreyStones());
     }
@@ -70,14 +70,14 @@ public class Cell {
   }
 
   public boolean isFree() {
-    return getContent().equals(CellContent.EMPTY);
+    return getContent().equals(QuodCellContent.EMPTY);
   }
 
-  public CellContent getContent() {
+  public QuodCellContent getContent() {
     return content;
   }
 
-  public void setContent(CellContent content) {
+  public void setContent(QuodCellContent content) {
     this.content = content;
   }
 

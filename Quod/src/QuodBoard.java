@@ -4,14 +4,14 @@ public class QuodBoard {
   private static final int DEFAULTBOARDSIZE = 11;
   private final int size;
 
-  private Cell[][] board = new Cell[DEFAULTBOARDSIZE][DEFAULTBOARDSIZE];
+  private QuodCell[][] board = new QuodCell[DEFAULTBOARDSIZE][DEFAULTBOARDSIZE];
 
   public QuodBoard(QuodGame quodGame) {
     this.size = DEFAULTBOARDSIZE;
     // initialize board
     for (int y = 0; y < DEFAULTBOARDSIZE; y++) {
       for (int x = 0; x < DEFAULTBOARDSIZE; x++) {
-        board[y][x] = new Cell("" + x + "," + y, quodGame);
+        board[y][x] = new QuodCell("" + x + "," + y, quodGame);
       }
     }
   }
@@ -20,11 +20,11 @@ public class QuodBoard {
     return size;
   }
 
-  public void setBoard(Position coordinate, CellContent content) {
+  public void setBoard(Position coordinate, QuodCellContent content) {
     getCell(coordinate).setContent(content);
   }
 
-  public Cell getCell(Position coordinate) {
+  public QuodCell getCell(Position coordinate) {
     return board[coordinate.getPositionY()][coordinate.getPositionX()];
   }
 }

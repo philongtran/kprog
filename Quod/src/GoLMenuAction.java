@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-public enum MenuAction {
+public enum GoLMenuAction {
 
   // menu items
   NONE("Unknown"), START_STOP("Start/Stop"), DRAW("Draw"), SAVE("Save"), LOAD("Load"), EXIT(
@@ -24,7 +24,7 @@ public enum MenuAction {
   private static final String IMAGEFILEEXTENSION = ".png";
   private final String description;
 
-  private MenuAction(String description) {
+  private GoLMenuAction(String description) {
     this.description = description;
   }
 
@@ -53,8 +53,8 @@ public enum MenuAction {
     return null;
   }
 
-  static MenuAction of(String action) {
-    for (MenuAction menuAction : values()) {
+  static GoLMenuAction of(String action) {
+    for (GoLMenuAction menuAction : values()) {
       if (action.equals(menuAction.getDescription())) {
         return menuAction;
       }
