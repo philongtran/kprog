@@ -4,35 +4,27 @@ public class Board {
   private static final int DEFAULTBOARDSIZE = 11;
   private final int size;
 
-  private int[][] board = new int[DEFAULTBOARDSIZE][DEFAULTBOARDSIZE];
+  private Cell[][] board = new Cell[DEFAULTBOARDSIZE][DEFAULTBOARDSIZE];
 
-  public Board() {
-    this(DEFAULTBOARDSIZE);
+  public Board(QuodGame quodGame) {
+    this.size = DEFAULTBOARDSIZE;
     // initialize board
     for (int y = 0; y < DEFAULTBOARDSIZE; y++) {
       for (int x = 0; x < DEFAULTBOARDSIZE; x++) {
-        board[y][x] = 0;
+        board[y][x] = new Cell("" + x + "," + y, quodGame);
       }
     }
-  }
-
-  private Board(int size) {
-    this.size = size;
   }
 
   public int getSize() {
     return size;
   }
 
-  public void setBoard(int x, int y, int playerID) {
-    board[y][x] = playerID;
+  public void setBoard(Position coordinate, CellContent content) {
+    getCell(coordinate).setContent(content);
   }
 
-  public int[][] getBoard() {
-    return board;
-  }
-
-  public int getInfo(int x, int y) {
-    return board[y][x];
+  public Cell getCell(Position coordinate) {
+    return board[coordinate.getPositionY()][coordinate.getPositionX()];
   }
 }
