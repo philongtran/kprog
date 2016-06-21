@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Observable;
 
+import javax.swing.JOptionPane;
+
 public class QuodGame extends Observable {
 
 
@@ -49,7 +51,9 @@ public class QuodGame extends Observable {
           boolean lineStoneFound = playerStones.contains(lineStoneToFind);
           boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
           if (lineStoneFound && verticalStoneFound) {
-            System.out.println(getPlayer() + " won");
+            String winMessage = getPlayer() + " won";
+            JOptionPane.showMessageDialog(null, winMessage);
+            System.out.println(winMessage);
             isRunning = false;
             return;
           }
