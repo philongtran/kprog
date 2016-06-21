@@ -50,6 +50,7 @@ public class DrehSchlossV2 extends JInternalFrame {
    * Constructor
    */
   public DrehSchlossV2(int timer) {
+    super("Rotating Lock", true, true);
     // creating panels and buttons
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     // this.timer = timer;
