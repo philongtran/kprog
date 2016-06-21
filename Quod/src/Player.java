@@ -13,7 +13,7 @@ public class Player {
 
   public Player(Color color, String playerDescription) {
     this.color = color;
-    this.remainingStones = 2;
+    this.remainingStones = 20;
     this.greyStones = 6;
     this.playerDescription = playerDescription;
     this.existingStones = new ArrayList<>(remainingStones);
@@ -41,8 +41,8 @@ public class Player {
     return remainingStones;
   }
 
-  public int getGreyStones() {
-    return greyStones;
+  public boolean hasGreyStones() {
+    return greyStones > 0;
   }
 
   public boolean setGreyStones() {
