@@ -47,13 +47,22 @@ public class Cell {
       y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
       // System.out.println(x + "," + y);
       Player player = game.getPlayer();
-      if (player.getStones() > 0) {
+      if (player.getStones() > 0 && !game.getUseGreyStones()) {
         player.setStones();
         setColor(player.getColor());
-        System.out.println(player.getStones());
+        System.out.println("Player stones left: " + player.getStones());
 
         game.setBoard(x, y, player);
         game.switchPlayer();
+
+        used = true;
+      } else if (player.getGreyStones() > 0 && game.getUseGreyStones()) {
+        player.setGreyStones();
+        setColor(Color.WHITE);
+        System.out.println("Grey stones left: " + player.getGreyStones());
+
+        // game.setBoard(x, y, player);
+        // game.switchPlayer();
 
         used = true;
       }

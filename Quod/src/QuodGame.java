@@ -13,6 +13,7 @@ public class QuodGame extends Observable {
   private Player player2;
   private Player currentPlayer;
   private boolean isRunning = true;
+  private boolean useGreyStones = false;
 
   QuodGame() {
     board = new Board();
@@ -85,5 +86,13 @@ public class QuodGame extends Observable {
 
   public boolean isRunning() {
     return isRunning;
+  }
+
+  public void setUseGreyStones(boolean useGreyStones) {
+    this.useGreyStones = useGreyStones;
+  }
+
+  public boolean getUseGreyStones() {
+    return this.useGreyStones;
   }
 }
