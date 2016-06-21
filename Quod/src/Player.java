@@ -3,8 +3,9 @@ import java.awt.Color;
 public class Player {
 
   private final Color color;
-  private int stones = 20;
+  private int stones = 2;
   private int greyStones = 6;
+  private boolean done = false;
 
   public Player(Color color) {
     this.color = color;
@@ -20,10 +21,11 @@ public class Player {
   }
 
   public boolean setStones() {
+    stones--;
     if (stones <= 0) {
+      done = true;
       return false;
     }
-    stones--;
     return true;
   }
 
@@ -41,5 +43,13 @@ public class Player {
     }
     greyStones--;
     return true;
+  }
+
+  public void setDone() {
+    done = true;
+  }
+
+  public boolean getDone() {
+    return done;
   }
 }
