@@ -10,6 +10,7 @@ public class Cell {
   private JButton button;
   private QuodGame game;
   private int x, y;
+  private boolean used = false;
 
   private int player = 0;
 
@@ -39,7 +40,7 @@ public class Cell {
   }
 
   public void onClick(ActionEvent e) {
-    if (game.isRunning()) {
+    if (game.isRunning() && !used) {
       String actionCommand = e.getActionCommand();
       int commaPosition = actionCommand.indexOf(",");
       x = Integer.parseInt(actionCommand.substring(0, commaPosition));
@@ -51,6 +52,7 @@ public class Cell {
 
       game.setBoard(x, y, player);
       game.switchPlayer();
+      used = true;
     }
   }
 
