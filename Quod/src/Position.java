@@ -30,9 +30,24 @@ public class Position {
     return positionY;
   }
 
+  static Position of(int x, int y) {
+    return new Position(x, y);
+  }
+
+  public String asActionCommand() {
+    return toString();
+  }
+
+  public static Position fromActionCommand(String actionCommand) {
+    int commaPosition = actionCommand.indexOf(",");
+    int x = Integer.parseInt(actionCommand.substring(0, commaPosition));
+    int y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
+    return of(x, y);
+  }
+
   @Override
   public String toString() {
-    return "" + positionX + "," + positionY;
+    return positionX + "," + positionY;
   }
 
   @Override
