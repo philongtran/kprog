@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -7,8 +6,6 @@ public class QuodGame extends Observable {
 
 
   private final Board board;
-  private List<Position> player1Stones;
-  private List<Position> player2Stones;
   private Player player1;
   private Player player2;
   private Player currentPlayer;
@@ -17,8 +14,6 @@ public class QuodGame extends Observable {
 
   QuodGame() {
     board = new Board();
-    player1Stones = new ArrayList<>();
-    player2Stones = new ArrayList<>();
     player1 = new Player(Color.blue, "Player One");
     player2 = new Player(Color.red, "Player Two");
     currentPlayer = player1;
@@ -28,15 +23,10 @@ public class QuodGame extends Observable {
     return board;
   }
 
-  public void setBoard(int x, int y, Player p) {
+  public void setBoard(int x, int y, Player player) {
     Position position = new Position(x, y);
-    if (p.equals(player1)) {
-      player1Stones.add(position);
-      positionCheckForPlayer(player1Stones);
-    } else if (p.equals(player2)) {
-      player2Stones.add(position);
-      positionCheckForPlayer(player2Stones);
-    }
+    player.getExistingStones().add(position);
+    positionCheckForPlayer(player.getExistingStones());
     // board.setBoard(x, y, p);
     setChanged();
     notifyObservers();

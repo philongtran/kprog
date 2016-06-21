@@ -1,16 +1,22 @@
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
 
   private final Color color;
-  private int stones = 2;
-  private int greyStones = 6;
-  private boolean done = false;
+  private int remainingStones;
+  private int greyStones;
+  private boolean done;
   private final String playerDescription;
+  private final List<Position> existingStones;
 
   public Player(Color color, String playerDescription) {
     this.color = color;
+    this.remainingStones = 2;
+    this.greyStones = 6;
     this.playerDescription = playerDescription;
+    this.existingStones = new ArrayList<>(remainingStones);
   }
 
   public Color getColor() {
@@ -22,17 +28,17 @@ public class Player {
     return getPlayerDescription();
   }
 
-  public boolean setStones() {
-    stones--;
-    if (stones <= 0) {
+  public boolean reduceRemainingStones() {
+    remainingStones--;
+    if (remainingStones <= 0) {
       done = true;
       return false;
     }
     return true;
   }
 
-  public int getStones() {
-    return stones;
+  public int getRemainingStones() {
+    return remainingStones;
   }
 
   public int getGreyStones() {
@@ -57,5 +63,9 @@ public class Player {
 
   public String getPlayerDescription() {
     return playerDescription;
+  }
+
+  public List<Position> getExistingStones() {
+    return existingStones;
   }
 }

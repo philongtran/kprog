@@ -48,9 +48,9 @@ public class Cell {
       // System.out.println(x + "," + y);
       Player player = game.getPlayer();
       if (!player.isDone() && !game.getUseGreyStones()) {
-        player.setStones();
+        player.reduceRemainingStones();
         setColor(player.getColor());
-        System.out.println("Player stones left: " + player.getStones());
+        System.out.println("Player stones left: " + player.getRemainingStones());
 
         game.setBoard(x, y, player);
 
