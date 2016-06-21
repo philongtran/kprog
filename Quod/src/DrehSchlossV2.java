@@ -52,14 +52,10 @@ public class DrehSchlossV2 extends JInternalFrame {
   public DrehSchlossV2(int timer) {
     super("Rotating Lock", true, true);
     // creating panels and buttons
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
-    // this.timer = timer;
     panel = new Panel();
     panel2 = new Panel();
     for (int i = 0; i < AMOUNTOFBUTTONS; i++) { // register 10 buttons
       buttons[i] = new JButton("" + i); // and add them
-      // buttons[i].addActionListener(this); // register to the action
-      // listener
       buttons[i].addMouseMotionListener(mml);
       buttons[i].addMouseListener(ml);
     }
