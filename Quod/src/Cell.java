@@ -38,23 +38,18 @@ public class Cell {
   }
 
   private void onClick(ActionEvent e) {
-    if (game.isRunning()) {
-      String actionCommand = e.getActionCommand();
-      Position position = Position.fromActionCommand(actionCommand);
-      if (isFree()) {
-        // System.out.println(x + "," + y);
-        Player player = game.getPlayer();
-        if (!player.isDone() && !game.getUseGreyStones()) {
-          player.reduceRemainingStones();
-          System.out.println("Player stones left: " + player.getRemainingStones());
-          setContent(CellContent.QUAD);
-          setColor(player.getColor());
-          game.setBoard(position, player);
+    if (isFree() && game.isRunning()) {
+      Player player = game.getPlayer();
+      if (!player.isDone() && !game.getUseGreyStones()) {
+        player.reduceRemainingStones();
+        System.out.println("Player stones left: " + player.getRemainingStones());
+        setContent(CellContent.QUAD);
+        setColor(player.getColor());
 
-          game.switchPlayer();
-        }
+        Position position = Position.fromActionCommand(e.getActionCommand());
+        game.setBoard(position, player);
+        game.switchPlayer();
       }
-
     }
   }
 
@@ -62,7 +57,7 @@ public class Cell {
     boolean isRightClick = e.getButton() == MouseEvent.BUTTON3;
     Player player = game.getPlayer();
     if (isRightClick && player.hasGreyStones() && isFree()) {
-      player.setGreyStones();
+      player.reduceGreyStones();
       setContent(CellContent.QUASAR);
       setColor(Color.GRAY);
       System.out.println("Grey stones left: " + player.hasGreyStones());

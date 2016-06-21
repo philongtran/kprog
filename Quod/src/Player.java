@@ -45,12 +45,10 @@ public class Player {
     return greyStones > 0;
   }
 
-  public boolean setGreyStones() {
-    if (greyStones <= 0) {
-      return false;
+  public void reduceGreyStones() {
+    if (hasGreyStones()) {
+      greyStones--;
     }
-    greyStones--;
-    return true;
   }
 
   public void setDone() {
