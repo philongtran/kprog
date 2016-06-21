@@ -47,12 +47,16 @@ public class Cell {
       y = Integer.parseInt(actionCommand.substring(commaPosition + 1));
       // System.out.println(x + "," + y);
       Player player = game.getPlayer();
-      setColor(player.getColor());
-      // System.out.println(e.getActionCommand());
+      if (player.getStones() > 0) {
+        player.setStones();
+        setColor(player.getColor());
+        System.out.println(player.getStones());
 
-      game.setBoard(x, y, player);
-      game.switchPlayer();
-      used = true;
+        game.setBoard(x, y, player);
+        game.switchPlayer();
+
+        used = true;
+      }
     }
   }
 
