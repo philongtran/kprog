@@ -1,6 +1,4 @@
 
-import java.awt.Image;
-import java.net.URL;
 import java.util.Optional;
 
 import javax.swing.ImageIcon;
@@ -21,7 +19,6 @@ public enum GoLMenuAction {
           "Rotate view to the left"), ROTATERIGHT("Rotate view to the right"), MAINVIEW(
               "Main view"), BLINKER("Blinker"), GLIDER("Glider"), GLIDERCANNON("Glider cannon");
 
-  private static final String IMAGEFILEEXTENSION = ".png";
   private final String description;
 
   private GoLMenuAction(String description) {
@@ -43,14 +40,7 @@ public enum GoLMenuAction {
   }
 
   private ImageIcon getIcon() {
-    String imageName = toString().toLowerCase() + IMAGEFILEEXTENSION;
-    URL imagePath = getClass().getResource("resources/icons/" + imageName);
-    if (imagePath != null) {
-      Image resizedImage =
-          new ImageIcon(imagePath).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-      return new ImageIcon(resizedImage);
-    }
-    return null;
+    return IconHelper.getIcon(toString().toLowerCase(), 30, 30);
   }
 
   static GoLMenuAction of(String action) {
