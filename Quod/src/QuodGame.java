@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Observable;
 
-import javax.swing.JOptionPane;
 
 public class QuodGame extends Observable {
 
@@ -14,8 +13,8 @@ public class QuodGame extends Observable {
 
   QuodGame() {
     board = new QuodBoard(this);
-    player1 = new QuodPlayer(Color.blue, "Player One");
-    player2 = new QuodPlayer(Color.red, "Player Two");
+    player1 = new QuodPlayer(Color.blue, "Player One (blue)");
+    player2 = new QuodPlayer(Color.red, "Player Two (red)");
     currentPlayer = player1;
     isRunning = true;
   }
@@ -27,8 +26,35 @@ public class QuodGame extends Observable {
   public void setBoard(Position stonePosition, QuodPlayer player) {
     player.getExistingStones().add(stonePosition);
     positionCheckForPlayer(player.getExistingStones());
+    existWinner();
+    areAllStonesUsed();
     setChanged();
     notifyObservers();
+  }
+
+  private void existWinner() {
+    if (areAllStonesUsed()) {
+      boolean draw = player1.getGreyStones() == player2.getGreyStones();
+      boolean playerOneWon = player1.getGreyStones() > player2.getGreyStones();
+      if (draw) {
+        // implement draw
+      } else if (playerOneWon) {
+        switchToWinningPlayer(player1);
+      } else {
+        switchToWinningPlayer(player2);
+      }
+      isRunning = false;
+    }
+  }
+
+  private void switchToWinningPlayer(QuodPlayer winningPlayer) {
+    if (!currentPlayer.equals(winningPlayer)) {
+      switchPlayer();
+    }
+  }
+
+  private boolean areAllStonesUsed() {
+    return isRunning && player1.hasUsedAllStones() && player2.hasUsedAllStones();
   }
 
   private void positionCheckForPlayer(List<Position> playerStones) {
@@ -49,9 +75,6 @@ public class QuodGame extends Observable {
           boolean lineStoneFound = playerStones.contains(lineStoneToFind);
           boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
           if (lineStoneFound && verticalStoneFound) {
-            String winMessage = getPlayer() + " won";
-            JOptionPane.showMessageDialog(null, winMessage);
-            System.out.println(winMessage);
             isRunning = false;
             return;
           }
@@ -65,11 +88,19 @@ public class QuodGame extends Observable {
     return currentPlayer;
   }
 
+  public QuodPlayer getPlayer1() {
+    return player1;
+  }
+
+  public QuodPlayer getPlayer2() {
+    return player2;
+  }
+
   public void switchPlayer() {
-    if (currentPlayer.equals(player1)) {
-      currentPlayer = player2;
+    if (currentPlayer.equals(getPlayer1())) {
+      currentPlayer = getPlayer2();
     } else {
-      currentPlayer = player1;
+      currentPlayer = getPlayer1();
     }
   }
 
