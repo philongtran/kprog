@@ -1,7 +1,7 @@
 
 import java.awt.Container;
+import java.awt.GridLayout;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 
@@ -24,7 +24,7 @@ class GameSelectChildWindow extends JInternalFrame {
     super("Select Game", false, false);
     mydesk = dft;
     Container cp = getContentPane();
-    cp.setLayout(new BoxLayout(cp, BoxLayout.PAGE_AXIS));
+    cp.setLayout(new GridLayout(4, 5));
     JButton quodButton = new JButton("Quod");
     JButton gameOfLifeButton = new JButton("Game of Life");
     JButton lockGameButton = new JButton("Rotating Lock V2");
