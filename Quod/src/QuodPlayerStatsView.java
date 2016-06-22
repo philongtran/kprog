@@ -21,16 +21,20 @@ public class QuodPlayerStatsView implements Observer {
     this.player.addObserver(this);
     playerStats = new JPanel();
     playerStats.setLayout(new BorderLayout());
+    playerStats.add(createTitle(), BorderLayout.PAGE_START);
+    playerStats.add(createDescription(), BorderLayout.LINE_START);
+    playerStats.add(createContent(), BorderLayout.CENTER);
+    playerStats.setSize(100, 700);
+  }
+
+
+  private JLabel createTitle() {
     JLabel lblplayerTitle = new JLabel(player.getPlayerDescription());
     lblplayerTitle.setHorizontalAlignment(SwingConstants.LEFT);
     lblplayerTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
     lblplayerTitle.setForeground(player.getColor());
-    playerStats.add(lblplayerTitle, BorderLayout.PAGE_START);
-    playerStats.add(createDescription(), BorderLayout.LINE_START);
-    playerStats.add(createContent(), BorderLayout.CENTER);
-    playerStats.setSize(50, 700);
+    return lblplayerTitle;
   }
-
 
   private JPanel createContent() {
     JPanel content = new JPanel();
