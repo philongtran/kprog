@@ -16,9 +16,9 @@ public class QuodPlayerStatsView implements Observer {
   private JLabel lblRemainingQuasarsContent;
   private JLabel lblRemainingStonesContent;
 
-  public QuodPlayerStatsView(QuodPlayer player) {
-    this.player = player;
-    this.player.addObserver(this);
+  public QuodPlayerStatsView(QuodPlayer playerToDisplayStats) {
+    player = playerToDisplayStats;
+    player.addObserver(this);
     playerStats = new JPanel();
     playerStats.setLayout(new BorderLayout());
     playerStats.add(createTitle(), BorderLayout.PAGE_START);
