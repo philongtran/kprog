@@ -1,0 +1,40 @@
+import java.awt.Color;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+final class QuodCellResizeIcon extends ComponentAdapter {
+  private final JButton quodCellButton;
+
+  QuodCellResizeIcon(JButton quodCellButton) {
+    this.quodCellButton = quodCellButton;
+  }
+
+  @Override
+  public void componentShown(ComponentEvent e) {
+    resizeIcon();
+  }
+
+  @Override
+  public void componentResized(ComponentEvent e) {
+    resizeIcon();
+  }
+
+  private void resizeIcon() {
+    ImageIcon resizedIcon;
+    Color color = quodCellButton.getForeground();
+    if (color.equals(Color.RED)) {
+      resizedIcon = IconHelper.getIcon("red", quodCellButton);
+    } else if (color.equals(Color.BLUE)) {
+      resizedIcon = IconHelper.getIcon("blue", quodCellButton);
+    } else if (color.equals(Color.GRAY)) {
+      resizedIcon = IconHelper.getIcon("quasar", quodCellButton);
+    } else {
+      resizedIcon = IconHelper.getIcon("emptyCell", quodCellButton);
+    }
+
+    quodCellButton.setIcon(resizedIcon);
+  }
+}

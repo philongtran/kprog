@@ -21,7 +21,8 @@ public class QuodCell {
   }
 
   public JButton asButton() {
-    button = new JButton();
+    button = new JButton(IconHelper.getIcon("emptyCell", 60, 60));
+    button.addComponentListener(new QuodCellResizeIcon(button));
     button.setVisible(!invisible);
     button.addActionListener(event -> {
       onClick(event);
@@ -62,6 +63,13 @@ public class QuodCell {
   }
 
   void setColor(Color color) {
+    if (color.equals(Color.RED)) {
+      IconHelper.setIcon("red", button);
+    } else if (color.equals(Color.BLUE)) {
+      IconHelper.setIcon("blue", button);
+    } else if (color.equals(Color.GRAY)) {
+      IconHelper.setIcon("quasar", button);
+    }
     button.setForeground(color);
     button.setBackground(color);
   }
