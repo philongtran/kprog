@@ -1,8 +1,9 @@
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public class QuodPlayer {
+public class QuodPlayer extends Observable {
 
   private final Color color;
   private int remainingStones;
@@ -33,6 +34,7 @@ public class QuodPlayer {
     if (remainingStones <= 0) {
       hasNoStones = true;
     }
+    setChangedAndNotifyObservers();
   }
 
   public int getRemainingStones() {
@@ -46,6 +48,7 @@ public class QuodPlayer {
   public void reduceGreyStones() {
     if (hasGreyStones()) {
       greyStones--;
+      setChangedAndNotifyObservers();
     }
   }
 
@@ -63,5 +66,10 @@ public class QuodPlayer {
 
   public boolean hasUsedAllStones() {
     return hasNoStones;
+  }
+
+  private void setChangedAndNotifyObservers() {
+    setChanged();
+    notifyObservers();
   }
 }

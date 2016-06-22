@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,8 +14,11 @@ public class QuodFrame extends JInternalFrame implements Observer {
     super("Quod", true, true);
     this.game = game;
     game.addObserver(this);
-    add(QuodBoardView.asPanel(game.getBoard()));
-    setSize(new Dimension(700, 700));
+    setLayout(new BorderLayout());
+    add(new QuodPlayerStatsView(game.getPlayer1()).getPanel(), BorderLayout.WEST);
+    add(new QuodPlayerStatsView(game.getPlayer2()).getPanel(), BorderLayout.EAST);
+    add(QuodBoardView.asPanel(game.getBoard()), BorderLayout.CENTER);
+    setSize(new Dimension(800, 700));
     setVisible(true);
   }
 
