@@ -7,9 +7,9 @@ public class QuodPlayer {
   private final Color color;
   private int remainingStones;
   private int greyStones;
-  private boolean done;
   private final String playerDescription;
   private final List<Position> existingStones;
+  private boolean done;
 
   public QuodPlayer(Color color, String playerDescription) {
     this.color = color;
@@ -28,13 +28,11 @@ public class QuodPlayer {
     return getPlayerDescription();
   }
 
-  public boolean reduceRemainingStones() {
+  public void reduceRemainingStones() {
     remainingStones--;
     if (remainingStones <= 0) {
       done = true;
-      return false;
     }
-    return true;
   }
 
   public int getRemainingStones() {
@@ -51,19 +49,15 @@ public class QuodPlayer {
     }
   }
 
-  public void setDone() {
-    done = true;
-  }
-
-  public boolean isDone() {
-    return done;
-  }
-
   public String getPlayerDescription() {
     return playerDescription;
   }
 
   public List<Position> getExistingStones() {
     return existingStones;
+  }
+
+  public boolean isDone() {
+    return done;
   }
 }

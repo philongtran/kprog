@@ -38,7 +38,7 @@ public class QuodCell {
   private void onClick(ActionEvent e) {
     if (isFree() && game.isRunning()) {
       QuodPlayer player = game.getPlayer();
-      if (!player.isDone() && !game.getUseGreyStones()) {
+      if (!player.isDone()) {
         player.reduceRemainingStones();
         System.out.println("Player stones left: " + player.getRemainingStones());
         setContent(QuodCellContent.QUAD);

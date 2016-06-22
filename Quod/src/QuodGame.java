@@ -6,19 +6,18 @@ import javax.swing.JOptionPane;
 
 public class QuodGame extends Observable {
 
-
   private final QuodBoard board;
-  private QuodPlayer player1;
-  private QuodPlayer player2;
+  private final QuodPlayer player1;
+  private final QuodPlayer player2;
   private QuodPlayer currentPlayer;
-  private boolean isRunning = true;
-  private boolean useGreyStones = false;
+  private boolean isRunning;
 
   QuodGame() {
     board = new QuodBoard(this);
     player1 = new QuodPlayer(Color.blue, "Player One");
     player2 = new QuodPlayer(Color.red, "Player Two");
     currentPlayer = player1;
+    isRunning = true;
   }
 
   public QuodBoard getBoard() {
@@ -28,7 +27,6 @@ public class QuodGame extends Observable {
   public void setBoard(Position stonePosition, QuodPlayer player) {
     player.getExistingStones().add(stonePosition);
     positionCheckForPlayer(player.getExistingStones());
-    // board.setBoard(x, y, p);
     setChanged();
     notifyObservers();
   }
@@ -77,13 +75,5 @@ public class QuodGame extends Observable {
 
   public boolean isRunning() {
     return isRunning;
-  }
-
-  public void setUseGreyStones(boolean useGreyStones) {
-    this.useGreyStones = useGreyStones;
-  }
-
-  public boolean getUseGreyStones() {
-    return this.useGreyStones;
   }
 }
