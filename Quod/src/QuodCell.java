@@ -53,7 +53,7 @@ public class QuodCell {
   private void onRightClick(MouseEvent e) {
     boolean isRightClick = e.getButton() == MouseEvent.BUTTON3;
     QuodPlayer player = game.getPlayer();
-    if (isRightClick && player.hasGreyStones() && isFree()) {
+    if (isFree() && game.isRunning() && isRightClick && player.hasGreyStones()) {
       player.reduceGreyStones();
       setContent(QuodCellContent.QUASAR);
       setColor(Color.GRAY);
