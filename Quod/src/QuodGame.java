@@ -16,7 +16,7 @@ public class QuodGame extends Observable {
     player1 = new QuodPlayer(Color.blue, "Player One (blue)");
     player2 = new QuodPlayer(Color.red, "Player Two (red)");
     currentPlayer = player1;
-    setResult(QuodResult.ONGOING);
+    result = QuodResult.ONGOING;
   }
 
   public QuodBoard getBoard() {
