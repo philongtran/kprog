@@ -20,10 +20,6 @@ public class QuodBoard {
     return size;
   }
 
-  public void setBoard(Position coordinate, QuodCellContent content) {
-    getCell(coordinate).setContent(content);
-  }
-
   public QuodCell getCell(Position coordinate) {
     return board[coordinate.getPositionY()][coordinate.getPositionX()];
   }
