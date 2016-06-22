@@ -22,12 +22,24 @@ public class QuodFrame extends JInternalFrame implements Observer {
   @Override
   public void update(Observable o, Object arg) {
     if (o.equals(game)) {
-      if (!game.isRunning()) {
-        String winMessage = game.getPlayer() + " won";
-        JOptionPane.showMessageDialog(this, winMessage);
-        System.out.println(winMessage);
+      switch (game.getResult()) {
+        case WIN:
+          String winMessage = game.getPlayer() + " won";
+          showWinMessage(winMessage);
+          break;
+        case DRAW:
+          showWinMessage("It's a draw");
+          break;
+        case ONGOING:
+          break;
       }
     }
+  }
+
+
+  private void showWinMessage(String winMessage) {
+    JOptionPane.showMessageDialog(this, winMessage);
+    System.out.println(winMessage);
   }
 
 }

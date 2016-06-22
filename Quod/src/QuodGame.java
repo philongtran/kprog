@@ -9,14 +9,14 @@ public class QuodGame extends Observable {
   private final QuodPlayer player1;
   private final QuodPlayer player2;
   private QuodPlayer currentPlayer;
-  private boolean isRunning;
+  private QuodResult result;
 
   QuodGame() {
     board = new QuodBoard(this);
     player1 = new QuodPlayer(Color.blue, "Player One (blue)");
     player2 = new QuodPlayer(Color.red, "Player Two (red)");
     currentPlayer = player1;
-    isRunning = true;
+    setResult(QuodResult.ONGOING);
   }
 
   public QuodBoard getBoard() {
@@ -26,24 +26,25 @@ public class QuodGame extends Observable {
   public void setBoard(Position stonePosition, QuodPlayer player) {
     player.getExistingStones().add(stonePosition);
     positionCheckForPlayer(player.getExistingStones());
-    existWinner();
+    existWinnerOnEnd();
     areAllStonesUsed();
     setChanged();
     notifyObservers();
   }
 
-  private void existWinner() {
+  private void existWinnerOnEnd() {
     if (areAllStonesUsed()) {
       boolean draw = player1.getGreyStones() == player2.getGreyStones();
       boolean playerOneWon = player1.getGreyStones() > player2.getGreyStones();
-      if (draw) {
-        // implement draw
+      if (!draw) {
+        setResult(QuodResult.DRAW);
       } else if (playerOneWon) {
+        setResult(QuodResult.WIN);
         switchToWinningPlayer(player1);
       } else {
+        setResult(QuodResult.WIN);
         switchToWinningPlayer(player2);
       }
-      isRunning = false;
     }
   }
 
@@ -54,7 +55,7 @@ public class QuodGame extends Observable {
   }
 
   private boolean areAllStonesUsed() {
-    return isRunning && player1.hasUsedAllStones() && player2.hasUsedAllStones();
+    return isRunning() && player1.hasUsedAllStones() && player2.hasUsedAllStones();
   }
 
   private void positionCheckForPlayer(List<Position> playerStones) {
@@ -75,7 +76,7 @@ public class QuodGame extends Observable {
           boolean lineStoneFound = playerStones.contains(lineStoneToFind);
           boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
           if (lineStoneFound && verticalStoneFound) {
-            isRunning = false;
+            setResult(QuodResult.WIN);
             return;
           }
         }
@@ -105,6 +106,15 @@ public class QuodGame extends Observable {
   }
 
   public boolean isRunning() {
-    return isRunning;
+    return getResult().equals(QuodResult.ONGOING);
   }
+
+  public QuodResult getResult() {
+    return result;
+  }
+
+  public void setResult(QuodResult result) {
+    this.result = result;
+  }
+
 }
