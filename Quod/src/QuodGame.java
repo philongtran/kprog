@@ -89,19 +89,12 @@ public class QuodGame extends Observable {
     return currentPlayer;
   }
 
-  public QuodPlayer getPlayer1() {
-    return player1;
-  }
-
-  public QuodPlayer getPlayer2() {
-    return player2;
-  }
 
   public void switchPlayer() {
-    if (currentPlayer.equals(getPlayer1())) {
-      currentPlayer = getPlayer2();
+    if (currentPlayer.equals(player1)) {
+      currentPlayer = player2;
     } else {
-      currentPlayer = getPlayer1();
+      currentPlayer = player1;
     }
   }
 
