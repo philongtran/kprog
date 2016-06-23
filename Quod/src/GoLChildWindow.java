@@ -45,7 +45,6 @@ class GoLChildWindow extends JInternalFrame implements Observer {
   public GoLChildWindow(MainWindow dft, GoLGame game) {
     super("Game of Life " + GoLGame.GOLWINDOWNUMBER, true, true);
     mydesk = dft;
-    setIconifiable(true);
     setMaximizable(true);
     setClosable(true);
     this.game = game;
@@ -115,12 +114,12 @@ class GoLChildWindow extends JInternalFrame implements Observer {
     JMenu[] menus =
         {new JMenu("Mode"), new JMenu("Speed"), new JMenu("Window"), new JMenu("Figures")};
     JMenuItem[] menuItems = {GoLMenuAction.START_STOP.asMenuItem(), GoLMenuAction.DRAW.asMenuItem(),
-        GoLMenuAction.SAVE.asMenuItem(), GoLMenuAction.LOAD.asMenuItem(), GoLMenuAction.EXIT.asMenuItem(),
-        GoLMenuAction.FASTER.asMenuItem(), GoLMenuAction.SLOWER.asMenuItem(),
-        GoLMenuAction.RESET.asMenuItem(), GoLMenuAction.ROTATELEFT.asMenuItem(),
-        GoLMenuAction.ROTATERIGHT.asMenuItem(), GoLMenuAction.MAINVIEW.asMenuItem(),
-        GoLMenuAction.BLINKER.asMenuItem(), GoLMenuAction.GLIDER.asMenuItem(),
-        GoLMenuAction.GLIDERCANNON.asMenuItem()};
+        GoLMenuAction.SAVE.asMenuItem(), GoLMenuAction.LOAD.asMenuItem(),
+        GoLMenuAction.EXIT.asMenuItem(), GoLMenuAction.FASTER.asMenuItem(),
+        GoLMenuAction.SLOWER.asMenuItem(), GoLMenuAction.RESET.asMenuItem(),
+        GoLMenuAction.ROTATELEFT.asMenuItem(), GoLMenuAction.ROTATERIGHT.asMenuItem(),
+        GoLMenuAction.MAINVIEW.asMenuItem(), GoLMenuAction.BLINKER.asMenuItem(),
+        GoLMenuAction.GLIDER.asMenuItem(), GoLMenuAction.GLIDERCANNON.asMenuItem()};
 
     for (int i = 0; i < menuItems.length; i++) {
       menus[(i < 5) ? 0 : (i < 8) ? 1 : (i < 11) ? 2 : 3].add(menuItems[i]);
