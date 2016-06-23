@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ public class QuodBoardView {
     JPanel gameBoard = new JPanel();
     int boardSize = board.getSize();
     gameBoard.setLayout(new GridLayout(boardSize, boardSize));
+    gameBoard.setBackground(Color.black);
 
     for (int x = 0; x < boardSize; x++) {
       for (int y = 0; y < boardSize; y++) {
