@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -33,6 +34,7 @@ public class QuodPlayerStatsView implements Observer {
     player = playerToDisplayStats;
     player.addObserver(this);
     playerStats = new JPanel();
+    playerStats.setBackground(Color.black);
     playerStats.setLayout(new BorderLayout());
     playerStats.add(createTitle(), BorderLayout.PAGE_START);
     playerStats.add(createDescription(), BorderLayout.LINE_START);
@@ -62,12 +64,15 @@ public class QuodPlayerStatsView implements Observer {
   private JPanel createContent() {
     JPanel content = new JPanel();
     content.setLayout(new GridLayout(5, 1, 1, 1));
+    content.setBackground(Color.black);
 
     lblRemainingStonesContent = new JLabel(String.valueOf(player.getRemainingStones()));
+    lblRemainingStonesContent.setForeground(Color.white);
     lblRemainingStonesContent.setHorizontalAlignment(SwingConstants.TRAILING);
     content.add(lblRemainingStonesContent);
 
     lblRemainingQuasarsContent = new JLabel(String.valueOf(player.getGreyStones()));
+    lblRemainingQuasarsContent.setForeground(Color.white);
     lblRemainingQuasarsContent.setHorizontalAlignment(SwingConstants.TRAILING);
     content.add(lblRemainingQuasarsContent);
     return content;
@@ -80,12 +85,15 @@ public class QuodPlayerStatsView implements Observer {
    */
   private JPanel createDescription() {
     JPanel description = new JPanel();
+    description.setBackground(Color.black);
     description.setLayout(new GridLayout(5, 1, 1, 1));
 
     JLabel lblRemainingStones = new JLabel("Quods:");
+    lblRemainingStones.setForeground(Color.white);
     description.add(lblRemainingStones);
 
     JLabel lblRemainingQuasars = new JLabel("Quasars:");
+    lblRemainingQuasars.setForeground(Color.white);
     description.add(lblRemainingQuasars);
     return description;
   }
