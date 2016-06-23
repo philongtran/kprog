@@ -24,14 +24,16 @@ class GameSelectChildWindow extends JInternalFrame {
     super("Select Game", false, false);
     mydesk = dft;
     Container cp = getContentPane();
-    cp.setLayout(new GridLayout(5, 1));
+    cp.setLayout(new GridLayout(6, 1));
     JButton quodButton = new JButton("Quod");
     JButton gameOfLifeButton = new JButton("Game of Life");
     JButton maxButton = new JButton("MAX");
     JButton lockGameV1Button = new JButton("Rotating Lock V1");
     JButton lockGameButton = new JButton("Rotating Lock V2");
+    JButton rainbowGameButton = new JButton("Rainbow");
 
-    addButtons(quodButton, gameOfLifeButton, maxButton, lockGameV1Button, lockGameButton);
+    addButtons(quodButton, gameOfLifeButton, maxButton, lockGameV1Button, lockGameButton,
+        rainbowGameButton);
 
     quodButton.addActionListener(listener -> {
       createQuodGameInNewWindow();
@@ -49,10 +51,18 @@ class GameSelectChildWindow extends JInternalFrame {
       createMAXGameInNewWindow();
     });
 
+    rainbowGameButton.addActionListener(listener -> {
+      createRainbowInNewWindow();
+    });
+
     setSize(200, 150);
     setIconifiable(true);
     setMaximizable(false);
     setClosable(false);
+  }
+
+  private void createRainbowInNewWindow() {
+    mydesk.addChild(new RegenbogenWindow(), xpos, ypos);
   }
 
   private void createMAXGameInNewWindow() {
