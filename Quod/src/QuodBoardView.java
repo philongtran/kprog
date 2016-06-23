@@ -3,6 +3,14 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * This class is responsible for the graphical representation
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 public class QuodBoardView {
 
   public static JPanel asPanel(QuodBoard board) {
