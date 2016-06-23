@@ -24,20 +24,23 @@ class GameSelectChildWindow extends JInternalFrame {
     super("Select Game", false, false);
     mydesk = dft;
     Container cp = getContentPane();
-    cp.setLayout(new GridLayout(4, 5));
+    cp.setLayout(new GridLayout(5, 1));
     JButton quodButton = new JButton("Quod");
     JButton gameOfLifeButton = new JButton("Game of Life");
-    JButton lockGameButton = new JButton("Rotating Lock V2");
     JButton maxButton = new JButton("MAX");
-    cp.add(quodButton);
-    cp.add(gameOfLifeButton);
-    cp.add(lockGameButton);
-    cp.add(maxButton);
+    JButton lockGameV1Button = new JButton("Rotating Lock V1");
+    JButton lockGameButton = new JButton("Rotating Lock V2");
+
+    addButtons(quodButton, gameOfLifeButton, maxButton, lockGameV1Button, lockGameButton);
+
     quodButton.addActionListener(listener -> {
       createQuodGameInNewWindow();
     });
     gameOfLifeButton.addActionListener(listener -> {
       createGameOfLifeGameInNewWindow();
+    });
+    lockGameV1Button.addActionListener(listener -> {
+      createRotatingLockGameV1InNewWindow();
     });
     lockGameButton.addActionListener(listener -> {
       createRotatingLockGameInNewWindow();
@@ -54,6 +57,10 @@ class GameSelectChildWindow extends JInternalFrame {
 
   private void createMAXGameInNewWindow() {
     mydesk.addChild(new MAXGame(8, 8, 2).getDisplay(), xpos, ypos);
+  }
+
+  private void createRotatingLockGameV1InNewWindow() {
+    mydesk.addChild(new DrehSchloss(), xpos, ypos);
   }
 
   private void createRotatingLockGameInNewWindow() {
@@ -73,5 +80,11 @@ class GameSelectChildWindow extends JInternalFrame {
     mydesk.addChildGoL(golChildWindow, xpos, ypos, 800, 600);
     game.addObserver(golChildWindow);
     GoLGame.GOLWINDOWNUMBER++;
+  }
+
+  private void addButtons(JButton... buttons) {
+    for (JButton button : buttons) {
+      getContentPane().add(button);
+    }
   }
 }
