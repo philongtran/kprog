@@ -41,7 +41,6 @@ public class QuodCell {
       QuodPlayer player = game.getPlayer();
       if (!player.hasUsedAllStones()) {
         player.reduceRemainingStones();
-        System.out.println("Player stones left: " + player.getRemainingStones());
         setContent(QuodCellContent.QUAD);
         setColor(player.getColor());
 
@@ -58,7 +57,6 @@ public class QuodCell {
       player.reduceGreyStones();
       setContent(QuodCellContent.QUASAR);
       setColor(Color.GRAY);
-      System.out.println("Grey stones left: " + player.hasGreyStones());
     }
   }
 

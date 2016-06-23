@@ -43,7 +43,6 @@ public class QuodFrame extends JInternalFrame implements Observer {
 
   private void showWinMessage(String winMessage) {
     JOptionPane.showMessageDialog(this, winMessage);
-    System.out.println(winMessage);
   }
 
 }
