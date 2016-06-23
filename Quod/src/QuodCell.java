@@ -5,14 +5,28 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-public class QuodCell {
+/**
+ * This class is responsible for cell
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 
+public class QuodCell {
+  // instance variables
   private boolean invisible;
   private JButton button;
   private final QuodGame game;
   private QuodCellContent content;
   private final Position position;
 
+  /**
+   * constructor
+   * 
+   * @param position
+   * @param game
+   */
   public QuodCell(Position position, QuodGame game) {
     this.position = position;
     this.game = game;
@@ -20,6 +34,11 @@ public class QuodCell {
     this.content = QuodCellContent.EMPTY;
   }
 
+  /**
+   * create a button for the cell
+   * 
+   * @return
+   */
   public JButton asButton() {
     button = new JButton(IconHelper.getIcon("emptyCell", 60, 60));
     button.addComponentListener(new QuodCellResizeIcon(button));
@@ -36,6 +55,11 @@ public class QuodCell {
     return button;
   }
 
+  /**
+   * action listener for left mouse click, adds player stone
+   * 
+   * @param e
+   */
   private void onClick(ActionEvent e) {
     if (isFree() && game.isRunning()) {
       QuodPlayer player = game.getPlayer();
@@ -50,6 +74,11 @@ public class QuodCell {
     }
   }
 
+  /**
+   * action listener for right mouse button, adds grey stone
+   * 
+   * @param e
+   */
   private void onRightClick(MouseEvent e) {
     boolean isRightClick = e.getButton() == MouseEvent.BUTTON3;
     QuodPlayer player = game.getPlayer();
@@ -60,6 +89,11 @@ public class QuodCell {
     }
   }
 
+  /**
+   * set the color of the cell ( which stone its occupied with)
+   * 
+   * @param color
+   */
   void setColor(Color color) {
     if (color.equals(Color.RED)) {
       IconHelper.setIcon("red", button);
@@ -72,6 +106,11 @@ public class QuodCell {
     button.setBackground(color);
   }
 
+  /**
+   * returns status if cell is free
+   * 
+   * @return
+   */
   public boolean isFree() {
     return getContent().equals(QuodCellContent.EMPTY);
   }
