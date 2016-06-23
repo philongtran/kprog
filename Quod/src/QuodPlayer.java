@@ -45,7 +45,7 @@ public class QuodPlayer extends Observable {
   }
 
   /**
-   * method for reducing the player stones
+   * method for reducing the player stones rest of methods are self explaining
    */
   public void reduceRemainingStones() {
     remainingStones--;
