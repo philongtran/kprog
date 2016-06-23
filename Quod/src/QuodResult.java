@@ -1,5 +1,5 @@
 /**
- * This enum is fo the game status
+ * This enum is for the game state
  * 
  * @author Phi Long Tran <191624>
  * @author Manuel Wessner <191711>
