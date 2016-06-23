@@ -5,6 +5,14 @@ import java.awt.event.ComponentEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * This class resizes the image to a manageable size
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 final class QuodCellResizeIcon extends ComponentAdapter {
   private final JButton quodCellButton;
 
