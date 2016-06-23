@@ -64,7 +64,7 @@ class GameSelectChildWindow extends JInternalFrame {
   }
 
   private void createRotatingLockGameInNewWindow() {
-    mydesk.addChild(new DrehSchlossV2(), xpos, ypos);
+    mydesk.addChild(new DrehSchlossV2(mydesk), xpos, ypos);
   }
 
   private void createQuodGameInNewWindow() {

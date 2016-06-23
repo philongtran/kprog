@@ -41,16 +41,19 @@ public class DrehSchlossV2 extends JInternalFrame {
   private int[] code = {0, 7, 0, 4, 6, 1, 2}; // secret code
   private int codeIndex = 0;
   private static int instance = 0;
+  private MainWindow window;
 
-  public DrehSchlossV2() {
-    this(universalTimer);
+
+  public DrehSchlossV2(MainWindow window) {
+    this(universalTimer, window);
   }
 
   /**
    * Constructor
    */
-  public DrehSchlossV2(int timer) {
+  public DrehSchlossV2(int timer, MainWindow window) {
     super("Rotating Lock", true, true);
+    this.window = window;
     // creating panels and buttons
     panel = new Panel();
     panel2 = new Panel();
@@ -93,16 +96,6 @@ public class DrehSchlossV2 extends JInternalFrame {
       }
     };
     new Timer(delay, taskPerformer).start();
-  }
-
-  /**
-   * 
-   * main method creating the frame and set the parameters
-   * 
-   * @param args
-   */
-  public static void main(String[] args) {
-    new DrehSchlossV2(universalTimer);
   }
 
   /**
@@ -191,7 +184,7 @@ public class DrehSchlossV2 extends JInternalFrame {
             }
             instance++;
             universalTimer = (int) (universalTimer * 0.66);
-            new DrehSchlossV2(universalTimer);
+            window.addChild(new DrehSchlossV2(universalTimer, window), 30, 30);
           }
         }
       }
