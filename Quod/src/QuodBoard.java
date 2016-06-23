@@ -1,4 +1,10 @@
-
+/**
+ * This class is responsible for the board
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 public class QuodBoard {
 
   private static final int DEFAULTBOARDSIZE = 11;
