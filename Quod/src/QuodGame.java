@@ -96,6 +96,8 @@ public class QuodGame extends Observable {
     } else {
       currentPlayer = player1;
     }
+    setChanged();
+    notifyObservers();
   }
 
   public boolean isRunning() {
