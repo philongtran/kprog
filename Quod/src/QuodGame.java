@@ -2,15 +2,25 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Observable;
 
+/**
+ * This class is responsible for game logic
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
 
 public class QuodGame extends Observable {
-
+  // instance variables
   private final QuodBoard board;
   private final QuodPlayer player1;
   private final QuodPlayer player2;
   private QuodPlayer currentPlayer;
   private QuodResult result;
 
+  /**
+   * constructor, create players and board
+   */
   QuodGame() {
     board = new QuodBoard(this);
     player1 = new QuodPlayer(Color.blue, "Player One");
@@ -19,10 +29,21 @@ public class QuodGame extends Observable {
     result = QuodResult.ONGOING;
   }
 
+  /**
+   * returns the board
+   * 
+   * @return
+   */
   public QuodBoard getBoard() {
     return board;
   }
 
+  /**
+   * add stones to the board and checks for winner
+   * 
+   * @param stonePosition
+   * @param player
+   */
   public void setBoard(Position stonePosition, QuodPlayer player) {
     player.getExistingStones().add(stonePosition);
     positionCheckForPlayer(player.getExistingStones());
@@ -32,6 +53,9 @@ public class QuodGame extends Observable {
     notifyObservers();
   }
 
+  /**
+   * calculates if draw or win
+   */
   private void existWinnerOnEnd() {
     if (areAllStonesUsed()) {
       boolean draw = player1.getGreyStones() == player2.getGreyStones();
@@ -54,10 +78,20 @@ public class QuodGame extends Observable {
     }
   }
 
+  /**
+   * checks if player 1 and player 2 used all their stones
+   * 
+   * @return
+   */
   private boolean areAllStonesUsed() {
     return isRunning() && player1.hasUsedAllStones() && player2.hasUsedAllStones();
   }
 
+  /**
+   * calculate the position for the winning condition
+   * 
+   * @param playerStones
+   */
   private void positionCheckForPlayer(List<Position> playerStones) {
     for (int lineIndex = 0; lineIndex < playerStones.size(); lineIndex++) {
       for (int verticalIndex = 0; verticalIndex < playerStones.size(); verticalIndex++) {
@@ -85,11 +119,18 @@ public class QuodGame extends Observable {
   }
 
 
+  /**
+   * returns current player
+   * 
+   * @return
+   */
   public QuodPlayer getPlayer() {
     return currentPlayer;
   }
 
-
+  /**
+   * switches the player after another players turn
+   */
   public void switchPlayer() {
     if (currentPlayer.equals(player1)) {
       currentPlayer = player2;
@@ -100,22 +141,47 @@ public class QuodGame extends Observable {
     notifyObservers();
   }
 
+  /**
+   * is the game still running?
+   * 
+   * @return
+   */
   public boolean isRunning() {
     return getResult().equals(QuodResult.ONGOING);
   }
 
+  /**
+   * gets the game status
+   * 
+   * @return
+   */
   public QuodResult getResult() {
     return result;
   }
 
+  /**
+   * sets the game status
+   * 
+   * @param result
+   */
   public void setResult(QuodResult result) {
     this.result = result;
   }
 
+  /**
+   * returns payer 1
+   * 
+   * @return
+   */
   public QuodPlayer getPlayer1() {
     return player1;
   }
 
+  /**
+   * returns player 2
+   * 
+   * @return
+   */
   public QuodPlayer getPlayer2() {
     return player2;
   }
