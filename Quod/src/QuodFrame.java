@@ -8,12 +8,26 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/**
+ * This class is responsible for the frame
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 public class QuodFrame extends JInternalFrame implements Observer {
+  // instance variables
   private static final long serialVersionUID = 5613284283010650242L;
   private final QuodGame game;
   private JLabel lblPlayerTurn;
   boolean finished;
 
+  /**
+   * constructor
+   * 
+   * @param game
+   */
   public QuodFrame(QuodGame game) {
     super("Quod", true, true);
     this.game = game;
@@ -37,6 +51,11 @@ public class QuodFrame extends JInternalFrame implements Observer {
   }
 
 
+  /**
+   * creates the status panel
+   * 
+   * @return
+   */
   private JPanel createStatusPanel() {
     JPanel statusPanel = new JPanel();
     lblPlayerTurn = new JLabel();
@@ -47,12 +66,17 @@ public class QuodFrame extends JInternalFrame implements Observer {
   }
 
 
+  /**
+   * display which players turn it is
+   */
   private void setPlayerTurnLabel() {
     lblPlayerTurn.setText(game.getPlayer().getPlayerDescription());
     lblPlayerTurn.setForeground(game.getPlayer().getColor());
   }
 
-
+  /**
+   * set win condition messages
+   */
   private void checkForWinMessage() {
     if (!finished) {
       switch (game.getResult()) {
@@ -71,7 +95,11 @@ public class QuodFrame extends JInternalFrame implements Observer {
     }
   }
 
-
+  /**
+   * display win massage
+   * 
+   * @param winMessage
+   */
   private void showWinMessage(String winMessage) {
     JOptionPane.showMessageDialog(this, winMessage);
   }
