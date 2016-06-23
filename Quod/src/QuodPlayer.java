@@ -3,8 +3,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+/**
+ * This class is a representation of the player
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 public class QuodPlayer extends Observable {
 
+  // instance variables
   private final Color color;
   private int remainingStones;
   private int greyStones;
@@ -12,6 +21,12 @@ public class QuodPlayer extends Observable {
   private final List<Position> existingStones;
   private boolean hasNoStones;
 
+  /**
+   * constructor set player color and it stone pieces
+   * 
+   * @param color
+   * @param playerDescription
+   */
   public QuodPlayer(Color color, String playerDescription) {
     this.color = color;
     this.remainingStones = 20;
@@ -29,6 +44,9 @@ public class QuodPlayer extends Observable {
     return getPlayerDescription();
   }
 
+  /**
+   * method for reducing the player stones
+   */
   public void reduceRemainingStones() {
     remainingStones--;
     if (remainingStones <= 0) {
