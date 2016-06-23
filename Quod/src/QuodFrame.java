@@ -12,6 +12,7 @@ public class QuodFrame extends JInternalFrame implements Observer {
   private static final long serialVersionUID = 5613284283010650242L;
   private final QuodGame game;
   private JLabel lblPlayerTurn;
+  boolean finished;
 
   public QuodFrame(QuodGame game) {
     super("Quod", true, true);
@@ -53,16 +54,20 @@ public class QuodFrame extends JInternalFrame implements Observer {
 
 
   private void checkForWinMessage() {
-    switch (game.getResult()) {
-      case WIN:
-        String winMessage = game.getPlayer() + " won";
-        showWinMessage(winMessage);
-        break;
-      case DRAW:
-        showWinMessage("It's a draw");
-        break;
-      case ONGOING:
-        break;
+    if (!finished) {
+      switch (game.getResult()) {
+        case WIN:
+          String winMessage = game.getPlayer() + " won";
+          showWinMessage(winMessage);
+          finished = true;
+          break;
+        case DRAW:
+          showWinMessage("It's a draw");
+          finished = true;
+          break;
+        case ONGOING:
+          break;
+      }
     }
   }
 
