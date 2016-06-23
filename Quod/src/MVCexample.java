@@ -21,14 +21,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
+ * Das ist ein View fuer textuelle Darstellung eines Quadratischen Polynoms
  * 
  * @author Manuel Wessner <191711>
  * @author Phi Long Tran <191624>
  * @author Steve Nono <191709>
  *
  */
-
-// Das ist ein View fuer textuelle Darstellung eines Quadratischen Polynoms
 class TextQView extends JPanel implements Observer { // Beobachter
   /**
    * 
