@@ -1,5 +1,4 @@
 
-import java.awt.Container;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -23,17 +22,16 @@ class GameSelectChildWindow extends JInternalFrame {
   public GameSelectChildWindow(MainWindow dft) {
     super("Select Game", false, false);
     mydesk = dft;
-    Container cp = getContentPane();
-    cp.setLayout(new GridLayout(6, 1));
     JButton quodButton = new JButton("Quod");
     JButton gameOfLifeButton = new JButton("Game of Life");
     JButton maxButton = new JButton("MAX");
     JButton lockGameV1Button = new JButton("Rotating Lock V1");
     JButton lockGameButton = new JButton("Rotating Lock V2");
     JButton rainbowGameButton = new JButton("Rainbow");
+    JButton mvcEampleButton = new JButton("MVCExample");
 
     addButtons(quodButton, gameOfLifeButton, maxButton, lockGameV1Button, lockGameButton,
-        rainbowGameButton);
+        rainbowGameButton, mvcEampleButton);
 
     quodButton.addActionListener(listener -> {
       createQuodGameInNewWindow();
@@ -50,15 +48,21 @@ class GameSelectChildWindow extends JInternalFrame {
     maxButton.addActionListener(listener -> {
       createMAXGameInNewWindow();
     });
-
     rainbowGameButton.addActionListener(listener -> {
       createRainbowInNewWindow();
+    });
+    mvcEampleButton.addActionListener(listener -> {
+      createMVCExampleInNewWindow();
     });
 
     setSize(200, 150);
     setIconifiable(true);
     setMaximizable(false);
     setClosable(false);
+  }
+
+  private void createMVCExampleInNewWindow() {
+    mydesk.addChild(new MVCexample(), xpos, ypos);
   }
 
   private void createRainbowInNewWindow() {
@@ -93,6 +97,7 @@ class GameSelectChildWindow extends JInternalFrame {
   }
 
   private void addButtons(JButton... buttons) {
+    getContentPane().setLayout(new GridLayout(buttons.length, 1));
     for (JButton button : buttons) {
       getContentPane().add(button);
     }
