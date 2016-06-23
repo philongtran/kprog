@@ -8,6 +8,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * This class is responsible for the player status
+ * 
+ * @author Phi Long Tran <191624>
+ * @author Manuel Wessner <191711>
+ * @author Steve Nono <191709>
+ */
+
 public class QuodPlayerStatsView implements Observer {
 
 
@@ -16,6 +24,11 @@ public class QuodPlayerStatsView implements Observer {
   private JLabel lblRemainingQuasarsContent;
   private JLabel lblRemainingStonesContent;
 
+  /**
+   * constructor
+   * 
+   * @param playerToDisplayStats
+   */
   public QuodPlayerStatsView(QuodPlayer playerToDisplayStats) {
     player = playerToDisplayStats;
     player.addObserver(this);
@@ -28,6 +41,11 @@ public class QuodPlayerStatsView implements Observer {
   }
 
 
+  /**
+   * creates the title window for the player stats
+   * 
+   * @return
+   */
   private JLabel createTitle() {
     JLabel lblplayerTitle = new JLabel(player.getPlayerDescription());
     lblplayerTitle.setHorizontalAlignment(SwingConstants.LEFT);
@@ -36,6 +54,11 @@ public class QuodPlayerStatsView implements Observer {
     return lblplayerTitle;
   }
 
+  /**
+   * creates the player stats
+   * 
+   * @return
+   */
   private JPanel createContent() {
     JPanel content = new JPanel();
     content.setLayout(new GridLayout(5, 1, 1, 1));
@@ -50,6 +73,11 @@ public class QuodPlayerStatsView implements Observer {
     return content;
   }
 
+  /**
+   * creates the description of the player stats
+   * 
+   * @return
+   */
   private JPanel createDescription() {
     JPanel description = new JPanel();
     description.setLayout(new GridLayout(5, 1, 1, 1));
