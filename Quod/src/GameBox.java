@@ -5,7 +5,7 @@
  * @author Manuel Wessner <191711>
  * @author Steve Nono <191709>
  */
-public class Quod {
+public class GameBox {
 
   public static void main(String[] args) {
     MainWindow mainWindow = new MainWindow();
