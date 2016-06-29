@@ -20,7 +20,7 @@ class GameSelectChildWindow extends JInternalFrame {
 
 
   public GameSelectChildWindow(MainWindow dft) {
-    super("Select Game", false, false);
+    super("Select Game", true, false);
     mydesk = dft;
     JButton quodButton = new JButton("Quod");
     JButton gameOfLifeButton = new JButton("Game of Life");
