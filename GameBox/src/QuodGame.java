@@ -223,13 +223,13 @@ public class QuodGame extends Observable {
   }
 
   private Position getPositionToSet() {
-    Optional<Position> bestPositionOptional = getBestPosition(currentPlayer.getExistingStones());
-    Position bestPosition = bestPositionOptional
-        .orElseGet(() -> getBestPosition(getOtherPlayer().getExistingStones()).orElseGet(() -> {
-          List<Position> freeCellPositions = getBoard().getFreeCellPositions();
-          int randomPositionIndex = new Random().nextInt(freeCellPositions.size());
-          return freeCellPositions.get(randomPositionIndex);
-        }));
+    Position bestPosition = getBestPosition(currentPlayer.getExistingStones()) //
+        .orElseGet(() -> getBestPosition(getOtherPlayer().getExistingStones()) //
+            .orElseGet(() -> {
+              List<Position> freeCellPositions = getBoard().getFreeCellPositions();
+              int randomPositionIndex = new Random().nextInt(freeCellPositions.size());
+              return freeCellPositions.get(randomPositionIndex);
+            }));
     return bestPosition;
   }
 
