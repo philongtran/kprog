@@ -48,7 +48,7 @@ public class QuodCell {
     button.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent e) {
-        onRightClick(e);
+        onRightClickAction(e);
       }
     });
     return button;
@@ -76,10 +76,16 @@ public class QuodCell {
    * 
    * @param e
    */
-  private void onRightClick(MouseEvent e) {
+  private void onRightClickAction(MouseEvent e) {
     boolean isRightClick = e.getButton() == MouseEvent.BUTTON3;
+    if (isRightClick) {
+      onRightClick();
+    }
+  }
+
+  public void onRightClick() {
     QuodPlayer player = game.getPlayer();
-    if (isFree() && game.isRunning() && isRightClick && player.hasGreyStones()) {
+    if (isFree() && game.isRunning() && player.hasGreyStones()) {
       player.reduceGreyStones();
       setContent(QuodCellContent.QUASAR);
       setColor(Color.GRAY);

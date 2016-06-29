@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.util.List;
 import java.util.Observable;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.swing.Timer;
@@ -21,6 +22,7 @@ public class QuodGame extends Observable {
   private QuodPlayer currentPlayer;
   private QuodResult result;
   private boolean aiMovementInProgress;
+  private Position attackStone;
 
   /**
    * constructor, create players and board
@@ -153,11 +155,7 @@ public class QuodGame extends Observable {
    * switches the player after another players turn
    */
   public void switchPlayer() {
-    if (currentPlayer.equals(player1)) {
-      currentPlayer = player2;
-    } else {
-      currentPlayer = player1;
-    }
+    currentPlayer = getOtherPlayer();
     setChanged();
     notifyObservers();
   }
@@ -165,13 +163,32 @@ public class QuodGame extends Observable {
   private void doAIMove() {
     if (currentPlayer.isAI() && !aiMovementInProgress) {
       aiMovementInProgress = true;
-      Position aiPosition = getPositionToSet(currentPlayer.getExistingStones());
+      if (shouldAIAttack()) {
+        placeAttack();
+      }
+      Position aiPosition = getPositionToSet();
       getBoard().getCell(aiPosition).onClick();
       aiMovementInProgress = false;
     }
   }
 
-  private Position getPositionToSet(List<Position> playerStones) {
+  private QuodPlayer getOtherPlayer() {
+    if (currentPlayer.equals(player1)) {
+      return player2;
+    } else {
+      return player1;
+    }
+  }
+
+  private void placeAttack() {
+    getBoard().getCell(attackStone).onRightClick();
+  }
+
+  private boolean shouldAIAttack() {
+    if (getPlayer().getGreyStones() < getOtherPlayer().getGreyStones()) {
+      return false;
+    }
+    List<Position> playerStones = getOtherPlayer().getExistingStones();
     for (int lineIndex = 0; lineIndex < playerStones.size(); lineIndex++) {
       for (int verticalIndex = 0; verticalIndex < playerStones.size(); verticalIndex++) {
         if (lineIndex != verticalIndex) {
@@ -192,22 +209,64 @@ public class QuodGame extends Observable {
             boolean isVerticalStoneFree = getBoard().getCell(verticalStoneToFind).isFree();
             boolean isLineStoneFree = getBoard().getCell(lineStoneToFind).isFree();
             if (lineStoneFound && isVerticalStoneFree) {
-              return verticalStoneToFind;
+              attackStone = verticalStoneToFind;
+              return true;
             } else if (verticalStoneFound && isLineStoneFree) {
-              return lineStoneToFind;
-            } else if (isVerticalStoneFree) {
-              return verticalStoneToFind;
-            } else if (isLineStoneFree) {
-              return lineStoneToFind;
+              attackStone = lineStoneToFind;
+              return true;
             }
           }
         }
       }
     }
+    return false;
+  }
 
-    List<Position> freeCellPositions = getBoard().getFreeCellPositions();
-    int randomPositionIndex = new Random().nextInt(freeCellPositions.size());
-    return freeCellPositions.get(randomPositionIndex);
+  private Position getPositionToSet() {
+    Optional<Position> bestPositionOptional = getBestPosition(currentPlayer.getExistingStones());
+    Position bestPosition = bestPositionOptional
+        .orElseGet(() -> getBestPosition(getOtherPlayer().getExistingStones()).orElseGet(() -> {
+          List<Position> freeCellPositions = getBoard().getFreeCellPositions();
+          int randomPositionIndex = new Random().nextInt(freeCellPositions.size());
+          return freeCellPositions.get(randomPositionIndex);
+        }));
+    return bestPosition;
+  }
+
+  private Optional<Position> getBestPosition(List<Position> playerStones) {
+    for (int lineIndex = 0; lineIndex < playerStones.size(); lineIndex++) {
+      for (int verticalIndex = 0; verticalIndex < playerStones.size(); verticalIndex++) {
+        if (lineIndex != verticalIndex) {
+          Position lineStone = playerStones.get(lineIndex);
+          Position verticalStone = playerStones.get(verticalIndex);
+          Position lineStoneToFind = new Position(
+              verticalStone.getPositionX() - verticalStone.getPositionY()
+                  + lineStone.getPositionY(),
+              verticalStone.getPositionY() + verticalStone.getPositionX()
+                  - lineStone.getPositionX());
+          Position verticalStoneToFind = new Position(
+              lineStone.getPositionX() - verticalStone.getPositionY() + lineStone.getPositionY(),
+              lineStone.getPositionY() + verticalStone.getPositionX() - lineStone.getPositionX());
+          if (getBoard().isValidPosition(verticalStoneToFind)
+              && getBoard().isValidPosition(lineStoneToFind)) {
+            boolean lineStoneFound = playerStones.contains(lineStoneToFind);
+            boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
+            boolean isVerticalStoneFree = getBoard().getCell(verticalStoneToFind).isFree();
+            boolean isLineStoneFree = getBoard().getCell(lineStoneToFind).isFree();
+            if (lineStoneFound && isVerticalStoneFree) {
+              return Optional.of(verticalStoneToFind);
+            } else if (verticalStoneFound && isLineStoneFree) {
+              return Optional.of(lineStoneToFind);
+            } else if (isVerticalStoneFree) {
+              return Optional.of(verticalStoneToFind);
+            } else if (isLineStoneFree) {
+              return Optional.of(lineStoneToFind);
+            }
+          }
+        }
+      }
+    }
+    return Optional.empty();
   }
 
   /**
