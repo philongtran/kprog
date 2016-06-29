@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Random;
 
+import javax.swing.Timer;
+
 /**
  * This class is responsible for game logic
  * 
@@ -18,6 +20,7 @@ public class QuodGame extends Observable {
   private final QuodPlayer player2;
   private QuodPlayer currentPlayer;
   private QuodResult result;
+  private boolean aiMovementInProgress;
 
   /**
    * constructor, create players and board
@@ -32,6 +35,16 @@ public class QuodGame extends Observable {
     player2 = new QuodPlayer(Color.red, "Player Two", withAI);
     currentPlayer = player1;
     result = QuodResult.ONGOING;
+    if (withAI) {
+      createPostPonedAIMove();
+    }
+  }
+
+  private void createPostPonedAIMove() {
+    int delay = 1800;
+    new Timer(delay, listener -> {
+      doAIMove();
+    }).start();
   }
 
   /**
@@ -147,14 +160,15 @@ public class QuodGame extends Observable {
     }
     setChanged();
     notifyObservers();
-    if (currentPlayer.isAI()) {
-      doAIMove();
-    }
   }
 
   private void doAIMove() {
-    Position aiPosition = getPositionToSet(currentPlayer.getExistingStones());
-    getBoard().getCell(aiPosition).onClick();
+    if (currentPlayer.isAI() && !aiMovementInProgress) {
+      aiMovementInProgress = true;
+      Position aiPosition = getPositionToSet(currentPlayer.getExistingStones());
+      getBoard().getCell(aiPosition).onClick();
+      aiMovementInProgress = false;
+    }
   }
 
   private Position getPositionToSet(List<Position> playerStones) {
