@@ -37,7 +37,7 @@ public class QuodPlayer extends Observable {
     this.isAI = isAI;
     this.remainingStones = 20;
     this.greyStones = 6;
-    this.playerDescription = playerDescription;
+    this.playerDescription = playerDescription.concat(isAI ? " (CPU)" : "");
     this.existingStones = new ArrayList<>(remainingStones);
   }
 
