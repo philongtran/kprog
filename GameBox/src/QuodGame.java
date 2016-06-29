@@ -29,7 +29,7 @@ public class QuodGame extends Observable {
   QuodGame(boolean withAI) {
     board = new QuodBoard(this);
     player1 = new QuodPlayer(Color.blue, "Player One");
-    player2 = new QuodPlayer(Color.red, "Player Two", true);
+    player2 = new QuodPlayer(Color.red, "Player Two", withAI);
     currentPlayer = player1;
     result = QuodResult.ONGOING;
   }
