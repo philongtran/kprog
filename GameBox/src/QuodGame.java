@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.util.List;
 import java.util.Observable;
+import java.util.Random;
 
 /**
  * This class is responsible for game logic
@@ -22,9 +23,13 @@ public class QuodGame extends Observable {
    * constructor, create players and board
    */
   QuodGame() {
+    this(false);
+  }
+
+  QuodGame(boolean withAI) {
     board = new QuodBoard(this);
     player1 = new QuodPlayer(Color.blue, "Player One");
-    player2 = new QuodPlayer(Color.red, "Player Two");
+    player2 = new QuodPlayer(Color.red, "Player Two", true);
     currentPlayer = player1;
     result = QuodResult.ONGOING;
   }
@@ -107,11 +112,14 @@ public class QuodGame extends Observable {
               lineStone.getPositionX() - verticalStone.getPositionY() + lineStone.getPositionY(),
               lineStone.getPositionY() + verticalStone.getPositionX() - lineStone.getPositionX());
 
-          boolean lineStoneFound = playerStones.contains(lineStoneToFind);
-          boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
-          if (lineStoneFound && verticalStoneFound) {
-            setResult(QuodResult.WIN);
-            return;
+          if (getBoard().isValidPosition(verticalStoneToFind)
+              && getBoard().isValidPosition(lineStoneToFind)) {
+            boolean lineStoneFound = playerStones.contains(lineStoneToFind);
+            boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
+            if (lineStoneFound && verticalStoneFound) {
+              setResult(QuodResult.WIN);
+              return;
+            }
           }
         }
       }
@@ -139,6 +147,53 @@ public class QuodGame extends Observable {
     }
     setChanged();
     notifyObservers();
+    if (currentPlayer.isAI()) {
+      doAIMove();
+    }
+  }
+
+  private void doAIMove() {
+    Position aiPosition = getPositionToSet(currentPlayer.getExistingStones());
+    getBoard().getCell(aiPosition).onClick();
+  }
+
+  private Position getPositionToSet(List<Position> playerStones) {
+    for (int lineIndex = 0; lineIndex < playerStones.size(); lineIndex++) {
+      for (int verticalIndex = 0; verticalIndex < playerStones.size(); verticalIndex++) {
+        if (lineIndex != verticalIndex) {
+          Position lineStone = playerStones.get(lineIndex);
+          Position verticalStone = playerStones.get(verticalIndex);
+          Position lineStoneToFind = new Position(
+              verticalStone.getPositionX() - verticalStone.getPositionY()
+                  + lineStone.getPositionY(),
+              verticalStone.getPositionY() + verticalStone.getPositionX()
+                  - lineStone.getPositionX());
+          Position verticalStoneToFind = new Position(
+              lineStone.getPositionX() - verticalStone.getPositionY() + lineStone.getPositionY(),
+              lineStone.getPositionY() + verticalStone.getPositionX() - lineStone.getPositionX());
+          if (getBoard().isValidPosition(verticalStoneToFind)
+              && getBoard().isValidPosition(lineStoneToFind)) {
+            boolean lineStoneFound = playerStones.contains(lineStoneToFind);
+            boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
+            boolean isVerticalStoneFree = getBoard().getCell(verticalStoneToFind).isFree();
+            boolean isLineStoneFree = getBoard().getCell(lineStoneToFind).isFree();
+            if (lineStoneFound && isVerticalStoneFree) {
+              return verticalStoneToFind;
+            } else if (verticalStoneFound && isLineStoneFree) {
+              return lineStoneToFind;
+            } else if (isVerticalStoneFree) {
+              return verticalStoneToFind;
+            } else if (isLineStoneFree) {
+              return lineStoneToFind;
+            }
+          }
+        }
+      }
+    }
+
+    List<Position> freeCellPositions = getBoard().getFreeCellPositions();
+    int randomPositionIndex = new Random().nextInt(freeCellPositions.size());
+    return freeCellPositions.get(randomPositionIndex);
   }
 
   /**

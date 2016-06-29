@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -44,7 +43,7 @@ public class QuodCell {
     button.addComponentListener(new QuodCellResizeIcon(button));
     button.setVisible(!invisible);
     button.addActionListener(event -> {
-      onClick(event);
+      onClick();
     });
     button.addMouseListener(new MouseAdapter() {
       @Override
@@ -57,10 +56,8 @@ public class QuodCell {
 
   /**
    * action listener for left mouse click, adds player stone
-   * 
-   * @param e
    */
-  private void onClick(ActionEvent e) {
+  public void onClick() {
     if (isFree() && game.isRunning()) {
       QuodPlayer player = game.getPlayer();
       if (!player.hasUsedAllStones()) {
@@ -68,7 +65,7 @@ public class QuodCell {
         setContent(QuodCellContent.QUAD);
         setColor(player.getColor());
 
-        game.setBoard(position, player);
+        game.setBoard(getPosition(), player);
         game.switchPlayer();
       }
     }
@@ -120,7 +117,19 @@ public class QuodCell {
   }
 
   public void setContent(QuodCellContent content) {
+    if (!content.equals(QuodCellContent.EMPTY)) {
+      game.getBoard().getFreeCellPositions().remove(getPosition());
+    }
     this.content = content;
+  }
+
+  public Position getPosition() {
+    return position;
+  }
+
+  @Override
+  public String toString() {
+    return position.toString() + ", " + getContent();
   }
 
 }
