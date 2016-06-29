@@ -20,6 +20,7 @@ public class QuodPlayer extends Observable {
   private final String playerDescription;
   private final List<Position> existingStones;
   private boolean hasNoStones;
+  private boolean isAI;
 
   /**
    * constructor set player color and it stone pieces
@@ -28,7 +29,12 @@ public class QuodPlayer extends Observable {
    * @param playerDescription
    */
   public QuodPlayer(Color color, String playerDescription) {
+    this(color, playerDescription, false);
+  }
+
+  public QuodPlayer(Color color, String playerDescription, boolean isAI) {
     this.color = color;
+    this.isAI = isAI;
     this.remainingStones = 20;
     this.greyStones = 6;
     this.playerDescription = playerDescription;
@@ -90,4 +96,9 @@ public class QuodPlayer extends Observable {
     setChanged();
     notifyObservers();
   }
+
+  public boolean isAI() {
+    return isAI;
+  }
+
 }

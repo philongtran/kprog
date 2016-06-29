@@ -23,6 +23,7 @@ class GameSelectChildWindow extends JInternalFrame {
     super("Select Game", true, false);
     mydesk = dft;
     JButton quodButton = new JButton("Quod");
+    JButton quodAIButton = new JButton("Quod with AI");
     JButton gameOfLifeButton = new JButton("Game of Life");
     JButton maxButton = new JButton("MAX");
     JButton lockGameV1Button = new JButton("Rotating Lock V1");
@@ -30,11 +31,14 @@ class GameSelectChildWindow extends JInternalFrame {
     JButton rainbowGameButton = new JButton("Rainbow");
     JButton mvcEampleButton = new JButton("MVCExample");
 
-    addButtons(quodButton, gameOfLifeButton, maxButton, lockGameV1Button, lockGameButton,
-        rainbowGameButton, mvcEampleButton);
+    addButtons(quodButton, quodAIButton, gameOfLifeButton, maxButton, lockGameV1Button,
+        lockGameButton, rainbowGameButton, mvcEampleButton);
 
     quodButton.addActionListener(listener -> {
       createQuodGameInNewWindow();
+    });
+    quodAIButton.addActionListener(listener -> {
+      createQuodAIGameInNewWindow();
     });
     gameOfLifeButton.addActionListener(listener -> {
       createGameOfLifeGameInNewWindow();
@@ -83,6 +87,10 @@ class GameSelectChildWindow extends JInternalFrame {
 
   private void createQuodGameInNewWindow() {
     mydesk.addChild(new QuodFrame(new QuodGame()), xpos, ypos);
+  }
+
+  private void createQuodAIGameInNewWindow() {
+    mydesk.addChild(new QuodFrame(new QuodGame(true)), xpos, ypos);
   }
 
   /**
