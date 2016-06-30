@@ -43,7 +43,7 @@ public class QuodBoard {
   public boolean isValidPosition(Position coordinate) {
     int y = coordinate.getPositionY();
     int x = coordinate.getPositionX();
-    if (y >= size || x >= size || y < 0 || x < 0 && !QuodCellBorders.get().contains(coordinate)) {
+    if (y >= size || x >= size || y < 0 || x < 0 || !QuodCellBorders.get().contains(coordinate)) {
       return false;
     }
     return true;
