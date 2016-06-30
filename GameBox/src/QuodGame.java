@@ -192,7 +192,7 @@ public class QuodGame extends Observable {
   }
 
   private boolean shouldAIAttack() {
-    if (getPlayer().getGreyStones() < getOtherPlayer().getGreyStones()) {
+    if (Math.abs(getPlayer().getGreyStones() - getOtherPlayer().getGreyStones()) > 2) {
       return false;
     }
     List<Position> playerStones = getOtherPlayer().getExistingStones();

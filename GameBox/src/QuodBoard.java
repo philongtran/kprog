@@ -37,13 +37,17 @@ public class QuodBoard {
     if (!isValidPosition(coordinate)) {
       return null;
     }
+    return getCellWithoutValidationCheck(coordinate);
+  }
+
+  QuodCell getCellWithoutValidationCheck(Position coordinate) {
     return board[coordinate.getPositionY()][coordinate.getPositionX()];
   }
 
   public boolean isValidPosition(Position coordinate) {
     int y = coordinate.getPositionY();
     int x = coordinate.getPositionX();
-    if (y >= size || x >= size || y < 0 || x < 0 || !QuodCellBorders.get().contains(coordinate)) {
+    if (y >= size || x >= size || y < 0 || x < 0 || QuodCellBorders.get().contains(coordinate)) {
       return false;
     }
     return true;
