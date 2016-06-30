@@ -133,6 +133,7 @@ public class QuodGame extends Observable {
             boolean verticalStoneFound = playerStones.contains(verticalStoneToFind);
             if (lineStoneFound && verticalStoneFound) {
               setResult(QuodResult.WIN);
+              markWinningCells(lineStone, verticalStone, lineStoneToFind, verticalStoneToFind);
               return;
             }
           }
@@ -141,6 +142,12 @@ public class QuodGame extends Observable {
     }
   }
 
+
+  private void markWinningCells(Position... positions) {
+    for (Position position : positions) {
+      getBoard().getCell(position).setColor(Color.YELLOW);
+    }
+  }
 
   /**
    * returns current player

@@ -104,6 +104,8 @@ public class QuodCell {
       IconHelper.setIcon("blue", button);
     } else if (color.equals(Color.GRAY)) {
       IconHelper.setIcon("quasar", button);
+    } else if (color.equals(Color.YELLOW)) {
+      IconHelper.setIcon("won", button);
     }
     button.setForeground(color);
     button.setBackground(color);

@@ -39,6 +39,8 @@ final class QuodCellResizeIcon extends ComponentAdapter {
       resizedIcon = IconHelper.getIcon("blue", quodCellButton);
     } else if (color.equals(Color.GRAY)) {
       resizedIcon = IconHelper.getIcon("quasar", quodCellButton);
+    } else if (color.equals(Color.YELLOW)) {
+      resizedIcon = IconHelper.getIcon("won", quodCellButton);
     } else {
       resizedIcon = IconHelper.getIcon("emptyCell", quodCellButton);
     }
