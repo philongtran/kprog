@@ -187,10 +187,15 @@ class GoLChildWindow extends JInternalFrame implements Observer {
         game.toggleDrawingMode();
         break;
       case SAVE:
+        if (game.isStarted()) {
+          game.stop();
+        }
         GoLGameState.save(getGame().getBoard(), this);
+        game.start();
         break;
       case LOAD:
         Optional.ofNullable(GoLGameState.load(this)).ifPresent(board -> game.setBoard(board));;
+        game.start();
         break;
       case NONE:
         break;

@@ -111,13 +111,23 @@ public class Game extends Observable {
 
   // game speed modes
   public void startPause() {
-    if (start) {
-      start = false;
-      timer.stop();
+    if (isStarted()) {
+      stop();
     } else {
-      start = true;
-      timer.start();
+      start();
     }
+  }
+
+  public void start() {
+    start = true;
+    timer.start();
+    setChanged();
+    notifyObservers();
+  }
+
+  public void stop() {
+    start = false;
+    timer.stop();
     setChanged();
     notifyObservers();
   }
@@ -212,5 +222,9 @@ public class Game extends Observable {
     setChanged();
     notifyObservers();
 
+  }
+
+  public boolean isStarted() {
+    return start;
   }
 }

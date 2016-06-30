@@ -111,16 +111,31 @@ public class GoLGame extends Observable {
 
   // game speed modes
   public void startPause() {
-    if (start) {
-      start = false;
-      timer.stop();
+    if (isStarted()) {
+      stop();
     } else {
-      start = true;
-      timer.start();
+      start();
     }
+  }
+
+  public boolean isStarted() {
+    return start;
+  }
+
+  public void start() {
+    start = true;
+    timer.start();
     setChanged();
     notifyObservers();
   }
+
+  public void stop() {
+    start = false;
+    timer.stop();
+    setChanged();
+    notifyObservers();
+  }
+
 
   public void slower() {
     delay += 100;
